@@ -319,4 +319,33 @@ public class Solution {
 			}
 		}
 	}
+	
+	/**
+	 *  [Easy] #028. Implement strStr()
+	 *  
+	 *  Implement strStr().
+	 *  Returns the index of the first occurrence of needle in haystack, or -1 if needle is not part of haystack.
+	 */
+	public int strStr(String haystack, String needle) {
+		if (haystack.equals(needle)) return 0;
+		if (haystack.length() < needle.length()) return -1;
+		for (int i = 0; i < haystack.length() - needle.length() + 1; ++i) { // to avoid Time Limit Exceeded
+			char c = haystack.charAt(i);
+			int j = 0;
+			int k = i;
+			while (j < needle.length()) {
+				if (c != needle.charAt(j)) {
+					break;
+				}
+				++j;
+				if (++k < haystack.length()) {
+					c = haystack.charAt(k);
+				}
+			}
+			if (j >= needle.length()) {
+				return i;
+			}
+		}
+        return -1;
+    }
 }

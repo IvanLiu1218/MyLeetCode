@@ -121,5 +121,19 @@ public class SolutionTest {
 		assertEquals(5, result.size());
 		assertEquals("[((())), (()()), (())(), ()(()), ()()()]", Arrays.toString(result.toArray()));
 	}
+	
+	@Test
+	public void test028() {
+		assertEquals(3, solution.strStr("abcdefg", "def"));
+		assertEquals(0, solution.strStr("abcdefg", "abc"));
+		assertEquals(1, solution.strStr("aabcdefg", "abc"));
+		assertEquals(-1, solution.strStr("abcdefg", "abd"));
+		assertEquals(0, solution.strStr("a", "a"));
+		assertEquals(-1, solution.strStr("a", "ab"));
+		assertEquals(0, solution.strStr("ab", "ab"));
+		assertEquals(0, solution.strStr("", ""));
+		assertEquals(-1, solution.strStr("aaa", "aaaa"));
+		assertEquals(-1, solution.strStr("aaaa", "aaab"));
+	}
 
 }
