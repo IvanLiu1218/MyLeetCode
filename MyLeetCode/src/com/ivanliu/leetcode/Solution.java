@@ -4,6 +4,7 @@ import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Deque;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Stack;
 
@@ -347,5 +348,47 @@ public class Solution {
 			}
 		}
         return -1;
+    }
+	
+	/**
+	 *  [Easy] #036. Valid Sudoku
+	 *  
+	 *  Determine if a Sudoku is valid, according to: Sudoku Puzzles - The Rules.
+	 *  The Sudoku board could be partially filled, where empty cells are filled with the character '.'.
+	 *  A partially filled sudoku which is valid.
+	 *  Note:
+	 *  A valid Sudoku board (partially filled) is not necessarily solvable. Only the filled cells need to be validated.
+	 */
+	public boolean isValidSudoku(char[][] board) {
+        // Each row must have the numbers 1-9 occuring just once.
+		for (int i = 0; i < 9; ++i) {
+			HashSet<Character> set = new HashSet<>();
+			for (int j = 0; j < 9; ++j) {
+				if (board[i][j] == '.') continue;
+				if (set.contains(board[i][j])) return false;
+				set.add(board[i][j]);
+			}
+		}
+		// Each column must have the numbers 1-9 occuring just once.
+		for (int i = 0; i < 9; ++i) {
+			HashSet<Character> set = new HashSet<>();
+			for (int j = 0; j < 9; ++j) {
+				if (board[j][i] == '.') continue;
+				if (set.contains(board[j][i])) return false;
+				set.add(board[j][i]);
+			}
+		}
+		// And the numbers 1-9 must occur just once in each of the 9 sub-boxes of the grid.
+		for (int k = 0; k < 9; ++k) {
+			HashSet<Character> set = new HashSet<>();
+			for (int i = (k / 3) * 3; i < (k / 3 + 1) * 3; ++i) {
+				for (int j = (k % 3) * 3; j < (k % 3 + 1) * 3; ++j) {
+					if (board[i][j] == '.') continue;
+					if (set.contains(board[i][j])) return false;
+					set.add(board[i][j]);
+				}
+			}
+		}
+		return true;
     }
 }
