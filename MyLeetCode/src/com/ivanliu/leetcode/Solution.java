@@ -10,6 +10,7 @@ import java.util.Map;
 import java.util.Stack;
 
 import com.ivanliu.leetcode.Utility.ListNode;
+import com.ivanliu.leetcode.Utility.TreeNode;
 
 public class Solution {
 	
@@ -470,5 +471,55 @@ public class Solution {
 		}
 		if (carry > 0) sb.append(carry);
         return sb.reverse().toString();
+    }
+	
+	/**
+	 *  [Easy]
+	 *  #107. Binary Tree Level Order Traversal II
+	 *  Given a binary tree, return the bottom-up level order traversal of its nodes' values.
+	 *  (ie, from left to right, level by level from leaf to root).
+	 *  
+	 *  For example:
+	 *  Given binary tree [3,9,20,null,null,15,7],
+	 *      3
+	 *     / \
+	 *    9  20
+	 *      /  \
+	 *     15   7
+	 *  return its bottom-up level order traversal as:
+	 *  [
+	 *    [15,7],
+	 *    [9,20],
+	 *    [3]
+	 *  ]
+	 */
+	public List<List<Integer>> levelOrderBottom(TreeNode root) {
+		List<List<Integer>> result = new ArrayList<>();
+		if (root == null) return result;
+		Deque<TreeNode> nodes = new ArrayDeque<>();
+		TreeNode flag = new TreeNode(-1);
+		nodes.addLast(root);
+		nodes.addLast(flag);
+		List<Integer> list = new ArrayList<>();
+		while (nodes.size() != 0) {
+			TreeNode node = nodes.pollFirst();
+			if (node == flag) {
+				result.add(list);
+				if (nodes.size() != 0) {
+					nodes.addLast(flag);
+					list = new ArrayList<>();
+				}
+			}
+			else {
+				if (node.left != null) nodes.addLast(node.left);
+				if (node.right != null) nodes.addLast(node.right);
+				list.add(node.val);
+			}
+		}
+		List<List<Integer>> resultR = new ArrayList<>();
+		for (int i = result.size() - 1; i >= 0; --i) {
+			resultR.add(result.get(i));
+		}
+        return resultR;
     }
 }
