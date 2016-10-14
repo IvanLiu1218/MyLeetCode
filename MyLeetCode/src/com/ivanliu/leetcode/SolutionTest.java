@@ -163,4 +163,10 @@ public class SolutionTest {
 		assertEquals("1113213211", solution.countAndSay(8));
 	}
 
+	@Test
+	public void test067() {
+		assertEquals("100", solution.addBinary("1", "11"));
+		assertEquals("100", solution.addBinary("11", "1"));
+		assertEquals("110", solution.addBinary("101", "1"));
+	}
 }
