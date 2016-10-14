@@ -432,4 +432,43 @@ public class Solution {
 		}
         return countAndSayList.get(n - 1);
     }
+	
+	/**
+	 *  [Easy]
+	 *  #067. Add Binary
+	 *  
+	 *  Given two binary strings, return their sum (also a binary string).
+	 *  
+	 *  For example,
+	 *  a = "11"
+	 *  b = "1"
+	 *  Return "100".
+	 */
+	public String addBinary(String a, String b) {
+		StringBuilder sb = new StringBuilder();
+		int i = a.length() - 1;
+		int j = b.length() - 1;
+		int carry = 0;
+		while (0 <= i && 0 <= j) {
+			char c1 = a.charAt(i--);
+			char c2 = b.charAt(j--);
+			int sum = c1 - 48 + c2 - 48 + carry;
+			carry = sum / 2;
+			sb.append(sum % 2);
+		}
+		while (0 <= i) {
+			char c = a.charAt(i--);
+			int sum = c - 48 + carry;
+			carry = sum / 2;
+			sb.append(sum % 2);
+		}
+		while (0 <= j) {
+			char c = b.charAt(j--);
+			int sum = c - 48 + carry;
+			carry = sum / 2;
+			sb.append(sum % 2);
+		}
+		if (carry > 0) sb.append(carry);
+        return sb.reverse().toString();
+    }
 }
