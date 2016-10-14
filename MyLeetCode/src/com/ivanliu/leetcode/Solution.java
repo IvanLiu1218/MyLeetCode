@@ -6,6 +6,7 @@ import java.util.Deque;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Stack;
 
 import com.ivanliu.leetcode.Utility.ListNode;
@@ -407,6 +408,28 @@ public class Solution {
 	 *  Note: The sequence of integers will be represented as a string.
 	 */
 	public String countAndSay(int n) {
-        return null;
+		String prev = "1";
+		List<String> countAndSayList = new ArrayList<>();
+		countAndSayList.add(prev);
+		while (countAndSayList.size() < n) {
+			StringBuilder sb = new StringBuilder();
+			int i = 0;
+			char c = prev.charAt(i++);
+			int count = 1;
+			for (; i < prev.length(); ++i) {
+				if (prev.charAt(i) == c) ++count;
+				else {
+					sb.append(Integer.toString(count));
+					sb.append(c);
+					c = prev.charAt(i);
+					count = 1;
+				}
+			}
+			sb.append(Integer.toString(count));
+			sb.append(c);
+			prev = sb.toString();
+			countAndSayList.add(prev);
+		}
+        return countAndSayList.get(n - 1);
     }
 }
