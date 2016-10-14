@@ -8,6 +8,7 @@ import java.util.List;
 import org.junit.Test;
 
 import com.ivanliu.leetcode.Utility.ListNode;
+import com.ivanliu.leetcode.Utility.TreeNode;
 
 public class SolutionTest {
 	private Solution solution = new Solution();
@@ -168,5 +169,40 @@ public class SolutionTest {
 		assertEquals("100", solution.addBinary("1", "11"));
 		assertEquals("100", solution.addBinary("11", "1"));
 		assertEquals("110", solution.addBinary("101", "1"));
+	}
+	
+	@Test
+	public void test107() {
+		TreeNode head = new TreeNode(3);
+		head.left = new TreeNode(9);
+		head.right = new TreeNode(20);
+		head.right.left = new TreeNode(15);
+		head.right.right = new TreeNode(7);
+		List<List<Integer>> result = solution.levelOrderBottom(head);
+		assertEquals(3, result.size());
+		assertEquals("[15, 7]", Arrays.toString(result.get(0).toArray()));
+		assertEquals("[9, 20]", Arrays.toString(result.get(1).toArray()));
+		assertEquals("[3]", Arrays.toString(result.get(2).toArray()));
+		
+		head = new TreeNode(3);
+		head.left = new TreeNode(9);
+		head.right = new TreeNode(20);
+		head.left.left = new TreeNode(15);
+		head.right.right = new TreeNode(7);
+		result = solution.levelOrderBottom(head);
+		assertEquals(3, result.size());
+		assertEquals("[15, 7]", Arrays.toString(result.get(0).toArray()));
+		assertEquals("[9, 20]", Arrays.toString(result.get(1).toArray()));
+		assertEquals("[3]", Arrays.toString(result.get(2).toArray()));
+		
+		head = new TreeNode(3);
+		head.right = new TreeNode(20);
+		head.right.left = new TreeNode(15);
+		head.right.right = new TreeNode(7);
+		result = solution.levelOrderBottom(head);
+		assertEquals(3, result.size());
+		assertEquals("[15, 7]", Arrays.toString(result.get(0).toArray()));
+		assertEquals("[20]", Arrays.toString(result.get(1).toArray()));
+		assertEquals("[3]", Arrays.toString(result.get(2).toArray()));
 	}
 }

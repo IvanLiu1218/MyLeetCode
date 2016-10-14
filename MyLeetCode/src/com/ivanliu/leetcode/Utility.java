@@ -32,4 +32,11 @@ public class Utility {
 		result.append("]");
 		return result.toString();
 	}
+	
+	public static class TreeNode {
+		int val;
+		TreeNode left;
+		TreeNode right;
+		TreeNode(int x) { val = x; }
+	}
 }
