@@ -7,6 +7,7 @@ import java.util.List;
 
 import org.junit.Test;
 
+import com.ivanliu.leetcode.Solution.MinStack;
 import com.ivanliu.leetcode.Utility.ListNode;
 import com.ivanliu.leetcode.Utility.TreeNode;
 
@@ -238,5 +239,32 @@ public class SolutionTest {
 		assertEquals(true, solution.isPalindrome("A man, a plan, a canal: Panama"));
 		assertEquals(false, solution.isPalindrome("race a car"));
 		assertEquals(false, solution.isPalindrome("0P"));
+	}
+	
+	@Test
+	public void test155() {
+		MinStack minStack = solution.new MinStack();
+		minStack.push(4);
+		assertEquals(4, minStack.top());
+		assertEquals(4, minStack.getMin());
+		minStack.push(-1);
+		assertEquals(-1, minStack.top());
+		assertEquals(-1, minStack.getMin());
+		minStack.push(2);
+		assertEquals(2, minStack.top());
+		assertEquals(-1, minStack.getMin());
+		minStack.push(0);
+		assertEquals(0, minStack.top());
+		assertEquals(-1, minStack.getMin());
+		minStack.pop();
+		assertEquals(2, minStack.top());
+		assertEquals(-1, minStack.getMin());
+		minStack.pop();
+		assertEquals(-1, minStack.top());
+		assertEquals(-1, minStack.getMin());
+		minStack.pop();
+		assertEquals(4, minStack.top());
+		assertEquals(4, minStack.getMin());
+		
 	}
 }
