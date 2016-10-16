@@ -205,4 +205,31 @@ public class SolutionTest {
 		assertEquals("[20]", Arrays.toString(result.get(1).toArray()));
 		assertEquals("[3]", Arrays.toString(result.get(2).toArray()));
 	}
+	
+	@Test
+	public void test110() {
+		TreeNode head = new TreeNode(0);
+		head.left = new TreeNode(1);
+		head.right = new TreeNode(1);
+		head.right.left = new TreeNode(2);
+		head.right.right = new TreeNode(2);
+		head.right.right.right = new TreeNode(3);
+		assertEquals(false, solution.isBalanced(head));
+		
+		head = new TreeNode(0);
+		head.left = new TreeNode(1);
+		head.right = new TreeNode(1);
+		head.right.left = new TreeNode(2);
+		head.right.right = new TreeNode(2);
+		assertEquals(true, solution.isBalanced(head));
+		
+		head = new TreeNode(1);
+		head.left = new TreeNode(2);
+		head.left.left = new TreeNode(3);
+		head.left.left.left = new TreeNode(4);
+		head.right = new TreeNode(2);
+		head.right.right = new TreeNode(3);
+		head.right.right.right = new TreeNode(4);
+		assertEquals(false, solution.isBalanced(head));
+	}
 }
