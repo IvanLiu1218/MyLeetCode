@@ -232,4 +232,11 @@ public class SolutionTest {
 		head.right.right.right = new TreeNode(4);
 		assertEquals(false, solution.isBalanced(head));
 	}
+	
+	@Test
+	public void test125() {
+		assertEquals(true, solution.isPalindrome("A man, a plan, a canal: Panama"));
+		assertEquals(false, solution.isPalindrome("race a car"));
+		assertEquals(false, solution.isPalindrome("0P"));
+	}
 }

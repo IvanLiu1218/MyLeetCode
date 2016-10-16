@@ -571,6 +571,22 @@ public class Solution {
 	 *  For the purpose of this problem, we define empty string as valid palindrome.
 	 */
 	public boolean isPalindrome(String s) {
-        return false;
+		if (s.length() == 0) return true;
+		String str = s.toLowerCase();
+		StringBuilder sb = new StringBuilder();
+		for (int i = 0; i < str.length(); ++i) {
+			char c = str.charAt(i);
+			if (97 <= c && c <= 122 || 48 <= c && c <= 57) {
+				sb.append(c);
+			}
+		}
+		String checkStr = sb.toString();
+		int length = checkStr.length();
+		for (int i = 0; i < length / 2; ++i) {
+			char c1 = checkStr.charAt(i);
+			char c2 = checkStr.charAt(length - 1 - i);
+			if (c1 != c2) return false;
+		}
+        return true;
     }
 }
