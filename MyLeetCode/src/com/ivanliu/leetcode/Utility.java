@@ -5,7 +5,13 @@ public class Utility {
 	public static class ListNode {
 		int val;
 		ListNode next;
-		ListNode (int x) { val = x; }
+		ListNode (int x) {
+			this(x, null);
+		}
+		ListNode (int x, ListNode n) {
+			val = x;
+			next = n;
+		}
 	}
 	
 	public static ListNode buildListNode(int[] nums) {

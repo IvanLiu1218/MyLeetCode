@@ -663,4 +663,66 @@ public class Solution {
 	        return array.get(topIndex).minVal;
 	    }
 	}
+	
+	/**
+	 *  [Easy]
+	 *  #160. Intersection of Two Linked Lists
+	 *  
+	 *  Write a program to find the node at which the intersection of two singly linked lists begins.
+	 *  
+	 *  For example, the following two linked lists:
+	 *  A:       a1 -> a2
+	 *                  \
+	 *                  c1 -> c2 -> c3
+	 *                  /            
+	 *  B: b1 -> b2 -> b3
+	 *  begin to intersect at node c1.
+	 *  
+	 *  Notes:
+	 *  If the two linked lists have no intersection at all, return null.
+	 *  The linked lists must retain their original structure after the function returns.
+	 *  You may assume there are no cycles anywhere in the entire linked structure.
+	 *  Your code should preferably run in O(n) time and use only O(1) memory.
+	 */
+	public ListNode getIntersectionNode(ListNode headA, ListNode headB) {
+		if (!this.getIntersectionNode_hasIntersection(headA, headB)) return null;
+		int len1 = this.getIntersectionNode_getLength(headA);
+		int len2 = this.getIntersectionNode_getLength(headB);
+		
+		ListNode list1 = len1 > len2 ? headA : headB;
+		ListNode list2 = len1 > len2 ? headB : headA;
+		int delta = Math.abs(len1 - len2);
+		int i = 0;
+		while (i < delta) {
+			list1 = list1.next;
+			++i;
+		}
+		while (list1 != list2) {
+			list1 = list1.next;
+			list2 = list2.next;
+		}
+		return list1;
+    }
+	
+	public boolean getIntersectionNode_hasIntersection(ListNode l1, ListNode l2) {
+		if (l1 == null || l2 == null) return false;
+		ListNode n1 = l1;
+		while (n1.next != null) {
+			n1 = n1.next;
+		}
+		ListNode n2 = l2;
+		while (n2.next != null) {
+			n2 = n2.next;
+		}
+		return n1 == n2;
+	}
+	
+	public int getIntersectionNode_getLength(ListNode list) {
+		int length = 0;
+		while (list != null) {
+			++length;
+			list = list.next;
+		}
+		return length;
+	}
 }
