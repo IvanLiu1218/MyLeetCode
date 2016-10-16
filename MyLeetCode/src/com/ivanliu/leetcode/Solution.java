@@ -555,4 +555,38 @@ public class Solution {
 			return Math.max(levelLeft, levelRight);
 		}
 	}
+	
+	/**
+	 *  [Easy]
+	 *  #125. Valid Palindrome
+	 *  
+	 *  Given a string, determine if it is a palindrome, considering only alphanumeric characters and ignoring cases.
+	 *  
+	 *  For example,
+	 *  "A man, a plan, a canal: Panama" is a palindrome.
+	 *  "race a car" is not a palindrome.
+	 *  
+	 *  Note:
+	 *  Have you consider that the string might be empty? This is a good question to ask during an interview.
+	 *  For the purpose of this problem, we define empty string as valid palindrome.
+	 */
+	public boolean isPalindrome(String s) {
+		if (s.length() == 0) return true;
+		String str = s.toLowerCase();
+		StringBuilder sb = new StringBuilder();
+		for (int i = 0; i < str.length(); ++i) {
+			char c = str.charAt(i);
+			if (97 <= c && c <= 122 || 48 <= c && c <= 57) {
+				sb.append(c);
+			}
+		}
+		String checkStr = sb.toString();
+		int length = checkStr.length();
+		for (int i = 0; i < length / 2; ++i) {
+			char c1 = checkStr.charAt(i);
+			char c2 = checkStr.charAt(length - 1 - i);
+			if (c1 != c2) return false;
+		}
+        return true;
+    }
 }
