@@ -522,4 +522,37 @@ public class Solution {
 		}
         return resultR;
     }
+	
+	/**
+	 *  [Easy]
+	 *  #110. Balanced Binary Tree
+	 *  Given a binary tree, determine if it is height-balanced.
+	 *  For this problem, a height-balanced binary tree is defined as a binary tree 
+	 *  in which the depth of the two subtrees of every node never differ by more than 1.
+	 */
+	public boolean isBalanced(TreeNode root) {
+		if (root == null) return true;
+		Deque<TreeNode> queue = new ArrayDeque<>();
+		queue.addLast(root);
+		while (queue.size() != 0) {
+			TreeNode node = queue.pollFirst();
+			if (node.left != null) queue.addLast(node.left);
+			if (node.right != null) queue.addLast(node.right);
+			int levelLeft = this.isBalanced_getTreeLevel(node.left, 0);
+			int levelRight = this.isBalanced_getTreeLevel(node.right, 0);
+			if (Math.abs(levelLeft - levelRight) > 1) return false;
+		}
+		return true;
+    }
+	
+	public int isBalanced_getTreeLevel(TreeNode node, int level) {
+		if (node == null) {
+			return level;
+		} else {
+			++level;
+			int levelLeft = isBalanced_getTreeLevel(node.left, level);
+			int levelRight = isBalanced_getTreeLevel(node.right, level);
+			return Math.max(levelLeft, levelRight);
+		}
+	}
 }
