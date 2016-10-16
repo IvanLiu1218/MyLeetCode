@@ -738,6 +738,26 @@ public class Solution {
 	 *  0.1 < 1.1 < 1.2 < 13.37
 	 */
 	public int compareVersion(String version1, String version2) {
+		String[] ver1Strs = version1.split("[.]");
+		String[] ver2Strs = version2.split("[.]");
+		int i = 0;
+		while (i < ver1Strs.length && i < ver2Strs.length) {
+			int val1 = Integer.parseInt(ver1Strs[i]);
+			int val2 = Integer.parseInt(ver2Strs[i]);
+			if (val1 > val2) return 1;
+			if (val1 < val2) return -1;
+			++i;
+		}
+		while (i < ver1Strs.length) {
+			if (Integer.parseInt(ver1Strs[i++]) != 0) {
+				return 1;
+			}
+		}
+		while (i < ver2Strs.length) {
+			if (Integer.parseInt(ver2Strs[i++]) != 0) {
+				return -1;
+			}
+		}
         return 0;
     }
 }
