@@ -288,4 +288,19 @@ public class SolutionTest {
 		headB = Utility.buildListNode(new int[] {4,5,6});
 		assertEquals(null, solution.getIntersectionNode(headA, headB));
 	}
+	
+	@Test
+	public void test165() {
+		assertEquals(1, solution.compareVersion("1.1", "0.1"));
+		assertEquals(0, solution.compareVersion("1.1", "1.1"));
+		assertEquals(-1, solution.compareVersion("0.1", "1.1"));
+		assertEquals(1, solution.compareVersion("1.21.1", "1.11.34"));
+		assertEquals(1, solution.compareVersion("1.11.33", "1.11.3"));
+		assertEquals(-1, solution.compareVersion("1.11.3", "1.12.32"));
+		assertEquals(-1, solution.compareVersion("1", "1.1"));
+		assertEquals(0, solution.compareVersion("1", "1.0"));
+		assertEquals(0, solution.compareVersion("1.0.0", "1"));
+		assertEquals(1, solution.compareVersion("1.0.0.1", "1"));
+		assertEquals(-1, solution.compareVersion("1", "1.0.1"));
+	}
 }
