@@ -685,6 +685,44 @@ public class Solution {
 	 *  Your code should preferably run in O(n) time and use only O(1) memory.
 	 */
 	public ListNode getIntersectionNode(ListNode headA, ListNode headB) {
-		return null;
+		if (!this.getIntersectionNode_hasIntersection(headA, headB)) return null;
+		int len1 = this.getIntersectionNode_getLength(headA);
+		int len2 = this.getIntersectionNode_getLength(headB);
+		
+		ListNode list1 = len1 > len2 ? headA : headB;
+		ListNode list2 = len1 > len2 ? headB : headA;
+		int delta = Math.abs(len1 - len2);
+		int i = 0;
+		while (i < delta) {
+			list1 = list1.next;
+			++i;
+		}
+		while (list1 != list2) {
+			list1 = list1.next;
+			list2 = list2.next;
+		}
+		return list1;
     }
+	
+	public boolean getIntersectionNode_hasIntersection(ListNode l1, ListNode l2) {
+		if (l1 == null || l2 == null) return false;
+		ListNode n1 = l1;
+		while (n1.next != null) {
+			n1 = n1.next;
+		}
+		ListNode n2 = l2;
+		while (n2.next != null) {
+			n2 = n2.next;
+		}
+		return n1 == n2;
+	}
+	
+	public int getIntersectionNode_getLength(ListNode list) {
+		int length = 0;
+		while (list != null) {
+			++length;
+			list = list.next;
+		}
+		return length;
+	}
 }

@@ -6,8 +6,11 @@ public class Utility {
 		int val;
 		ListNode next;
 		ListNode (int x) {
+			this(x, null);
+		}
+		ListNode (int x, ListNode n) {
 			val = x;
-			next = null;
+			next = n;
 		}
 	}
 	

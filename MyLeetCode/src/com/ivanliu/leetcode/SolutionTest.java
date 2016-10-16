@@ -267,4 +267,25 @@ public class SolutionTest {
 		assertEquals(4, minStack.getMin());
 		
 	}
+	
+	@Test
+	public void test160() {
+		ListNode com = Utility.buildListNode(new int[] {1,2,3});
+		ListNode headA = new ListNode(1, com);
+		ListNode headB = new ListNode(1, new ListNode(1, com));
+		assertEquals(com, solution.getIntersectionNode(headA, headB));
+		
+		headA = new ListNode(1, new ListNode(1, new ListNode(1, com)));
+		headB = new ListNode(1, com);
+		assertEquals(com, solution.getIntersectionNode(headA, headB));
+		
+		headA = new ListNode(1, new ListNode(1, new ListNode(1, com)));
+		headB = new ListNode(1, new ListNode(1, com.next));
+		assertEquals(com.next, solution.getIntersectionNode(headA, headB));
+		
+		// no intersection
+		headA = Utility.buildListNode(new int[] {1,2,3});
+		headB = Utility.buildListNode(new int[] {4,5,6});
+		assertEquals(null, solution.getIntersectionNode(headA, headB));
+	}
 }
