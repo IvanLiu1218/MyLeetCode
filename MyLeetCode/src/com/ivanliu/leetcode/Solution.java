@@ -589,4 +589,78 @@ public class Solution {
 		}
         return true;
     }
+	
+	/**
+	 *  [Easy]
+	 *  #155. Min Stack
+	 *  
+	 *  Design a stack that supports push, pop, top, and retrieving the minimum element in constant time.
+	 *  push(x) -- Push element x onto stack.
+	 *  pop() -- Removes the element on top of the stack.
+	 *  top() -- Get the top element.
+	 *  getMin() -- Retrieve the minimum element in the stack.
+	 *  
+	 *  Example:
+	 *  MinStack minStack = new MinStack();
+	 *  minStack.push(-2);
+	 *  minStack.push(0);
+	 *  minStack.push(-3);
+	 *  minStack.getMin();   --> Returns -3.
+	 *  minStack.pop();
+	 *  minStack.top();      --> Returns 0.
+	 *  minStack.getMin();   --> Returns -2.
+	 *  
+	 *  Your MinStack object will be instantiated and called as such:
+	 *  MinStack obj = new MinStack();
+	 *  obj.push(x);
+	 *  obj.pop();
+	 *  int param_3 = obj.top();
+	 *  int param_4 = obj.getMin();
+	 */
+	public class MinStack {
+		public class Entry {
+			int val;
+			int minVal;
+			public Entry(int v, int min) {
+				this.val = v;
+				this.minVal = min;
+			}
+		}
+		int topIndex = -1;
+		List<Entry> array = null;
+	    /** initialize your data structure here. */
+	    public MinStack() {
+	    	topIndex = -1;
+	        array = new ArrayList<>();
+	    }
+	    
+	    public void push(int x) {
+	        if (array.size() == 0) {
+	        	array.add(new Entry(x, x));
+	        } else {
+	        	int min = array.get(0).minVal;
+	        	for (int i = 1; i < array.size(); ++i) {
+	        		Entry e = array.get(i);
+	        		if (e.minVal < min) {
+	        			min = e.minVal;
+	        		}
+	        	}
+	        	array.add(new Entry(x, Math.min(x, min)));
+	        }
+	        ++topIndex;
+	    }
+	    
+	    public void pop() {
+	    	array.remove(topIndex);
+	        --topIndex;
+	    }
+	    
+	    public int top() {
+	        return array.get(topIndex).val;
+	    }
+	    
+	    public int getMin() {
+	        return array.get(topIndex).minVal;
+	    }
+	}
 }
