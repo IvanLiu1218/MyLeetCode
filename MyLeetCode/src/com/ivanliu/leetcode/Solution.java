@@ -760,4 +760,33 @@ public class Solution {
 		}
         return 0;
     }
+	
+	/**
+	 *  [Easy]
+	 *  #168. Excel Sheet Column Title
+	 *  
+	 *  Given a positive integer, return its corresponding column title as appear in an Excel sheet.
+	 *  
+	 *  For example:
+	 *  1 -> A
+	 *  2 -> B
+	 *  3 -> C
+	 *  ...
+	 *  26 -> Z
+	 *  27 -> AA
+	 *  28 -> AB 
+	 */
+	public String convertToTitle(int n) {
+		StringBuilder sb = new StringBuilder();
+		char c = (char) ((n - 1) % 26 + 65);
+		sb.append(c);
+		int value = n - (c - 64);
+		while (value / 26 != 0) {
+			value = value / 26;
+			c = (char) ((value - 1) % 26 + 65);
+			sb.append(c);
+			value = value - (c - 64);
+		}
+		return sb.reverse().toString();
+    }
 }
