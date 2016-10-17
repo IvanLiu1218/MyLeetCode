@@ -850,4 +850,21 @@ public class Solution {
 		}
         return result;
     }
+	
+	/**
+	 *  [Easy]
+	 *  #172. Factorial Trailing Zeroes
+	 *  
+	 *  Given an integer n, return the number of trailing zeroes in n!.
+	 *  Note: Your solution should be in logarithmic time complexity.
+	 */
+	public int trailingZeroes(int n) {
+		int result = 0;
+		int value = n;
+		while (value / 5 != 0) {
+			result += value / 5;
+			value = value / 5;
+		}
+        return result;
+    }
 }

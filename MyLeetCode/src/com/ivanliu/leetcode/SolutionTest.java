@@ -330,4 +330,13 @@ public class SolutionTest {
 		assertEquals(701, solution.titleToNumber("ZY"));
 		assertEquals(703, solution.titleToNumber("AAA"));
 	}
+	
+	@Test
+	public void test172() {
+		assertEquals(1, solution.trailingZeroes(6));
+		assertEquals(2, solution.trailingZeroes(10));
+		assertEquals(3, solution.trailingZeroes(19));
+		assertEquals(4, solution.trailingZeroes(22));
+		assertEquals(6, solution.trailingZeroes(26));
+	}
 }
