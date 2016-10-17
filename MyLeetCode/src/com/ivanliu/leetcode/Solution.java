@@ -5,7 +5,10 @@ import java.util.ArrayList;
 import java.util.Deque;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.Stack;
 
 import com.ivanliu.leetcode.Utility.ListNode;
@@ -788,5 +791,35 @@ public class Solution {
 			value = value - (c - 64);
 		}
 		return sb.reverse().toString();
+    }
+	
+	/**
+	 *  [Easy]
+	 *  #169. Majority Element
+	 *  
+	 *  Given an array of size n, find the majority element. The majority element is the element that appears more than (n/2) times.
+	 *  You may assume that the array is non-empty and the majority element always exist in the array.
+	 */
+	public int majorityElement(int[] nums) {
+		Map<Integer, Integer> map = new HashMap<>();
+		for (int i = 0; i < nums.length; ++i) {
+			if (map.containsKey(nums[i])) {
+				int val = map.get(nums[i]);
+				map.put(nums[i], ++val);
+			} else {
+				map.put(nums[i], 1);
+			}
+		}
+		int t = (int) Math.floor(nums.length / 2);
+		Set<Integer> set = map.keySet();
+		Iterator<Integer> it = set.iterator();
+		while (it.hasNext()) {
+			int key = it.next();
+			int times = map.get(key);
+			if (times > t) {
+				return key;
+			}
+		}
+        return 0;
     }
 }

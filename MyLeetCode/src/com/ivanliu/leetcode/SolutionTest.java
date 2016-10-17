@@ -315,4 +315,10 @@ public class SolutionTest {
 		assertEquals("AAZ", solution.convertToTitle(728));
 		assertEquals("ZY", solution.convertToTitle(701));
 	}
+	
+	@Test
+	public void test169() {
+		assertEquals(1, solution.majorityElement(new int[] {1,1,1,2,3}));
+		assertEquals(2, solution.majorityElement(new int[] {1,2,4,2,2}));
+	}
 }
