@@ -777,6 +777,16 @@ public class Solution {
 	 *  28 -> AB 
 	 */
 	public String convertToTitle(int n) {
-        return null;
+		StringBuilder sb = new StringBuilder();
+		char c = (char) ((n - 1) % 26 + 65);
+		sb.append(c);
+		int value = n - (c - 64);
+		while (value / 26 != 0) {
+			value = value / 26;
+			c = (char) ((value - 1) % 26 + 65);
+			sb.append(c);
+			value = value - (c - 64);
+		}
+		return sb.reverse().toString();
     }
 }
