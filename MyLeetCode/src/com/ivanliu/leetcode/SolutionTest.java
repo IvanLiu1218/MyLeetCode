@@ -321,4 +321,13 @@ public class SolutionTest {
 		assertEquals(1, solution.majorityElement(new int[] {1,1,1,2,3}));
 		assertEquals(2, solution.majorityElement(new int[] {1,2,4,2,2}));
 	}
+	
+	@Test
+	public void test171() {
+		assertEquals(1, solution.titleToNumber("A"));
+		assertEquals(26, solution.titleToNumber("Z"));
+		assertEquals(28, solution.titleToNumber("AB"));
+		assertEquals(701, solution.titleToNumber("ZY"));
+		assertEquals(703, solution.titleToNumber("AAA"));
+	}
 }
