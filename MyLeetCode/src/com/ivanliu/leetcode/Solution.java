@@ -878,6 +878,10 @@ public class Solution {
 	 *  
 	 *  Note:
 	 *  Try to come up as many solutions as you can, there are at least 3 different ways to solve this problem.
+	 *  
+	 *  Hint:
+	 *  Could you do it in-place with O(1) extra space?
+	 *  Related problem: Reverse Words in a String II
 	 */
 	public void rotate(int[] nums, int k) {
         
