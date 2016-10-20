@@ -374,4 +374,13 @@ public class SolutionTest {
 		value = 4294967295L;
 		assertEquals((int)value, solution.reverseBits((int)value));
 	}
+	
+	@Test
+	public void test191() {
+		assertEquals(3, solution.hammingWeight(11));
+		long value = 2147483648L;  // 0x7FFF_FFFF
+		assertEquals(1, solution.hammingWeight((int)value));
+		value = 4294967295L;  // 0xFFFF_FFFF
+		assertEquals(32, solution.hammingWeight((int)value));
+	}
 }

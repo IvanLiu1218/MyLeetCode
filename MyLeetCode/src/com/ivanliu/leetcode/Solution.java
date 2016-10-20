@@ -934,4 +934,28 @@ public class Solution {
     	if ((n & 0x80000000) == 0x80000000) ++result;
         return result;
     }
+    
+    /**
+     *  [Easy]
+     *  #191. Number of 1 Bits
+     *  
+     *  Write a function that takes an unsigned integer and returns the number of '1' bits it has (also known as the Hamming weight).
+     *  For example, the 32-bit integer '11' has binary representation 00000000000000000000000000001011, so the function should return 3.
+     */
+    // you need to treat n as an unsigned value
+    public int hammingWeight(int n) {
+    	int result = 0;
+    	if ((n & 0x80000000) == 0x80000000) ++result;
+    	long value = n & 0x7FFFFFFF;
+    	long key = 2147483648L;
+    	while (value > 0) {
+    		int carry = (int) (value / key);
+    		if (carry > 0) {
+    			++result;
+    			value -= carry * key;
+    		}
+    		key = key >> 1;
+    	}
+        return result;
+    }
 }
