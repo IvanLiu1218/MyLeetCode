@@ -970,7 +970,24 @@ public class Solution {
      *  Given a list of non-negative integers representing the amount of money of each house, 
      *  determine the maximum amount of money you can rob tonight without alerting the police.
      */
+    public int max = 0;
     public int rob(int[] nums) {
-    	return 0;
+    	max = 0;
+    	if (nums == null || nums.length == 0) return 0;
+    	if (nums.length == 1) return nums[0];
+    	rob_two(nums, 0, 0);
+    	rob_two(nums, 1, 0);
+    	return max;
+    }
+    
+    public void rob_two(int[] nums, int start, int sum) {
+    	if (start >= nums.length) {
+    		if (sum > max) max = sum;
+    	}
+    	else {
+    		int total = sum + nums[start];
+    		rob_two(nums, start + 2, total);
+    		rob_two(nums, start + 3, total);
+    	}
     }
 }

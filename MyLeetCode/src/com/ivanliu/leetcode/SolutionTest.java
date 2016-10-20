@@ -383,4 +383,13 @@ public class SolutionTest {
 		value = 4294967295L;  // 0xFFFF_FFFF
 		assertEquals(32, solution.hammingWeight((int)value));
 	}
+	
+	@Test
+	public void test198() {
+		assertEquals(9, solution.rob(new int[] {1,2,3,4,5}));
+		assertEquals(12, solution.rob(new int[] {1,2,3,4,5,6}));
+		assertEquals(12, solution.rob(new int[] {1,2,4,3,5,7}));
+		assertEquals(2, solution.rob(new int[] {1,2})); // failed
+		// Time Limit Exceeded
+	}
 }
