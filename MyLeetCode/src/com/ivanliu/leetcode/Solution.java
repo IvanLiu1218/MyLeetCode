@@ -918,18 +918,20 @@ public class Solution {
 	 */
 	// you need treat n as an unsigned value
     public int reverseBits(int n) {
-    	int keyH = (int) Math.pow(2, 31);
-    	int keyL = 1;
+    	long value = n & 0x7FFFFFFF;
+    	long keyH = 2147483648L;
+    	long keyL = 1L;
     	int result = 0;
-    	while (n > 0) {
-    		int carry = (int) (n / keyH);
+    	while (value > 0) {
+    		int carry = (int) (value / keyH);
     		if (carry > 0) {
     			result += carry * keyL;
-    			n -= carry * keyH;
+    			value -= carry * keyH;
     		}
     		keyH = keyH >> 1;
     		keyL = keyL << 1;
     	}
+    	if ((n & 0x80000000) == 0x80000000) ++result;
         return result;
     }
 }

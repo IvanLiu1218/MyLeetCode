@@ -366,5 +366,12 @@ public class SolutionTest {
 	@Test
 	public void test190() {
 		assertEquals(964176192, solution.reverseBits(43261596));
+		assertEquals(1073741824, solution.reverseBits(2));
+		assertEquals(2, solution.reverseBits(1073741824));
+		long value = 2147483648L;
+		assertEquals(1, solution.reverseBits((int)value));
+		assertEquals((int)value, solution.reverseBits(1));
+		value = 4294967295L;
+		assertEquals((int)value, solution.reverseBits((int)value));
 	}
 }
