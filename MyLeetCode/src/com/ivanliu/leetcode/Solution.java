@@ -907,7 +907,9 @@ public class Solution {
 	 *  
 	 *  Reverse bits of a given 32 bits unsigned integer.
 	 *  
-	 *  For example, given input 43261596 (represented in binary as 00000010100101000001111010011100), return 964176192 (represented in binary as 00111001011110000010100101000000).
+	 *  For example, 
+	 *  given input 43261596 (represented in binary as 00000010100101000001111010011100), 
+	 *  return 964176192 (represented in binary as 00111001011110000010100101000000).
 	 *  
 	 *  Follow up:
 	 *  If this function is called many times, how would you optimize it?
@@ -916,6 +918,18 @@ public class Solution {
 	 */
 	// you need treat n as an unsigned value
     public int reverseBits(int n) {
-        return 0;
+    	int keyH = (int) Math.pow(2, 31);
+    	int keyL = 1;
+    	int result = 0;
+    	while (n > 0) {
+    		int carry = (int) (n / keyH);
+    		if (carry > 0) {
+    			result += carry * keyL;
+    			n -= carry * keyH;
+    		}
+    		keyH = keyH >> 1;
+    		keyL = keyL << 1;
+    	}
+        return result;
     }
 }

@@ -362,4 +362,9 @@ public class SolutionTest {
 		solution.rotate(nums, 4);
 		assertEquals("[3, 4, 5, 6, 1, 2]", Arrays.toString(nums));
 	}
+	
+	@Test
+	public void test190() {
+		assertEquals(964176192, solution.reverseBits(43261596));
+	}
 }
