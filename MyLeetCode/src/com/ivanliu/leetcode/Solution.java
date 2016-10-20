@@ -884,6 +884,20 @@ public class Solution {
 	 *  Related problem: Reverse Words in a String II
 	 */
 	public void rotate(int[] nums, int k) {
-        
+		if (nums.length == 0 || k == 0) return;
+		int length = nums.length;
+		int count = 0;
+		for (int j = 0; j < k; ++j) {
+			int i = j;
+			int next = nums[i];
+			do {
+				i = (i + k) % length;
+				int temp = nums[i];
+				nums[i] = next;
+				next = temp;
+				++count;
+			} while (i != j);
+			if (count == length) break; // important!
+		}
     }
 }
