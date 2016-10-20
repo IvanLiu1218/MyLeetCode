@@ -339,4 +339,27 @@ public class SolutionTest {
 		assertEquals(4, solution.trailingZeroes(22));
 		assertEquals(6, solution.trailingZeroes(26));
 	}
+	
+	@Test
+	public void test189() {
+		int[] nums = new int[] {1,2,3,4,5,6,7};
+		solution.rotate(nums, 3);
+		assertEquals("[5, 6, 7, 1, 2, 3, 4]", Arrays.toString(nums));
+		
+		nums = new int[] {1,2,3,4,5,6,7,8};
+		solution.rotate(nums, 3);
+		assertEquals("[6, 7, 8, 1, 2, 3, 4, 5]", Arrays.toString(nums));
+		
+		nums = new int[] {1,2,3,4,5,6};
+		solution.rotate(nums, 2);
+		assertEquals("[5, 6, 1, 2, 3, 4]", Arrays.toString(nums));
+		
+		nums = new int[] {1,2,3,4,5,6,7,8,9};
+		solution.rotate(nums, 3);
+		assertEquals("[7, 8, 9, 1, 2, 3, 4, 5, 6]", Arrays.toString(nums));
+		
+		nums = new int[] {1,2,3,4,5,6};
+		solution.rotate(nums, 4);
+		assertEquals("[3, 4, 5, 6, 1, 2]", Arrays.toString(nums));
+	}
 }
