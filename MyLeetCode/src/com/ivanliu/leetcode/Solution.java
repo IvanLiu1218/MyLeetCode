@@ -900,4 +900,38 @@ public class Solution {
 			if (count == length) break; // important!
 		}
     }
+	
+	/**
+	 *  [Easy]
+	 *  #190. Reverse Bits
+	 *  
+	 *  Reverse bits of a given 32 bits unsigned integer.
+	 *  
+	 *  For example, 
+	 *  given input 43261596 (represented in binary as 00000010100101000001111010011100), 
+	 *  return 964176192 (represented in binary as 00111001011110000010100101000000).
+	 *  
+	 *  Follow up:
+	 *  If this function is called many times, how would you optimize it?
+	 *  
+	 *  Related problem: Reverse Integer
+	 */
+	// you need treat n as an unsigned value
+    public int reverseBits(int n) {
+    	long value = n & 0x7FFFFFFF;
+    	long keyH = 2147483648L;
+    	long keyL = 1L;
+    	int result = 0;
+    	while (value > 0) {
+    		int carry = (int) (value / keyH);
+    		if (carry > 0) {
+    			result += carry * keyL;
+    			value -= carry * keyH;
+    		}
+    		keyH = keyH >> 1;
+    		keyL = keyL << 1;
+    	}
+    	if ((n & 0x80000000) == 0x80000000) ++result;
+        return result;
+    }
 }
