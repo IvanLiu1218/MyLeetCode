@@ -383,4 +383,12 @@ public class SolutionTest {
 		value = 4294967295L;  // 0xFFFF_FFFF
 		assertEquals(32, solution.hammingWeight((int)value));
 	}
+	
+	@Test
+	public void test202() {
+		assertEquals(true, solution.isHappy(19));
+		assertEquals(true, solution.isHappy(1));
+		assertEquals(true, solution.isHappy(1000));
+		assertEquals(false, solution.isHappy(17));
+	}
 }

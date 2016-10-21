@@ -976,6 +976,21 @@ public class Solution {
      *  1^2 + 0^2 + 0^2 = 1
      */
     public boolean isHappy(int n) {
+    	String input = Integer.toString(n);
+    	Set<Integer> set = new HashSet<>();
+    	int total = 0;
+    	while (total != 1) {
+    		if (set.contains(total)) {
+    			return false;
+    		}
+    		set.add(total);
+    		total = 0;
+        	for (int i = 0; i < input.length(); ++i) {
+        		int value = input.charAt(i) - 48;
+        		total += value * value;
+        	}
+        	input = Integer.toString(total);
+    	}
         return true;
     }
 }
