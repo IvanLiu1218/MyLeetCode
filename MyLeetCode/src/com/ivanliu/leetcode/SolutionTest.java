@@ -405,4 +405,32 @@ public class SolutionTest {
 		list = new ListNode(2, new ListNode(2, new ListNode(2, null)));
 		assertEquals("[]", Utility.toString(solution.removeElements(list, 2)));
 	}
+	
+	@Test
+	public void test204() {
+		// test countPrimes_isPrime():
+		assertEquals(false, solution.countPrimes_isPrime(0));
+		assertEquals(false, solution.countPrimes_isPrime(1));
+		assertEquals(true, solution.countPrimes_isPrime(2));
+		assertEquals(true, solution.countPrimes_isPrime(3));
+		assertEquals(false, solution.countPrimes_isPrime(4));
+		assertEquals(true, solution.countPrimes_isPrime(5));
+		assertEquals(true, solution.countPrimes_isPrime(11));
+		assertEquals(false, solution.countPrimes_isPrime(12));
+		assertEquals(true, solution.countPrimes_isPrime(13));
+		// test countPrimes()
+		assertEquals(0, solution.countPrimes(0));
+		assertEquals(0, solution.countPrimes(1));
+		assertEquals(0, solution.countPrimes(2));
+		assertEquals(1, solution.countPrimes(3));
+		assertEquals(2, solution.countPrimes(4));
+		assertEquals(2, solution.countPrimes(5));
+		assertEquals(3, solution.countPrimes(6));
+		assertEquals(3, solution.countPrimes(7));
+		assertEquals(4, solution.countPrimes(8));
+		assertEquals(8, solution.countPrimes(20));
+		assertEquals(7, solution.countPrimes(19));
+		// Time Limit Exceeded
+		assertEquals(0, solution.countPrimes(499979));
+	}
 }

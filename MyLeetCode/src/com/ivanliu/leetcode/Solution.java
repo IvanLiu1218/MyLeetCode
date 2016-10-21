@@ -1037,7 +1037,31 @@ public class Solution {
      *  The runtime complexity of isPrime function would be O(n) and hence counting the total prime numbers 
      *  up to n would be O(n2). Could we do better?
      */
+    public List<Integer> countPrimes_list = new ArrayList<>();
     public int countPrimes(int n) {
+    	if (countPrimes_list.size() == 0) {
+    		countPrimes_list.add(0);
+    	}
+    	if (n >= countPrimes_list.size()) {
+    		for (int i = countPrimes_list.size(); i < n + 1; ++i) {
+    			int count = countPrimes_list.get(i - 1);
+    			if (this.countPrimes_isPrime(i - 1)) {
+    				countPrimes_list.add(count + 1);
+    			} else {
+    				countPrimes_list.add(count);
+    			}
+    		}
+    	}
+    	if (n < countPrimes_list.size()) {
+    		return countPrimes_list.get(n);
+    	}
         return 0;
+    }
+    public boolean countPrimes_isPrime(int n) {
+    	if (n ==0 || n == 1) return false;
+    	for (int i = 2; i < n; ++i) {
+    		if (n % i == 0) return false;
+    	}
+    	return true;
     }
 }
