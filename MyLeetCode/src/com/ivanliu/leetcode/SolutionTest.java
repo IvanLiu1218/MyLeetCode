@@ -431,6 +431,7 @@ public class SolutionTest {
 		assertEquals(8, solution.countPrimes(20));
 		assertEquals(7, solution.countPrimes(19));
 		// Time Limit Exceeded
-		assertEquals(0, solution.countPrimes(499979));
+		assertEquals(41537, solution.countPrimes(499979));
+		assertEquals(0, solution.countPrimes(999983));
 	}
 }
