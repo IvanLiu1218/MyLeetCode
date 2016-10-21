@@ -993,4 +993,34 @@ public class Solution {
     	}
         return true;
     }
+    
+    /**
+     *  [Easy]
+     *  #203. Remove Linked List Elements
+     *  
+     *  Remove all elements from a linked list of integers that have value val.
+     *  
+     *  Example
+     *  Given: 1 --> 2 --> 6 --> 3 --> 4 --> 5 --> 6, val = 6
+     *  Return: 1 --> 2 --> 3 --> 4 --> 5
+     */
+    public ListNode removeElements(ListNode head, int val) {
+    	if (head == null) return null;
+    	ListNode node = head;
+    	while (node != null && node.val == val) {
+    		// find the first element the value of which does not equals to val
+    		node = node.next;
+    	}
+    	ListNode prev = node;
+    	ListNode curr = null;
+    	while (prev != null) {
+    		curr = prev.next;
+    		while (curr != null && curr.val == val) {
+    			curr = curr.next;
+    		}
+    		prev.next = curr;
+    		prev = curr;
+    	}
+        return node;
+    }
 }
