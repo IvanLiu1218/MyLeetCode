@@ -391,4 +391,18 @@ public class SolutionTest {
 		assertEquals(true, solution.isHappy(1000));
 		assertEquals(false, solution.isHappy(17));
 	}
+	
+	@Test
+	public void test203() {
+		ListNode list = null;
+		assertEquals("[]", Utility.toString(solution.removeElements(list, 2)));
+		list = new ListNode(1, new ListNode(2, new ListNode(3, null)));
+		assertEquals("[1,3]", Utility.toString(solution.removeElements(list, 2)));
+		list = new ListNode(1, new ListNode(2, new ListNode(3, null)));
+		assertEquals("[2,3]", Utility.toString(solution.removeElements(list, 1)));
+		list = new ListNode(2, new ListNode(2, new ListNode(3, null)));
+		assertEquals("[3]", Utility.toString(solution.removeElements(list, 2)));
+		list = new ListNode(2, new ListNode(2, new ListNode(2, null)));
+		assertEquals("[]", Utility.toString(solution.removeElements(list, 2)));
+	}
 }

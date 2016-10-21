@@ -1005,6 +1005,22 @@ public class Solution {
      *  Return: 1 --> 2 --> 3 --> 4 --> 5
      */
     public ListNode removeElements(ListNode head, int val) {
-        return null;
+    	if (head == null) return null;
+    	ListNode node = head;
+    	while (node != null && node.val == val) {
+    		// find the first element the value of which does not equals to val
+    		node = node.next;
+    	}
+    	ListNode prev = node;
+    	ListNode curr = null;
+    	while (prev != null) {
+    		curr = prev.next;
+    		while (curr != null && curr.val == val) {
+    			curr = curr.next;
+    		}
+    		prev.next = curr;
+    		prev = curr;
+    	}
+        return node;
     }
 }
