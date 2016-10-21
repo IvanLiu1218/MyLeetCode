@@ -979,7 +979,6 @@ public class Solution {
     	rob_two(nums, 1, 0);
     	return max;
     }
-    
     public void rob_two(int[] nums, int start, int sum) {
     	if (start >= nums.length) {
     		if (sum > max) max = sum;
