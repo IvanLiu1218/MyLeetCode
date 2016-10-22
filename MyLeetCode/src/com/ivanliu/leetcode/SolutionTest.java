@@ -434,4 +434,14 @@ public class SolutionTest {
 		assertEquals(41537, solution.countPrimes(499979));
 		assertEquals(78497, solution.countPrimes(999983));
 	}
+	
+	@Test
+	public void test205() {
+		assertEquals(true, solution.isIsomorphic("egg", "add"));
+		assertEquals(false, solution.isIsomorphic("foo", "bar"));
+		assertEquals(true, solution.isIsomorphic("paper", "title"));
+		assertEquals(true, solution.isIsomorphic("abbcddeff", "tyyuii899"));
+		assertEquals(false, solution.isIsomorphic("aa", "ab"));
+		assertEquals(false, solution.isIsomorphic("ab", "aa"));
+	}
 }
