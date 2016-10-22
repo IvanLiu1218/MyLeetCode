@@ -1202,4 +1202,25 @@ public class Solution {
     	}
     	return sb.toString().equals(str2);
     }
+    
+    /**
+     *  [Easy]
+     *  #206. Reverse Linked List
+     *  
+     *  Reverse a singly linked list.
+     *  
+     *  Hint:
+     *  A linked list can be reversed either iteratively or recursively. Could you implement both?
+     */
+    public ListNode reverseList(ListNode head) {
+    	if (head == null || head.next == null) {
+    		return head;
+    	} else {
+    		ListNode tail = head.next;
+    		ListNode newHead = reverseList(head.next);
+    		tail.next = head;
+    		head.next = null;
+    		return newHead;
+    	}
+    }
 }

@@ -444,4 +444,13 @@ public class SolutionTest {
 		assertEquals(false, solution.isIsomorphic("aa", "ab"));
 		assertEquals(false, solution.isIsomorphic("ab", "aa"));
 	}
+	
+	@Test
+	public void test206() {
+		ListNode head = new ListNode(1, new ListNode(2, new ListNode(3, new ListNode(4))));
+		assertEquals("[4,3,2,1]", Utility.toString(solution.reverseList(head)));
+		head = new ListNode(1);
+		assertEquals("[1]", Utility.toString(solution.reverseList(head)));
+		assertEquals("[]", Utility.toString(solution.reverseList(null)));
+	}
 }
