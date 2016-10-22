@@ -1075,24 +1075,24 @@ public class Solution {
      *     "Sieve of Eratosthenes Animation" by SKopp is licensed under CC BY 2.0.
      *     
      *     We start off with a table of n numbers. Let's look at the first number, 2. We know all multiples of 2 must not be primes, 
-     *     so we mark them off as non-primes. Then we look at the next number, 3. Similarly, all multiples of 3 such as 3 × 2 = 6, 
-     *     3 × 3 = 9, ... must not be primes, so we mark them off as well. Now we look at the next number, 4, 
+     *     so we mark them off as non-primes. Then we look at the next number, 3. Similarly, all multiples of 3 such as 3 脳 2 = 6, 
+     *     3 脳 3 = 9, ... must not be primes, so we mark them off as well. Now we look at the next number, 4, 
      *     which was already marked off. What does this tell you? Should you mark off all multiples of 4 as well?
      *     
      *  5. 4 is not a prime because it is divisible by 2, which means all multiples of 4 must also be divisible by 2 
      *     and were already marked off. So we can skip 4 immediately and go to the next number, 5. 
-     *     Now, all multiples of 5 such as 5 × 2 = 10, 5 × 3 = 15, 5 × 4 = 20, 5 × 5 = 25, ... can be marked off. 
-     *     There is a slight optimization here, we do not need to start from 5 × 2 = 10. Where should we start marking off?
+     *     Now, all multiples of 5 such as 5 脳 2 = 10, 5 脳 3 = 15, 5 脳 4 = 20, 5 脳 5 = 25, ... can be marked off. 
+     *     There is a slight optimization here, we do not need to start from 5 脳 2 = 10. Where should we start marking off?
      *     
-     *  6. In fact, we can mark off multiples of 5 starting at 5 × 5 = 25, because 5 × 2 = 10 was already marked off by multiple of 2, 
-     *     similarly 5 × 3 = 15 was already marked off by multiple of 3. Therefore, if the current number is p, 
+     *  6. In fact, we can mark off multiples of 5 starting at 5 脳 5 = 25, because 5 脳 2 = 10 was already marked off by multiple of 2, 
+     *     similarly 5 脳 3 = 15 was already marked off by multiple of 3. Therefore, if the current number is p, 
      *     we can always mark off multiples of p starting at p2, then in increments of p: p2 + p, p2 + 2p, ... 
      *     Now what should be the terminating loop condition?
      *     
      *  7. It is easy to say that the terminating loop condition is p < n, which is certainly correct but not efficient. 
      *     Do you still remember Hint #3?
      *     
-     *  8. Yes, the terminating loop condition can be p < √n, as all non-primes ≥ √n must have already been marked off. 
+     *  8. Yes, the terminating loop condition can be p < 鈭歯, as all non-primes 鈮� 鈭歯 must have already been marked off. 
      *     When the loop terminates, all the numbers in the table that are non-marked are prime.
      *     The Sieve of Eratosthenes uses an extra O(n) memory and its runtime complexity is O(n log log n). 
      *     For the more mathematically inclined readers, you can read more about its algorithm complexity on Wikipedia.
@@ -1165,5 +1165,41 @@ public class Solution {
     		if (nums[j]) ++count;
     	}
     	return count;
+    }
+    
+    /**
+     *  [Easy]
+     *  #205. Isomorphic Strings
+     *  
+     *  Given two strings s and t, determine if they are isomorphic.
+     *  Two strings are isomorphic if the characters in s can be replaced to get t.
+     *  All occurrences of a character must be replaced with another character while preserving the order of characters. 
+     *  No two characters may map to the same character but a character may map to itself.
+     *  
+     *  For example,
+     *  Given "egg", "add", return true.
+     *  Given "foo", "bar", return false.
+     *  Given "paper", "title", return true.
+     *  
+     *  Note:
+     *  You may assume both s and t have the same length.
+     */
+    public boolean isIsomorphic(String s, String t) {
+        return isIsomorphic_two(s, t) && isIsomorphic_two(t, s);
+    }
+    public boolean isIsomorphic_two(String str1, String str2) {
+    	Map<Character, Character> map = new HashMap<>();
+    	StringBuilder sb = new StringBuilder();
+    	for (int i = 0; i < str1.length(); ++i) {
+    		char c1 = str1.charAt(i);
+    		if (!map.containsKey(c1)) {
+    			char c2 = str2.charAt(i);
+    			map.put(c1, c2);
+    			sb.append(c2);
+    		} else {
+    			sb.append(map.get(c1));
+    		}
+    	}
+    	return sb.toString().equals(str2);
     }
 }
