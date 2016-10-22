@@ -1185,30 +1185,21 @@ public class Solution {
      *  You may assume both s and t have the same length.
      */
     public boolean isIsomorphic(String s, String t) {
-    	Map<Character, Character> mapSt = new HashMap<>();
-    	StringBuilder sbSt = new StringBuilder();
-    	for (int i = 0; i < s.length(); ++i) {
-    		char cs = s.charAt(i);
-    		if (!mapSt.containsKey(cs)) {
-    			char ct = t.charAt(i);
-    			mapSt.put(cs, ct);
-    			sbSt.append(ct);
+        return isIsomorphic_two(s, t) && isIsomorphic_two(t, s);
+    }
+    public boolean isIsomorphic_two(String str1, String str2) {
+    	Map<Character, Character> map = new HashMap<>();
+    	StringBuilder sb = new StringBuilder();
+    	for (int i = 0; i < str1.length(); ++i) {
+    		char c1 = str1.charAt(i);
+    		if (!map.containsKey(c1)) {
+    			char c2 = str2.charAt(i);
+    			map.put(c1, c2);
+    			sb.append(c2);
     		} else {
-    			sbSt.append(mapSt.get(cs));
+    			sb.append(map.get(c1));
     		}
     	}
-    	Map<Character, Character> mapTs = new HashMap<>();
-    	StringBuilder sbTs = new StringBuilder();
-    	for (int j = 0; j < t.length(); ++j) {
-    		char ct = t.charAt(j);
-    		if (!mapTs.containsKey(ct)) {
-    			char cs = s.charAt(j);
-    			mapTs.put(ct, cs);
-    			sbTs.append(cs);
-    		} else {
-    			sbTs.append(mapTs.get(ct));
-    		}
-    	}
-        return sbSt.toString().equals(t) && sbTs.toString().equals(s);
+    	return sb.toString().equals(str2);
     }
 }
