@@ -409,15 +409,15 @@ public class SolutionTest {
 	@Test
 	public void test204() {
 		// test countPrimes_isPrime():
-		assertEquals(false, solution.countPrimes_isPrime(0));
-		assertEquals(false, solution.countPrimes_isPrime(1));
-		assertEquals(true, solution.countPrimes_isPrime(2));
-		assertEquals(true, solution.countPrimes_isPrime(3));
-		assertEquals(false, solution.countPrimes_isPrime(4));
-		assertEquals(true, solution.countPrimes_isPrime(5));
-		assertEquals(true, solution.countPrimes_isPrime(11));
-		assertEquals(false, solution.countPrimes_isPrime(12));
-		assertEquals(true, solution.countPrimes_isPrime(13));
+//		assertEquals(false, solution.countPrimes_isPrime(0));
+//		assertEquals(false, solution.countPrimes_isPrime(1));
+//		assertEquals(true, solution.countPrimes_isPrime(2));
+//		assertEquals(true, solution.countPrimes_isPrime(3));
+//		assertEquals(false, solution.countPrimes_isPrime(4));
+//		assertEquals(true, solution.countPrimes_isPrime(5));
+//		assertEquals(true, solution.countPrimes_isPrime(11));
+//		assertEquals(false, solution.countPrimes_isPrime(12));
+//		assertEquals(true, solution.countPrimes_isPrime(13));
 		// test countPrimes()
 		assertEquals(0, solution.countPrimes(0));
 		assertEquals(0, solution.countPrimes(1));
@@ -432,6 +432,6 @@ public class SolutionTest {
 		assertEquals(7, solution.countPrimes(19));
 		// Time Limit Exceeded
 		assertEquals(41537, solution.countPrimes(499979));
-		assertEquals(0, solution.countPrimes(999983));
+		assertEquals(78497, solution.countPrimes(999983));
 	}
 }
