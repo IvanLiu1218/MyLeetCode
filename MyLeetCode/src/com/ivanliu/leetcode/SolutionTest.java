@@ -470,4 +470,13 @@ public class SolutionTest {
 		assertEquals(false, solution.containsNearbyDuplicate(null, 2));
 		assertEquals(true, solution.containsNearbyDuplicate(new int[]{0,1,2,3,4,5,6,7,7}, 2));
 	}
+	
+	@Test
+	public void test223() {
+		assertEquals(26, solution.computeArea(-1, -1, 3, 4, 1, -2, 5, 0));
+		assertEquals(26, solution.computeArea(1, -2, 5, 0, -1, -1, 3, 4));
+		assertEquals(4, solution.computeArea(0, 0, 0, 0, -1, -1, 1, 1));
+		assertEquals(4, solution.computeArea(-1, -1, 1, 1,0, 0, 0, 0));
+		assertEquals(17, solution.computeArea(-2,-2, 2, 2, 3, 3, 4, 4));
+	}
 }
