@@ -461,4 +461,13 @@ public class SolutionTest {
 		assertEquals(false, solution.containsDuplicate(new int[] {}));
 		assertEquals(false, solution.containsDuplicate(null));
 	}
+	
+	@Test
+	public void test219() {
+		assertEquals(true, solution.containsNearbyDuplicate(new int[]{1,2,3,1,1}, 2));
+		assertEquals(false, solution.containsNearbyDuplicate(new int[]{1,2,3,1,0}, 2));
+		assertEquals(false, solution.containsNearbyDuplicate(new int[]{}, 2));
+		assertEquals(false, solution.containsNearbyDuplicate(null, 2));
+		assertEquals(true, solution.containsNearbyDuplicate(new int[]{0,1,2,3,4,5,6,7,7}, 2));
+	}
 }
