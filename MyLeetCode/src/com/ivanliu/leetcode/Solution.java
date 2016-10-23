@@ -1391,6 +1391,17 @@ public class Solution {
      *  9   6 3   1
      */
     public TreeNode invertTree(TreeNode root) {
-        return null;
+    	if (root == null) return root;
+    	Deque<TreeNode> queue = new ArrayDeque<>();
+    	queue.addLast(root);
+    	while (!queue.isEmpty()) {
+    		TreeNode node = queue.pollFirst();
+    		TreeNode temp = node.left;
+    		node.left = node.right;
+    		node.right = temp;
+    		if (node.left != null) queue.addLast(node.left);
+    		if (node.right != null) queue.addLast(node.right);
+    	}
+        return root;
     }
 }
