@@ -516,4 +516,16 @@ public class SolutionTest {
 		root = solution.invertTree(null);
 		assertEquals(null, root);
 	}
+	
+	@Test
+	public void test231() {
+		assertEquals(true, solution.isPowerOfTwo(1));
+		assertEquals(true, solution.isPowerOfTwo(2));
+		assertEquals(false, solution.isPowerOfTwo(3));
+		assertEquals(true, solution.isPowerOfTwo(4));
+		assertEquals(false, solution.isPowerOfTwo(6));
+		assertEquals(true, solution.isPowerOfTwo(8));
+		// Time Limit Exceeded
+		assertEquals(false, solution.isPowerOfTwo(0));
+	}
 }

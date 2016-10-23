@@ -1404,4 +1404,19 @@ public class Solution {
     	}
         return root;
     }
+    
+    /**
+     *  [Easy]
+     *  #231. Power of Two
+     *  
+     *  Given an integer, write a function to determine if it is a power of two.
+     */
+    public boolean isPowerOfTwo(int n) {
+    	if (n == 0) return false;
+        int value = n;
+        while (value % 2 == 0) {
+        	value = value / 2;
+        }
+        return value == 1;
+    }
 }
