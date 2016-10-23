@@ -1294,4 +1294,41 @@ public class Solution {
     	}
         return false;
     }
+    
+    /**
+     *  [Easy]
+     *  #223. Rectangle Area
+     *  
+     *  Find the total area covered by two rectilinear rectangles in a 2D plane.
+     *  Each rectangle is defined by its bottom left corner and top right corner as shown in the figure.
+     *  
+     *  Assume that the total area is never beyond the maximum possible value of int.
+     */
+    public int computeArea(int A, int B, int C, int D, int E, int F, int G, int H) {
+    	//if (E > C || G < A || F > D || H < B) return 0;
+    	if (A == C || B == D) return computeArea_two(E, F, G, H);
+    	if (E == G || F == H) return computeArea_two(A, B, C, D);
+    	
+    	int area1 = computeArea_two(A, B, C, D);
+    	int area2 = computeArea_two(E, F, G, H);
+    	if (E > C || G < A || F > D || H < B) {
+    		return area1 + area2;
+    	}
+    	
+		int x1 = A;
+    	if (A <= E && E <= C) x1 = E;
+    	int x2 = C;
+    	if (A <= G && G <= C) x2 = G;
+    	
+    	int y1 = B;
+    	if (B <= F && F <= D) y1 = F;
+    	int y2 = D;
+    	if (B <= H && H <= D) y2 = H;
+    	
+    	int comm = computeArea_two(x1, y1, x2, y2);
+        return area1 + area2 - comm;
+    }
+    public int computeArea_two(int x1, int y1, int x2, int y2) {
+    	return Math.abs(x1 - x2) * Math.abs(y1 - y2);
+    }
 }
