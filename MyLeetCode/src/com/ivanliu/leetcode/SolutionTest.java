@@ -453,4 +453,12 @@ public class SolutionTest {
 		assertEquals("[1]", Utility.toString(solution.reverseList(head)));
 		assertEquals("[]", Utility.toString(solution.reverseList(null)));
 	}
+	
+	@Test
+	public void test217() {
+		assertEquals(false, solution.containsDuplicate(new int[] {1,2,3,4,5,6}));
+		assertEquals(true, solution.containsDuplicate(new int[] {1,2,3,1,5,6}));
+		assertEquals(false, solution.containsDuplicate(new int[] {}));
+		assertEquals(false, solution.containsDuplicate(null));
+	}
 }
