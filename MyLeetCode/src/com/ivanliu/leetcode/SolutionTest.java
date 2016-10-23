@@ -8,6 +8,7 @@ import java.util.List;
 import org.junit.Test;
 
 import com.ivanliu.leetcode.Solution.MinStack;
+import com.ivanliu.leetcode.Solution.MyStack;
 import com.ivanliu.leetcode.Utility.ListNode;
 import com.ivanliu.leetcode.Utility.TreeNode;
 
@@ -478,5 +479,19 @@ public class SolutionTest {
 		assertEquals(4, solution.computeArea(0, 0, 0, 0, -1, -1, 1, 1));
 		assertEquals(4, solution.computeArea(-1, -1, 1, 1,0, 0, 0, 0));
 		assertEquals(17, solution.computeArea(-2,-2, 2, 2, 3, 3, 4, 4));
+	}
+	
+	@Test
+	public void test225() {
+		MyStack stack = solution.new MyStack();
+		stack.push(5);
+		stack.push(51);
+		assertEquals(51, stack.top());
+		assertEquals(false, stack.empty());
+		stack.pop();
+		assertEquals(5, stack.top());
+		assertEquals(false, stack.empty());
+		stack.pop();
+		assertEquals(true, stack.empty());
 	}
 }
