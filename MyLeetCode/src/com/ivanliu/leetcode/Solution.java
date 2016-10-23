@@ -1371,4 +1371,37 @@ public class Solution {
             return deque.isEmpty();
         }
     }
+    
+    /**
+     *  [Easy]
+     *  #226. Invert Binary Tree
+     *  Invert a binary tree.
+     *  
+     *       4
+     *     /   \
+     *    2     7
+     *   / \   / \
+     *  1   3 6   9
+     *  
+     *  to
+     *       4
+     *     /   \
+     *    7     2
+     *   / \   / \
+     *  9   6 3   1
+     */
+    public TreeNode invertTree(TreeNode root) {
+    	if (root == null) return root;
+    	Deque<TreeNode> queue = new ArrayDeque<>();
+    	queue.addLast(root);
+    	while (!queue.isEmpty()) {
+    		TreeNode node = queue.pollFirst();
+    		TreeNode temp = node.left;
+    		node.left = node.right;
+    		node.right = temp;
+    		if (node.left != null) queue.addLast(node.left);
+    		if (node.right != null) queue.addLast(node.right);
+    	}
+        return root;
+    }
 }
