@@ -1478,6 +1478,19 @@ public class Solution {
      *  Could you do it in O(n) time and O(1) space?
      */
     public boolean isPalindrome(ListNode head) {
-        return false;
+    	StringBuilder sb = new StringBuilder();
+    	ListNode node = head;
+    	while (node != null) {
+    		sb.append(node.val);
+    		node = node.next;
+    	}
+    	String str = sb.toString();
+    	int length = str.length();
+    	for (int i = 0; i < length / 2; ++i) {
+    		if (str.charAt(i) != str.charAt(length - 1 - i)) {
+    			return false;
+    		}
+    	}
+        return true;
     }
 }
