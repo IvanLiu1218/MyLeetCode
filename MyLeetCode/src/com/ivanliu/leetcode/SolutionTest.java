@@ -8,6 +8,7 @@ import java.util.List;
 import org.junit.Test;
 
 import com.ivanliu.leetcode.Solution.MinStack;
+import com.ivanliu.leetcode.Solution.MyQueue;
 import com.ivanliu.leetcode.Solution.MyStack;
 import com.ivanliu.leetcode.Utility.ListNode;
 import com.ivanliu.leetcode.Utility.TreeNode;
@@ -527,5 +528,21 @@ public class SolutionTest {
 		assertEquals(true, solution.isPowerOfTwo(8));
 		// Time Limit Exceeded
 		assertEquals(false, solution.isPowerOfTwo(0));
+	}
+	
+	@Test
+	public void test232() {
+		MyQueue queue = solution.new MyQueue();
+		queue.push(1);
+		queue.push(2);
+		queue.push(3);
+		assertEquals(1, queue.peek());
+		assertEquals(false, queue.empty());
+		queue.pop();
+		assertEquals(2, queue.peek());
+		queue.pop();
+		assertEquals(3, queue.peek());
+		queue.pop();
+		assertEquals(true, queue.empty());
 	}
 }
