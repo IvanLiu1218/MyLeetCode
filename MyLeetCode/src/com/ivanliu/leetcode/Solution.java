@@ -1437,23 +1437,34 @@ public class Solution {
      */
     class MyQueue {
         // Push element x to the back of queue.
+    	Stack<Integer> stackIn = new Stack<>();
+    	Stack<Integer> stackOut = new Stack<>();
         public void push(int x) {
-            
+            while (stackOut.size() != 0) {
+            	stackIn.push(stackOut.pop());
+            }
+            stackIn.push(x);
         }
 
         // Removes the element from in front of queue.
         public void pop() {
-            
+            while (stackIn.size() != 0) {
+            	stackOut.push(stackIn.pop());
+            }
+            stackOut.pop();
         }
 
         // Get the front element.
         public int peek() {
-            return 0;
+        	while (stackIn.size() != 0) {
+        		stackOut.push(stackIn.pop());
+        	}
+            return stackOut.peek();
         }
 
         // Return whether the queue is empty.
         public boolean empty() {
-            return false;
+            return stackIn.isEmpty() && stackOut.isEmpty();
         }
     }
 }
