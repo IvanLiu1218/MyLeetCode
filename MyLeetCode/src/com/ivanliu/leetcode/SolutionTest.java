@@ -556,6 +556,6 @@ public class SolutionTest {
 		assertEquals(false, solution.isPalindrome(head));
 		// wrong answer
 		head = new ListNode(-1, new ListNode(-1));
-		assertEquals(false, solution.isPalindrome(head));
+		assertEquals(true, solution.isPalindrome(head));
 	}
 }
