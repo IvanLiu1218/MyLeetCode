@@ -545,4 +545,19 @@ public class SolutionTest {
 		queue.pop();
 		assertEquals(true, queue.empty());
 	}
+	
+	@Test
+	public void test234() {
+		ListNode head = new ListNode(1, new ListNode(2, new ListNode(2, new ListNode(1))));
+		assertEquals(true, solution.isPalindrome(head));
+		head = new ListNode(1, new ListNode(2, new ListNode(3, new ListNode(2, new ListNode(1)))));
+		assertEquals(true, solution.isPalindrome(head));
+		head = new ListNode(1, new ListNode(2, new ListNode(3, new ListNode(1))));
+		assertEquals(false, solution.isPalindrome(head));
+		// wrong answer
+		head = new ListNode(-1, new ListNode(-1));
+		assertEquals(true, solution.isPalindrome(head));
+		head = null;
+		assertEquals(true, solution.isPalindrome(head));
+	}
 }
