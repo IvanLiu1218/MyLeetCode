@@ -560,4 +560,20 @@ public class SolutionTest {
 		head = null;
 		assertEquals(true, solution.isPalindrome(head));
 	}
+	
+	@Test
+	public void test235() {
+		TreeNode p = new TreeNode(4);
+		TreeNode q = new TreeNode(9);
+		TreeNode root = new TreeNode(6);
+		root.left = new TreeNode(2);
+		root.left.left = new TreeNode(0);
+		root.left.right = p;
+		root.left.right.left = new TreeNode(3);
+		root.left.right.right = new TreeNode(5);
+		root.right = new TreeNode(8);
+		root.right.left = new TreeNode(7);
+		root.right.right = q;
+		assertEquals(root, solution.lowestCommonAncestor(root, p, q));
+	}
 }

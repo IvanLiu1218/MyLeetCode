@@ -1558,6 +1558,26 @@ public class Solution {
      *  since a node can be a descendant of itself according to the LCA definition.
      */
     public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
+    	List<TreeNode> path1 = new ArrayList<>();
+    	List<TreeNode> path2 = new ArrayList<>();
+    	lowestCommonAncestor(path1, root, p);
+    	lowestCommonAncestor(path2, root, q);
+    	for (int i = path1.size() - 1; i >= 0; --i) {
+    		for (int j = path2.size() - 1; j >= 0; --j) {
+    			if (path1.get(i) == path2.get(j)) {
+    				return path1.get(i);
+    			}
+    		}
+    	}
         return null;
+    }
+    public void lowestCommonAncestor(List<TreeNode> path, TreeNode node, TreeNode target) {
+    	if (node == null || node == target) {
+    		return;
+    	} else {
+    		path.add(node);
+    		lowestCommonAncestor(path, node.left, target);
+    		lowestCommonAncestor(path, node.right, target);
+    	}
     }
 }
