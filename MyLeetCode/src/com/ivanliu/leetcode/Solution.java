@@ -1478,6 +1478,10 @@ public class Solution {
      *  Could you do it in O(n) time and O(1) space?
      */
     public boolean isPalindrome(ListNode head) {
+    	return isPalindrome_On_On(head);
+    }
+    // O(n) time and O(n) space
+    public boolean isPalindrome_On_On(ListNode head) {
     	int length = 0;
     	ListNode node = head;
     	while (node != null) {
@@ -1497,5 +1501,9 @@ public class Solution {
     		}
     	}
         return true;
+    }
+    // O(n) time and O(1) space
+    public boolean isPalindrome_On_O1(ListNode head) {
+    	return false;
     }
 }
