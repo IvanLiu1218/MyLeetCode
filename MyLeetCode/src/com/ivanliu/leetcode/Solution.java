@@ -1478,7 +1478,8 @@ public class Solution {
      *  Could you do it in O(n) time and O(1) space?
      */
     public boolean isPalindrome(ListNode head) {
-    	return isPalindrome_On_On(head);
+    	//return isPalindrome_On_On(head);
+    	return isPalindrome_On_O1(head);
     }
     // O(n) time and O(n) space
     public boolean isPalindrome_On_On(ListNode head) {
@@ -1504,6 +1505,36 @@ public class Solution {
     }
     // O(n) time and O(1) space
     public boolean isPalindrome_On_O1(ListNode head) {
-    	return false;
+    	int length = 0;
+    	ListNode node = head;
+    	while (node != null) {
+    		++length;
+    		node = node.next;
+    	}
+    	int index2 = (int) Math.ceil(length / 2d);
+    	ListNode head2 = head;
+    	for (int i = 0; i < index2; ++i) {
+    		head2 = head2.next;
+    	}
+    	if (head2 != null) {
+    		head2 = isPalindrome_reverseList(head2);
+        	for (int j = 0; j < length / 2; ++j) {
+        		if (head.val != head2.val) return false;
+        		head = head.next;
+        		head2 = head2.next;
+        	}
+    	}
+    	return true;
+    }
+    public ListNode isPalindrome_reverseList(ListNode head) {
+    	if (head.next == null) {
+    		return head;
+    	} else {
+    		ListNode tail = head.next;
+    		ListNode newHead = isPalindrome_reverseList(head.next);
+    		tail.next = head;
+    		head.next = null;
+    		return newHead;
+    	}
     }
 }

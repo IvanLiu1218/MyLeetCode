@@ -557,5 +557,7 @@ public class SolutionTest {
 		// wrong answer
 		head = new ListNode(-1, new ListNode(-1));
 		assertEquals(true, solution.isPalindrome(head));
+		head = null;
+		assertEquals(true, solution.isPalindrome(head));
 	}
 }
