@@ -580,4 +580,11 @@ public class SolutionTest {
 		root.right = new TreeNode(8);
 		assertEquals(root, solution.lowestCommonAncestor(root, root, root.right));
 	}
+	
+	@Test
+	public void test237() {
+		ListNode head = new ListNode(1, new ListNode(2, new ListNode(3, new ListNode(4))));
+		solution.deleteNode(head.next.next);
+		assertEquals("[1,2,4]", Utility.toString(head));
+	}
 }
