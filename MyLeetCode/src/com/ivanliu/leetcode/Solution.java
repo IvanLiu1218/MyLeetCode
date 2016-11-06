@@ -1598,6 +1598,7 @@ public class Solution {
      *  the linked list should become 1 -> 2 -> 4 after calling your function.
      */
     public void deleteNode(ListNode node) {
-        
+        node.val = node.next.val;
+        node.next = node.next.next;
     }
 }
