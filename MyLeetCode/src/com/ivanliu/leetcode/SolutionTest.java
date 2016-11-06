@@ -563,17 +563,21 @@ public class SolutionTest {
 	
 	@Test
 	public void test235() {
-		TreeNode p = new TreeNode(4);
+		TreeNode p = new TreeNode(3);
 		TreeNode q = new TreeNode(9);
 		TreeNode root = new TreeNode(6);
 		root.left = new TreeNode(2);
 		root.left.left = new TreeNode(0);
-		root.left.right = p;
-		root.left.right.left = new TreeNode(3);
+		root.left.right = new TreeNode(4);
+		root.left.right.left = p;
 		root.left.right.right = new TreeNode(5);
 		root.right = new TreeNode(8);
 		root.right.left = new TreeNode(7);
 		root.right.right = q;
 		assertEquals(root, solution.lowestCommonAncestor(root, p, q));
+		
+		root = new TreeNode(6);
+		root.right = new TreeNode(8);
+		assertEquals(root, solution.lowestCommonAncestor(root, root, root.right));
 	}
 }

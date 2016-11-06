@@ -1562,6 +1562,8 @@ public class Solution {
     	List<TreeNode> path2 = new ArrayList<>();
     	lowestCommonAncestor(path1, root, p);
     	lowestCommonAncestor(path2, root, q);
+    	//Utility.print(path1);
+    	//Utility.print(path2);
     	for (int i = path1.size() - 1; i >= 0; --i) {
     		for (int j = path2.size() - 1; j >= 0; --j) {
     			if (path1.get(i) == path2.get(j)) {
@@ -1571,13 +1573,19 @@ public class Solution {
     	}
         return null;
     }
-    public void lowestCommonAncestor(List<TreeNode> path, TreeNode node, TreeNode target) {
-    	if (node == null || node == target) {
-    		return;
-    	} else {
+    // return true if found.
+    public boolean lowestCommonAncestor(List<TreeNode> path, TreeNode node, TreeNode target) {
+    	if (node == null) {
+    		return false;
+    	} else if (node == target) {
     		path.add(node);
-    		lowestCommonAncestor(path, node.left, target);
-    		lowestCommonAncestor(path, node.right, target);
+    		return true;
+    	}else {
+    		path.add(node);
+    		if (lowestCommonAncestor(path, node.left, target)) return true;
+    		if (lowestCommonAncestor(path, node.right, target)) return true;
+    		path.remove(node);
+    		return false;
     	}
     }
 }

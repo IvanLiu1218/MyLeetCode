@@ -1,5 +1,7 @@
 package com.ivanliu.leetcode;
 
+import java.util.List;
+
 public class Utility {
 
 	public static class ListNode {
@@ -44,5 +46,14 @@ public class Utility {
 		TreeNode left;
 		TreeNode right;
 		TreeNode(int x) { val = x; }
+	}
+	
+	public static void print(List<TreeNode> list) {
+		if (list.size() <= 0) return;
+		System.out.print(list.get(0).val);
+		for (int i = 1; i < list.size(); ++i) {
+			System.out.print(String.format(",%d", list.get(i).val));
+		}
+		System.out.println(' ');
 	}
 }
