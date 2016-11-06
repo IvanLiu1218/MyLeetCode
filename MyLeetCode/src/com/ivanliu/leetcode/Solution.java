@@ -1616,6 +1616,31 @@ public class Solution {
      *  You may assume the string contains only lowercase alphabets.
      */
     public boolean isAnagram(String s, String t) {
-        return false;
+        Map<Character, Integer> map = new HashMap<>();
+        for (int i = 0; i < s.length(); ++i) {
+        	char c = s.charAt(i);
+        	if (!map.containsKey(c)) {
+        		map.put(c, 1);
+        	} else {
+        		int v = map.get(c);
+        		map.put(c, ++v);
+        	}
+        }
+        for (int j = 0; j < t.length(); ++j) {
+        	char c = t.charAt(j);
+        	if (!map.containsKey(c)) {
+        		return false;
+        	} else {
+        		int v = map.get(c);
+        		map.put(c, --v);
+        	}
+        }
+        Iterator<Character> it = map.keySet().iterator();
+        while (it.hasNext()) {
+        	if (map.get(it.next()) != 0) {
+        		return false;
+        	}
+        }
+        return true;
     }
 }

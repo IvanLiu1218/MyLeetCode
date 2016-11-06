@@ -587,4 +587,19 @@ public class SolutionTest {
 		solution.deleteNode(head.next.next);
 		assertEquals("[1,2,4]", Utility.toString(head));
 	}
+	
+	@Test
+	public void test242() {
+		String s = "anagram";
+		String t = "nagaram";
+		assertEquals(true, solution.isAnagram(s, t));
+		
+		s = "rat";
+		t = "car";
+		assertEquals(false, solution.isAnagram(s, t));
+		
+		s = "aaaaabb";
+		t = "baabaaa";
+		assertEquals(true, solution.isAnagram(s, t));
+	}
 }
