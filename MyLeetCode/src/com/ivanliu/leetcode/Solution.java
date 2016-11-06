@@ -1601,4 +1601,46 @@ public class Solution {
         node.val = node.next.val;
         node.next = node.next.next;
     }
+    
+    /**
+     *  [Easy]
+     *  #242. Valid Anagram
+     *  
+     *  Given two strings s and t, write a function to determine if t is an anagram of s.
+     *  
+     *  For example,
+     *  s = "anagram", t = "nagaram", return true.
+     *  s = "rat", t = "car", return false.
+     *  
+     *  Note:
+     *  You may assume the string contains only lowercase alphabets.
+     */
+    public boolean isAnagram(String s, String t) {
+        Map<Character, Integer> map = new HashMap<>();
+        for (int i = 0; i < s.length(); ++i) {
+        	char c = s.charAt(i);
+        	if (!map.containsKey(c)) {
+        		map.put(c, 1);
+        	} else {
+        		int v = map.get(c);
+        		map.put(c, ++v);
+        	}
+        }
+        for (int j = 0; j < t.length(); ++j) {
+        	char c = t.charAt(j);
+        	if (!map.containsKey(c)) {
+        		return false;
+        	} else {
+        		int v = map.get(c);
+        		map.put(c, --v);
+        	}
+        }
+        Iterator<Character> it = map.keySet().iterator();
+        while (it.hasNext()) {
+        	if (map.get(it.next()) != 0) {
+        		return false;
+        	}
+        }
+        return true;
+    }
 }
