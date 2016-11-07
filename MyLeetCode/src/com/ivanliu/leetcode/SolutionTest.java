@@ -641,4 +641,20 @@ public class SolutionTest {
 		assertEquals(7, solution.addDigits(1231));
 		assertEquals(9, solution.addDigits(1242));
 	}
+	
+	@Test
+	public void test263() {
+		assertEquals(true, solution.isUgly(1));
+		assertEquals(true, solution.isUgly(2));
+		assertEquals(true, solution.isUgly(3));
+		assertEquals(true, solution.isUgly(5));
+		assertEquals(true, solution.isUgly(6));
+		assertEquals(true, solution.isUgly(8));
+		assertEquals(false, solution.isUgly(14));
+		assertEquals(false, solution.isUgly(33));
+		assertEquals(false, solution.isUgly(77));
+		// Time Limit Exceeded
+		assertEquals(false, solution.isUgly(0));
+		
+	}
 }

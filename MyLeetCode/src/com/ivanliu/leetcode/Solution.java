@@ -1694,4 +1694,30 @@ public class Solution {
     	int result = num % 9;
         return result == 0 ? 9 : result;
     }
+    
+    /**
+     *  [Easy]
+     *  #263. Ugly Number
+     *  
+     *  Write a program to check whether a given number is an ugly number.
+     *  Ugly numbers are positive numbers whose prime factors only include 2, 3, 5. 
+     *  For example, 6, 8 are ugly while 14 is not ugly since it includes another prime factor 7.
+     *  Note that 1 is typically treated as an ugly number.
+     */
+    public boolean isUgly(int num) {
+    	if (num == 0) return false;
+    	int val = num;
+    	int[] factors = new int[] {2, 3, 5};
+    	while (val != 1) {
+    		int i = 0;
+    		for (; i < factors.length; ++i) {
+    			if (val % factors[i] == 0) {
+    				val = val / factors[i];
+    				break;
+    			}
+    		}
+    		if (i >= factors.length) return false;
+    	}
+        return true;
+    }
 }
