@@ -655,6 +655,17 @@ public class SolutionTest {
 		assertEquals(false, solution.isUgly(77));
 		// Time Limit Exceeded
 		assertEquals(false, solution.isUgly(0));
-		
+	}
+	
+	@Test
+	public void test278() {
+		solution.firstBadVer = 1;
+		assertEquals(1, solution.firstBadVersion(1));
+		solution.firstBadVer = 1;
+		assertEquals(1, solution.firstBadVersion(2));
+		solution.firstBadVer = 4;
+		assertEquals(4, solution.firstBadVersion(7));
+		solution.firstBadVer = 1702766719;
+		assertEquals(1702766719, solution.firstBadVersion(2126753390));
 	}
 }
