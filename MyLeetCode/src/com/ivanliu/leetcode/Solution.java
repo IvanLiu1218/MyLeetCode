@@ -1705,6 +1705,19 @@ public class Solution {
      *  Note that 1 is typically treated as an ugly number.
      */
     public boolean isUgly(int num) {
-        return false;
+    	if (num == 0) return false;
+    	int val = num;
+    	int[] factors = new int[] {2, 3, 5};
+    	while (val != 1) {
+    		int i = 0;
+    		for (; i < factors.length; ++i) {
+    			if (val % factors[i] == 0) {
+    				val = val / factors[i];
+    				break;
+    			}
+    		}
+    		if (i >= factors.length) return false;
+    	}
+        return true;
     }
 }
