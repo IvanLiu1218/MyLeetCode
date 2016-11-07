@@ -1733,11 +1733,19 @@ public class Solution {
      *  You are given an API bool isBadVersion(version) which will return whether version is bad. 
      *  Implement a function to find the first bad version. You should minimize the number of calls to the API.
      */
+    public int firstBadVer = 0;
     public int firstBadVersion(int n) {
-        return 0;
+    	long goodIndex = 1;
+    	long badIndex  = n;
+    	while (badIndex - goodIndex > 1 ) {
+    		int checkIndex = (int) ((goodIndex + badIndex ) / 2);
+    		if (isBadVersion(checkIndex)) badIndex = checkIndex;
+    		else goodIndex = checkIndex;
+    	}
+        return (int) (isBadVersion((int)goodIndex) ? goodIndex : badIndex);
     }
     
     public boolean isBadVersion(int version) {
-    	return false;
+    	return version >= firstBadVer;
     }
 }
