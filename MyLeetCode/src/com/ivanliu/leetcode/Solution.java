@@ -1643,4 +1643,37 @@ public class Solution {
         }
         return true;
     }
+    
+    /**
+     *  [Easy]
+     *  #257. Binary Tree Paths
+     *  
+     *  Given a binary tree, return all root-to-leaf paths.
+     *  For example, given the following binary tree:
+     *  
+     *     1
+     *   /   \
+     *  2     3
+     *   \
+     *    5
+     *  All root-to-leaf paths are:
+     *  ["1->2->5", "1->3"]
+     */
+    public List<String> binaryTreePaths(TreeNode root) {
+    	List<String> result = new ArrayList<>();
+    	if (root != null) {
+    		this.binaryTreePaths(result, "" + root.val, root);
+    	}
+        return result;
+    }
+    
+    public void binaryTreePaths(List<String> result, String path, TreeNode node) {
+    	if (node.left == null && node.right == null) {
+    		result.add(path);
+    		return;
+    	} else {
+    		if (node.left != null) binaryTreePaths(result, path + "->" + node.left.val, node.left);
+    		if (node.right != null) binaryTreePaths(result, path + "->" + node.right.val, node.right);
+    	}
+    }
 }
