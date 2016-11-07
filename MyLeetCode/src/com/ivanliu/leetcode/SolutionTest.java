@@ -602,4 +602,35 @@ public class SolutionTest {
 		t = "baabaaa";
 		assertEquals(true, solution.isAnagram(s, t));
 	}
+	
+	@Test
+	public void test257() {
+		TreeNode root = new TreeNode(1);
+		root.left = new TreeNode(2);
+		root.left.right = new TreeNode(5);
+		root.right = new TreeNode(3);
+		List<String> result = solution.binaryTreePaths(root);
+		assertEquals("1->2->5", result.get(0));
+		assertEquals("1->3", result.get(1));
+		
+		root = new TreeNode(6);
+		root.left = new TreeNode(2);
+		root.left.left = new TreeNode(0);
+		root.left.right = new TreeNode(4);
+		root.left.right.left = new TreeNode(3);
+		root.left.right.right = new TreeNode(5);
+		root.right = new TreeNode(8);
+		root.right.left = new TreeNode(7);
+		root.right.right = new TreeNode(9);
+		result = solution.binaryTreePaths(root);
+		assertEquals("6->2->0", result.get(0));
+		assertEquals("6->2->4->3", result.get(1));
+		assertEquals("6->2->4->5", result.get(2));
+		assertEquals("6->8->7", result.get(3));
+		assertEquals("6->8->9", result.get(4));
+		
+		// Runtime Error
+		result = solution.binaryTreePaths(null);
+		assertEquals(0, result.size());
+	}
 }
