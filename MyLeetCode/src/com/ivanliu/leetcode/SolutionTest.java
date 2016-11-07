@@ -633,4 +633,12 @@ public class SolutionTest {
 		result = solution.binaryTreePaths(null);
 		assertEquals(0, result.size());
 	}
+	
+	@Test
+	public void test258() {
+		assertEquals(0, solution.addDigits(0));
+		assertEquals(2, solution.addDigits(11));
+		assertEquals(7, solution.addDigits(1231));
+		assertEquals(9, solution.addDigits(1242));
+	}
 }

@@ -1690,6 +1690,8 @@ public class Solution {
      *  Could you do it without any loop/recursion in O(1) runtime?
      */
     public int addDigits(int num) {
-        return 0;
+    	if (num == 0) return 0;
+    	int result = num % 9;
+        return result == 0 ? 9 : result;
     }
 }
