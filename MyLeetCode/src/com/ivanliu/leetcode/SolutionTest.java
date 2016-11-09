@@ -668,4 +668,23 @@ public class SolutionTest {
 		solution.firstBadVer = 1702766719;
 		assertEquals(1702766719, solution.firstBadVersion(2126753390));
 	}
+	
+	@Test
+	public void test283() {
+		int[] nums = new int[] {0,1,0,3,12};
+		solution.moveZeroes(nums);
+		assertEquals("[1, 3, 12, 0, 0]", Arrays.toString(nums));
+		nums = new int[] {0,0,0,0,0};
+		solution.moveZeroes(nums);
+		assertEquals("[0, 0, 0, 0, 0]", Arrays.toString(nums));
+		nums = new int[] {1,2,3,4,5};
+		solution.moveZeroes(nums);
+		assertEquals("[1, 2, 3, 4, 5]", Arrays.toString(nums));
+		nums = new int[] {0,0,3,4,5};
+		solution.moveZeroes(nums);
+		assertEquals("[3, 4, 5, 0, 0]", Arrays.toString(nums));
+		nums = new int[] {3,4,5,0,0};
+		solution.moveZeroes(nums);
+		assertEquals("[3, 4, 5, 0, 0]", Arrays.toString(nums));
+	}
 }
