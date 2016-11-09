@@ -687,4 +687,12 @@ public class SolutionTest {
 		solution.moveZeroes(nums);
 		assertEquals("[3, 4, 5, 0, 0]", Arrays.toString(nums));
 	}
+	
+	@Test
+	public void test290() {
+		assertEquals(true, solution.wordPattern("abba", "dog cat cat dog"));
+		assertEquals(false, solution.wordPattern("abba", "dog cat cat fish"));
+		assertEquals(false, solution.wordPattern("aaaa", "dog cat cat dog"));
+		assertEquals(false, solution.wordPattern("abba", "dog dog dog dog"));
+	}
 }

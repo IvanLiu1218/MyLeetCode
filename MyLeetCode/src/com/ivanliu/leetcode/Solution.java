@@ -1790,6 +1790,26 @@ public class Solution {
      *  You may assume pattern contains only lowercase letters, and str contains lowercase letters separated by a single space.
      */
     public boolean wordPattern(String pattern, String str) {
-        return false;
+    	String[] strs = str.split(" ");
+    	if (pattern.length() != strs.length) return false;
+    	Map<Character, String> map1 = new HashMap<>();
+    	for (int i = 0; i < pattern.length(); ++i) {
+    		if (!map1.containsKey(pattern.charAt(i))) {
+    			map1.put(pattern.charAt(i), strs[i]);
+    		} else {
+    			String s = map1.get(pattern.charAt(i));
+    			if (!s.equals(strs[i])) return false;
+    		}
+    	}
+    	Map<String, Character> map2 = new HashMap<>();
+    	for (int j = 0; j < pattern.length(); ++j) {
+    		if (!map2.containsKey(strs[j])) {
+    			map2.put(strs[j], pattern.charAt(j));
+    		} else {
+    			char c = map2.get(strs[j]);
+    			if (c != pattern.charAt(j)) return false;
+    		}
+    	}
+        return true;
     }
 }
