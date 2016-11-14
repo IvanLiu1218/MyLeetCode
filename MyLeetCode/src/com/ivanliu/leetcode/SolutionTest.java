@@ -695,4 +695,16 @@ public class SolutionTest {
 		assertEquals(false, solution.wordPattern("aaaa", "dog cat cat dog"));
 		assertEquals(false, solution.wordPattern("abba", "dog dog dog dog"));
 	}
+	
+	@Test
+	public void test292() {
+		assertEquals(true, solution.canWinNim(1));
+		assertEquals(true, solution.canWinNim(2));
+		assertEquals(true, solution.canWinNim(3));
+		assertEquals(false, solution.canWinNim(4));
+		assertEquals(true, solution.canWinNim(5));
+		assertEquals(true, solution.canWinNim(6));
+		assertEquals(true, solution.canWinNim(7));
+		assertEquals(false, solution.canWinNim(8));
+	}
 }

@@ -1827,6 +1827,6 @@ public class Solution {
      *  no matter 1, 2, or 3 stones you remove, the last stone will always be removed by your friend.
      */
     public boolean canWinNim(int n) {
-        return false;
+        return n % 4 != 0;
     }
 }
