@@ -731,5 +731,8 @@ public class SolutionTest {
 		assertEquals(-4, nums.sumRange(3, 5));
 		assertEquals( 1, nums.sumRange(4, 5));
 		// Time Limit Exceeded
+		// Runtime Error if nums is empty;
+		nums = solution.new NumArray(new int[] {});
+		assertEquals(-4, nums.sumRange(0, 3));
 	}
 }

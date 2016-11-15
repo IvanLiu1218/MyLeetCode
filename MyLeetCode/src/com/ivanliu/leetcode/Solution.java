@@ -1911,23 +1911,18 @@ public class Solution {
      *  There are many calls to sumRange function.
      */
     public class NumArray {
-    	List<List<Integer>> table = new ArrayList<>();
+    	int[] sum = null;
         public NumArray(int[] nums) {
-            for (int i = 0; i < nums.length; ++i) {
-            	List<Integer> row = new ArrayList<>();
-            	for (int j = 0; j <= i; ++j) {
-            		if (i != j) {
-            			row.add(table.get(i - 1).get(j) + nums[i]);
-            		} else {
-            			row.add(nums[i]);
-            		}
-            	}
-            	table.add(row);
+            final int length = nums.length;
+            sum = new int[length + 1];
+            sum[0] = 0;
+            for (int i = 1; i < length + 1; ++i) {
+            	sum[i] = sum[i - 1] + nums[i - 1];
             }
         }
 
         public int sumRange(int i, int j) {
-            return table.get(j).get(i);
+            return sum[j + 1] - sum[i];
         }
     }
     // Your NumArray object will be instantiated and called as such:
