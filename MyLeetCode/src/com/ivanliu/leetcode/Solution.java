@@ -1856,6 +1856,43 @@ public class Solution {
      *  You may assume that the secret number and your friend's guess only contain digits, and their lengths are always equal.
      */
     public String getHint(String secret, String guess) {
-        return null;
+    	int bulls = 0;
+    	int cows = 0;
+        Map<Character, Integer> map = new HashMap<>();
+        for (int i = 0; i < secret.length(); ++i) {
+        	if (secret.charAt(i) == guess.charAt(i)) {
+        		++bulls;
+        	}
+        }
+        for (int i = 0; i < secret.length(); ++i) {
+        	char s = secret.charAt(i);
+        	char g = guess.charAt(i);
+        	if (s != g) {
+        		if (!map.containsKey(s)) {
+        			map.put(s, 1);
+        		} else {
+        			int v = map.get(s);
+        			++v;
+        			map.put(s, v);
+        		}
+        	}
+        }
+        for (int i = 0; i < guess.length(); ++i) {
+        	char s = secret.charAt(i);
+        	char g = guess.charAt(i);
+        	if (s != g) {
+        		if (map.containsKey(g)) {
+        			++cows;
+        			int v = map.get(g);
+        			--v;
+        			if (v == 0) {
+        				map.remove(g);
+        			} else {
+        				map.put(g, v);
+        			}
+        		}
+        	}
+        }
+    	return String.format("%dA%dB", bulls, cows);
     }
 }
