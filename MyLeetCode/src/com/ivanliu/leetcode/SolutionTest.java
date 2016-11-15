@@ -707,4 +707,14 @@ public class SolutionTest {
 		assertEquals(true, solution.canWinNim(7));
 		assertEquals(false, solution.canWinNim(8));
 	}
+	
+	@Test
+	public void test299() {
+		assertEquals("1A3B", solution.getHint("1807", "7810"));
+		assertEquals("1A1B", solution.getHint("1123", "0111"));
+		assertEquals("1A0B", solution.getHint("1111111111", "0010000000"));
+		assertEquals("1A1B", solution.getHint("1111111101", "0010000020"));
+		// Wrong Answer
+		assertEquals("0A4B", solution.getHint("1122", "2211"));
+	}
 }
