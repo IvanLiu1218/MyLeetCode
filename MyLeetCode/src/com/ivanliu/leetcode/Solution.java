@@ -1929,4 +1929,16 @@ public class Solution {
     // NumArray numArray = new NumArray(nums);
     // numArray.sumRange(0, 1);
     // numArray.sumRange(1, 2);
+    
+    /**
+     *  [Easy]
+     *  #326. Power of Three
+     *  
+     *  Given an integer, write a function to determine if it is a power of three.
+     *  Follow up:
+     *  Could you do it without using any loop / recursion?
+     */
+    public boolean isPowerOfThree(int n) {
+        return false;
+    }
 }
