@@ -10,6 +10,7 @@ import org.junit.Test;
 import com.ivanliu.leetcode.Solution.MinStack;
 import com.ivanliu.leetcode.Solution.MyQueue;
 import com.ivanliu.leetcode.Solution.MyStack;
+import com.ivanliu.leetcode.Solution.NumArray;
 import com.ivanliu.leetcode.Utility.ListNode;
 import com.ivanliu.leetcode.Utility.TreeNode;
 
@@ -716,5 +717,19 @@ public class SolutionTest {
 		assertEquals("1A1B", solution.getHint("1111111101", "0010000020"));
 		// Wrong Answer
 		assertEquals("0A4B", solution.getHint("1122", "2211"));
+	}
+	
+	@Test
+	public void test303() {
+		NumArray nums = solution.new NumArray(new int[] {-2, 0, 3, -5, 2, -1});
+		assertEquals(-4, nums.sumRange(0, 3));
+		assertEquals(-3, nums.sumRange(0, 5));
+		assertEquals( 0, nums.sumRange(1, 4));
+		assertEquals(-1, nums.sumRange(1, 5));
+		assertEquals( 3, nums.sumRange(2, 2));
+		assertEquals(-1, nums.sumRange(2, 5));
+		assertEquals(-4, nums.sumRange(3, 5));
+		assertEquals( 1, nums.sumRange(4, 5));
+		// Time Limit Exceeded
 	}
 }
