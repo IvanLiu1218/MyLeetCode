@@ -2003,6 +2003,22 @@ public class Solution {
      *  The result can be in any order.
      */
     public int[] intersection(int[] nums1, int[] nums2) {
-        return null;
+    	Set<Integer> set1 = new HashSet<>();
+    	for (int i = 0; i < nums1.length; ++i) {
+    		set1.add(nums1[i]);
+    	}
+    	Set<Integer> resSet = new HashSet<>();
+    	for (int j = 0; j < nums2.length; ++j) {
+    		if (set1.contains(nums2[j])) {
+    			resSet.add(nums2[j]);
+    		}
+    	}
+    	int[] result = new int[resSet.size()];
+    	int k = 0;
+    	Iterator<Integer> it = resSet.iterator();
+    	while (it.hasNext()) {
+    		result[k++] = (int)it.next();
+    	}
+        return result;
     }
 }
