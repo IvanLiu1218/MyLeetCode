@@ -735,4 +735,10 @@ public class SolutionTest {
 		nums = solution.new NumArray(new int[] {});
 		assertEquals(-4, nums.sumRange(0, 3));
 	}
+	
+	@Test
+	public void test344() {
+		assertEquals("olleh", solution.reverseString("hello"));
+		assertEquals("nmlkjihgfedcba", solution.reverseString("abcdefghijklmn"));
+	}
 }
