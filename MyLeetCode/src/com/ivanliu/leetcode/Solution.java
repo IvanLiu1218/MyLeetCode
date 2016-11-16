@@ -1929,4 +1929,21 @@ public class Solution {
     // NumArray numArray = new NumArray(nums);
     // numArray.sumRange(0, 1);
     // numArray.sumRange(1, 2);
+    
+    /**
+     *  [Easy]
+     *  #344. Reverse String
+     *  
+     *  Write a function that takes a string as input and returns the string reversed.
+     *  
+     *  Example:
+     *  Given s = "hello", return "olleh".
+     */
+    public String reverseString(String s) {
+        StringBuilder sb = new StringBuilder();
+        for (int i = s.length() - 1; i >= 0; --i) {
+        	sb.append(s.charAt(i));
+        }
+        return sb.toString();
+    }
 }
