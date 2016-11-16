@@ -1939,6 +1939,15 @@ public class Solution {
      *  Could you do it without using any loop / recursion?
      */
     public boolean isPowerOfThree(int n) {
-        return false;
+        return this.isPowerOfThree_solution1(n);
+    }
+    
+    public boolean isPowerOfThree_solution1(int n) {
+    	int factor = 1;
+    	while (factor <= n) {
+    		if (factor == n) return true;
+    		factor *= 3;
+    	}
+    	return false;
     }
 }

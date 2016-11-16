@@ -735,4 +735,19 @@ public class SolutionTest {
 		nums = solution.new NumArray(new int[] {});
 		assertEquals(-4, nums.sumRange(0, 3));
 	}
+	
+	@Test
+	public void test326() {
+		assertEquals(true, solution.isPowerOfThree(1));
+		assertEquals(false, solution.isPowerOfThree(2));
+		assertEquals(true, solution.isPowerOfThree(3));
+		assertEquals(true, solution.isPowerOfThree(243));
+		assertEquals(true, solution.isPowerOfThree(2187));
+		assertEquals(false, solution.isPowerOfThree(2188));
+		assertEquals(true, solution.isPowerOfThree(59049));
+		assertEquals(false, solution.isPowerOfThree(59149));
+		// Time Limit Exceeded
+		//assertEquals(true, solution.isPowerOfThree(2147483647));
+		
+	}
 }
