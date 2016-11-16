@@ -755,4 +755,12 @@ public class SolutionTest {
 		// Wrong Answer
 		assertEquals("Aa", solution.reverseVowels("aA"));
 	}
+	
+	@Test
+	public void test349() {
+		assertEquals("[2]", Arrays.toString(solution.intersection(new int[] {1,2,2,1}, new int[] {2,2})));
+		assertEquals("[1, 2]", Arrays.toString(solution.intersection(new int[] {1,2,2,1}, new int[] {2,1})));
+		assertEquals("[]", Arrays.toString(solution.intersection(new int[] {}, new int[] {2,2})));
+		assertEquals("[]", Arrays.toString(solution.intersection(new int[] {1,2,2,1}, new int[] {})));
+	}
 }
