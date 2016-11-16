@@ -741,4 +741,18 @@ public class SolutionTest {
 		assertEquals("olleh", solution.reverseString("hello"));
 		assertEquals("nmlkjihgfedcba", solution.reverseString("abcdefghijklmn"));
 	}
+	
+	@Test
+	public void test345() {
+		assertEquals("holle", solution.reverseVowels("hello"));
+		assertEquals("leotcede", solution.reverseVowels("leetcode"));
+		assertEquals("ae", solution.reverseVowels("ea"));
+		assertEquals("o", solution.reverseVowels("o"));
+		assertEquals("abc", solution.reverseVowels("abc"));
+		assertEquals("bac", solution.reverseVowels("bac"));
+		assertEquals("bca", solution.reverseVowels("bca"));
+		assertEquals("", solution.reverseVowels(""));
+		// Wrong Answer
+		assertEquals("Aa", solution.reverseVowels("aA"));
+	}
 }
