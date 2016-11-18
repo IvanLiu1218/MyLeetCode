@@ -2040,6 +2040,33 @@ public class Solution {
      *   - What if elements of nums2 are stored on disk, and the memory is limited such that you cannot load all elements into the memory at once?
      */
     public int[] intersect(int[] nums1, int[] nums2) {
-        return null;
+    	Map<Integer, Integer> map1 = new HashMap<>();
+    	for (int i = 0; i < nums1.length; ++i) {
+    		int num = nums1[i];
+    		if (!map1.containsKey(num)) {
+    			map1.put(num, 1);
+    		} else {
+    			int val = map1.get(num);
+    			map1.put(num, ++val);
+    		}
+    	}
+    	List<Integer> resList = new ArrayList<>();
+    	for (int j = 0; j < nums2.length; ++j) {
+    		int num = nums2[j];
+    		if (map1.containsKey(num)) {
+    			resList.add(num);
+    			int val = map1.get(num);
+    			if (--val == 0) {
+    				map1.remove(num);
+    			} else {
+    				map1.put(num, val);
+    			}
+    		}
+    	}
+    	int[] result = new int[resList.size()];
+    	for (int k = 0; k < resList.size(); ++k) {
+    		result[k] = resList.get(k);
+     	}
+        return result;
     }
 }
