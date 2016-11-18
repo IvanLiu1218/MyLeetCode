@@ -770,4 +770,11 @@ public class SolutionTest {
 		assertEquals("[2, 2]", Arrays.toString(solution.intersect(new int[] {1,2,2,1,2}, new int[] {2,2})));
 		assertEquals("[2, 2]", Arrays.toString(solution.intersect(new int[] {1,2,2,1,3}, new int[] {2,2,2})));
 	}
+	
+	@Test
+	public void test371() {
+		assertEquals(3, solution.getSum(1, 2));
+		assertEquals(5, solution.getSum(3, 2));
+		assertEquals(32, solution.getSum(12, 20));
+	}
 }

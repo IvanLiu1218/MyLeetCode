@@ -2080,6 +2080,16 @@ public class Solution {
      *  Given a = 1 and b = 2, return 3.
      */
     public int getSum(int a, int b) {
-        return 0;
+    	int val1 = a;
+    	int val2 = b;
+    	int v1 = (val1 & val2) << 1;
+    	int v2 = val1 ^ val2;
+    	while ((v1 & v2) != 0) {
+    		val1 = v1;
+    		val2 = v2;
+    		v1 = (val1 & val2) << 1;
+    		v2 = val1 ^ val2;
+    	}
+        return v1 | v2;
     }
 }
