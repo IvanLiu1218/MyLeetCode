@@ -2021,4 +2021,52 @@ public class Solution {
     	}
         return result;
     }
+    
+    /**
+     *  [Easy]
+     *  #350. Intersection of Two Arrays II
+     *  
+     *  Given two arrays, write a function to compute their intersection.
+     *  
+     *  Example:
+     *  Given nums1 = [1, 2, 2, 1], nums2 = [2, 2], return [2, 2].
+     *  
+     *  Note:
+     *  Each element in the result should appear as many times as it shows in both arrays.
+     *  The result can be in any order.
+     *  Follow up:
+     *   - What if the given array is already sorted? How would you optimize your algorithm?
+     *   - What if nums1's size is small compared to nums2's size? Which algorithm is better?
+     *   - What if elements of nums2 are stored on disk, and the memory is limited such that you cannot load all elements into the memory at once?
+     */
+    public int[] intersect(int[] nums1, int[] nums2) {
+    	Map<Integer, Integer> map1 = new HashMap<>();
+    	for (int i = 0; i < nums1.length; ++i) {
+    		int num = nums1[i];
+    		if (!map1.containsKey(num)) {
+    			map1.put(num, 1);
+    		} else {
+    			int val = map1.get(num);
+    			map1.put(num, ++val);
+    		}
+    	}
+    	List<Integer> resList = new ArrayList<>();
+    	for (int j = 0; j < nums2.length; ++j) {
+    		int num = nums2[j];
+    		if (map1.containsKey(num)) {
+    			resList.add(num);
+    			int val = map1.get(num);
+    			if (--val == 0) {
+    				map1.remove(num);
+    			} else {
+    				map1.put(num, val);
+    			}
+    		}
+    	}
+    	int[] result = new int[resList.size()];
+    	for (int k = 0; k < resList.size(); ++k) {
+    		result[k] = resList.get(k);
+     	}
+        return result;
+    }
 }

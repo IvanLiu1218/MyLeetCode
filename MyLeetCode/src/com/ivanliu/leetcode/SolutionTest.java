@@ -763,4 +763,11 @@ public class SolutionTest {
 		assertEquals("[]", Arrays.toString(solution.intersection(new int[] {}, new int[] {2,2})));
 		assertEquals("[]", Arrays.toString(solution.intersection(new int[] {1,2,2,1}, new int[] {})));
 	}
+	
+	@Test
+	public void test350() {
+		assertEquals("[2, 2]", Arrays.toString(solution.intersect(new int[] {1,2,2,1}, new int[] {2,2})));
+		assertEquals("[2, 2]", Arrays.toString(solution.intersect(new int[] {1,2,2,1,2}, new int[] {2,2})));
+		assertEquals("[2, 2]", Arrays.toString(solution.intersect(new int[] {1,2,2,1,3}, new int[] {2,2,2})));
+	}
 }
