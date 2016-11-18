@@ -2069,4 +2069,27 @@ public class Solution {
      	}
         return result;
     }
+    
+    /**
+     *  [Easy]
+     *  #371. Sum of Two Integers
+     *  
+     *  Calculate the sum of two integers a and b, but you are not allowed to use the operator + and -.
+     *  
+     *  Example:
+     *  Given a = 1 and b = 2, return 3.
+     */
+    public int getSum(int a, int b) {
+    	int val1 = a;
+    	int val2 = b;
+    	int v1 = (val1 & val2) << 1;
+    	int v2 = val1 ^ val2;
+    	while ((v1 & v2) != 0) {
+    		val1 = v1;
+    		val2 = v2;
+    		v1 = (val1 & val2) << 1;
+    		v2 = val1 ^ val2;
+    	}
+        return v1 | v2;
+    }
 }
