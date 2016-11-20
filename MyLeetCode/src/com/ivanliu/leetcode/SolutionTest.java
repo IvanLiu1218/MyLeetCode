@@ -908,4 +908,13 @@ public class SolutionTest {
 		assertEquals(3, solution.longestPalindrome("ccca"));
 		assertEquals(5, solution.longestPalindrome("cccaaa"));
 	}
+	
+	@Test
+	public void test412() {
+		assertEquals("[1]", Arrays.toString(solution.fizzBuzz(1).toArray()));
+		assertEquals("[1, 2]", Arrays.toString(solution.fizzBuzz(2).toArray()));
+		assertEquals("[1, 2, Fizz]", Arrays.toString(solution.fizzBuzz(3).toArray()));
+		assertEquals("[1, 2, Fizz, 4, Buzz]", Arrays.toString(solution.fizzBuzz(5).toArray()));
+		assertEquals("[1, 2, Fizz, 4, Buzz, Fizz, 7, 8, Fizz, Buzz, 11, Fizz, 13, 14, FizzBuzz]", Arrays.toString(solution.fizzBuzz(15).toArray()));
+	}
 }

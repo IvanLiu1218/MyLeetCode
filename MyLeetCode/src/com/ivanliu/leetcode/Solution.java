@@ -2595,6 +2595,21 @@ public class Solution {
      */
     public List<String> fizzBuzz(int n) {
         List<String> resList = new ArrayList<>();
+        for (int i = 1; i <= n; ++i) {
+        	int value = i;
+        	boolean isNumber = true;
+        	StringBuilder sb = new StringBuilder();
+        	if (value % 3 == 0) {
+        		isNumber = false;
+        		sb.append("Fizz");
+        	}
+        	if (value % 5 == 0) {
+        		isNumber = false;
+        		sb.append("Buzz");
+        	}
+        	if (isNumber) sb.append(value);
+        	resList.add(sb.toString());
+        }
         return resList;
     }
 }
