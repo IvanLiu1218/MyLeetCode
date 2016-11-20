@@ -2272,6 +2272,35 @@ public class Solution {
      *  So the maximum value of F(0), F(1), F(2), F(3) is F(3) = 26.
      */
     public int maxRotateFunction(int[] A) {
+    	/*
+    	 * F(0) = 0 * A[0] + 1 * A[1] + 2 * A[2] + 3 * A[3]
+    	 * F(1) = 1 * A[0] + 2 * A[1] + 3 * A[2] + 0 * A[3] = F(0) + ALL - 4 * A[3]
+    	 * F(2) = 2 * A[0] + 3 * A[1] + 0 * A[2] + 1 * A[3] = F(0) + 2All - 4 * A[2] - 4 * A[3]
+    	 *                                                  = F(1) + ALL - 4 * A[2]
+    	 * F(3) = 3 * A[0] + 0 * A[1] + 1 * A[2] + 2 * A[3] = F(0) + 3ALL - 4 * A[1] - 4 * A[2] - 4 * A[3]
+    	 *                                                  = F(2) + ALL - 4 * A[1]
+    	 */
+    	if (A == null || A.length == 0) return 0;
+    	int N = A.length;
+    	int f0 = 0;
+    	for (int i = 0; i < N; ++i) {
+    		f0 += i * A[i];
+    	}
+    	int sum = 0;
+    	for (int i = 0; i < N; ++i) {
+    		sum += A[i];
+    	}
+    	int result = f0;
+    	int value = f0;
+    	for (int j = 1; j < N; ++j) {
+    		value = value + sum - N * A[N - j];
+    		if (value > result) result = value;
+    	}
+    	return result;
+    	//return maxRotateFunction_TimeLimitExceeded(A);
+    }
+    // Time Limit Exceeded
+    public int maxRotateFunction_TimeLimitExceeded(int[] A) {
     	if (A == null || A.length == 0) return 0;
     	int N = A.length;
     	int result = Integer.MIN_VALUE;
