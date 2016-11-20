@@ -805,4 +805,13 @@ public class SolutionTest {
 		assertEquals(true, solution.canConstruct("aa", "aabb"));
 		assertEquals(false, solution.canConstruct("aabb", "aab"));
 	}
+	
+	@Test
+	public void test387() {
+		assertEquals(0, solution.firstUniqChar("leetcode"));
+		assertEquals(2, solution.firstUniqChar("loveleetcode"));
+		assertEquals(7, solution.firstUniqChar("loveleetcodev"));
+		assertEquals(8, solution.firstUniqChar("loveleetcodevt"));
+		assertEquals(-1, solution.firstUniqChar("loveleetcodevtcd"));
+	}
 }
