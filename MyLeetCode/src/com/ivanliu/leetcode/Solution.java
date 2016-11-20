@@ -146,9 +146,9 @@ public class Solution {
 	 *  You may assume that the maximum length of S is 1000, 
 	 *  and there exists one unique longest palindromic substring.
 	 */
-	public String longestPalindrome(String s) {
-        return null;
-    }
+//	public String longestPalindrome(String s) {
+//        return null;
+//    }
 	
 	/**
 	 *  [Easy] #006. ZigZag Conversion
@@ -2512,5 +2512,54 @@ public class Solution {
     	String res = sb.toString();
     	if (res.length() == 0) return "0";
         return res.length() <= 8 ? res : res.substring(res.length() - 8);
+    }
+    
+    /**
+     *  [Easy]
+     *  #409. Longest Palindrome
+     *  
+     *  Given a string which consists of lowercase or uppercase letters, find the length of the longest palindromes that can be built with those letters.
+     *  This is case sensitive, for example "Aa" is not considered a palindrome here.
+     *  
+     *  Note:
+     *  Assume the length of given string will not exceed 1,010.
+     *  
+     *  Example:
+     *  
+     *  Input:
+     *  "abccccdd"
+     *  
+     *  Output:
+     *  7
+     *  
+     *  Explanation:
+     *  One longest palindrome that can be built is "dccaccd", whose length is 7.
+     */
+    public int longestPalindrome(String s) {
+    	Map<Character, Integer> map = new HashMap<>();
+    	for (int i = 0; i < s.length(); ++i) {
+    		char c = s.charAt(i);
+    		if (!map.containsKey(c)) {
+    			map.put(c, 1);
+    		} else {
+    			int val = map.get(c);
+    			map.put(c, ++val);
+    		}
+    	}
+    	int result = 0;
+    	boolean addOdd = false;
+    	Iterator<Character> it = map.keySet().iterator();
+    	while (it.hasNext()) {
+    		int val = map.get(it.next());
+    		if (val % 2 == 1) {
+    			addOdd = true;
+    			result += val - 1;
+    		}
+    		else {
+    			result += val;
+    		}
+    	}
+    	if (addOdd) ++result;
+        return result;
     }
 }

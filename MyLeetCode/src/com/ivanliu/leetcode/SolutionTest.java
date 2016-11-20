@@ -899,4 +899,13 @@ public class SolutionTest {
 		// Wrong Answer
 		assertEquals("0", solution.toHex(0));
 	}
+	
+	@Test
+	public void test409() {
+		assertEquals(7, solution.longestPalindrome("abccccdd"));
+		// Wrong Answer
+		assertEquals(3, solution.longestPalindrome("ccc"));
+		assertEquals(3, solution.longestPalindrome("ccca"));
+		assertEquals(5, solution.longestPalindrome("cccaaa"));
+	}
 }
