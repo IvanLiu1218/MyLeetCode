@@ -814,4 +814,10 @@ public class SolutionTest {
 		assertEquals(8, solution.firstUniqChar("loveleetcodevt"));
 		assertEquals(-1, solution.firstUniqChar("loveleetcodevtcd"));
 	}
+	
+	@Test
+	public void test389() {
+		assertEquals('e', solution.findTheDifference("abcd", "abcde"));
+		assertEquals('e', solution.findTheDifference("abcd", "dceba"));
+	}
 }
