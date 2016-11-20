@@ -2481,6 +2481,36 @@ public class Solution {
      *  "ffffffff"
      */
     public String toHex(int num) {
-        return null;
+    	Map<Integer, Character> map = new HashMap<>();
+    	map.put(0, '0');
+    	map.put(1, '1');
+    	map.put(2, '2');
+    	map.put(3, '3');
+    	map.put(4, '4');
+    	map.put(5, '5');
+    	map.put(6, '6');
+    	map.put(7, '7');
+    	map.put(8, '8');
+    	map.put(9, '9');
+    	map.put(10, 'a');
+    	map.put(11, 'b');
+    	map.put(12, 'c');
+    	map.put(13, 'd');
+    	map.put(14, 'e');
+    	map.put(15, 'f');
+    	StringBuilder sb = new StringBuilder();
+    	long value = num;
+    	if (value < 0) {
+    		value += Long.MAX_VALUE + 1;
+    	}
+    	int factor = 16;
+    	while (value > 0) {
+    		int v = (int) (value % factor);
+    		sb.insert(0, map.get(v));
+    		value = (value - v) / factor;
+    	}
+    	String res = sb.toString();
+    	if (res.length() == 0) return "0";
+        return res.length() <= 8 ? res : res.substring(res.length() - 8);
     }
 }
