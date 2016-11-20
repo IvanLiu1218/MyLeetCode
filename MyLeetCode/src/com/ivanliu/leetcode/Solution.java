@@ -2259,17 +2259,31 @@ public class Solution {
      *  F(k) = 0 * Bk[0] + 1 * Bk[1] + ... + (n-1) * Bk[n-1].
      *  Calculate the maximum value of F(0), F(1), ..., F(n-1).
      *  Note:
-     *  n is guaranteed to be less than 105.
+     *  n is guaranteed to be less than 10^5.
      *  
      *  Example:
      *  A = [4, 3, 2, 6]
+     *  
      *  F(0) = (0 * 4) + (1 * 3) + (2 * 2) + (3 * 6) = 0 + 3 + 4 + 18 = 25
      *  F(1) = (0 * 6) + (1 * 4) + (2 * 3) + (3 * 2) = 0 + 4 + 6 + 6 = 16
      *  F(2) = (0 * 2) + (1 * 6) + (2 * 4) + (3 * 3) = 0 + 6 + 8 + 9 = 23
      *  F(3) = (0 * 3) + (1 * 2) + (2 * 6) + (3 * 4) = 0 + 2 + 12 + 12 = 26
+     *  
      *  So the maximum value of F(0), F(1), F(2), F(3) is F(3) = 26.
      */
     public int maxRotateFunction(int[] A) {
-        return 0;
+    	if (A == null || A.length == 0) return 0;
+    	int N = A.length;
+    	int result = Integer.MIN_VALUE;
+    	for (int i = 0; i < N; ++i) {
+    		int value = 0;
+    		int factor = i;
+    		for (int j = 0; j < N; ++j) {
+    			value += A[j] * factor++;
+    			if (factor >= N) factor = factor % N;
+    		}
+    		if (value > result) result = value;
+    	}
+        return result;
     }
 }

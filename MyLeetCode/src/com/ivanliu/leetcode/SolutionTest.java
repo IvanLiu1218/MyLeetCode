@@ -820,4 +820,13 @@ public class SolutionTest {
 		assertEquals('e', solution.findTheDifference("abcd", "abcde"));
 		assertEquals('e', solution.findTheDifference("abcd", "dceba"));
 	}
+	
+	@Test
+	public void test396() {
+		assertEquals(26, solution.maxRotateFunction(new int[] {4,3,2,6}));
+		// Wrong Answer
+		assertEquals(0, solution.maxRotateFunction(new int[] {}));
+		assertEquals(-2147483648, solution.maxRotateFunction(new int[] {-2147483648,-2147483648}));
+		// Time Limit Exceeded
+	}
 }
