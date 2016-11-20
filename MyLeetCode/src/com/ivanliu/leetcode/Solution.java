@@ -2225,6 +2225,28 @@ public class Solution {
      *  'e' is the letter that was added.
      */
     public char findTheDifference(String s, String t) {
+    	Map<Character, Integer> map = new HashMap<>();
+    	for (int i = 0; i < s.length(); ++i) {
+    		char c = s.charAt(i);
+    		if (!map.containsKey(c)) {
+    			map.put(c, 1);
+    		} else {
+    			int val = map.get(c);
+    			map.put(c, ++val);
+    		}
+    	}
+    	for (int j = 0; j < t.length(); ++j) {
+    		char r = t.charAt(j);
+    		if (!map.containsKey(r)) return r;
+    		else {
+    			int val = map.get(r);
+    			if (--val <= 0) {
+    				map.remove(r);
+    			} else {
+    				map.put(r, val);
+    			}
+    		}
+    	}
         return ' ';
     }
 }
