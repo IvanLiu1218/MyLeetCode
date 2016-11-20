@@ -841,6 +841,20 @@ public class SolutionTest {
 		assertEquals(3, solution.findNthDigit(3));
 		assertEquals(1, solution.findNthDigit(12));
 		assertEquals(1, solution.findNthDigit(1000000000));
+	}
+	
+	@Test
+	public void test401() {
+		assertEquals(10, solution.readBinaryWatch(1).size());
+		assertEquals("[0:01, 0:02, 0:04, 0:08, 0:16, 0:32, 1:00, 2:00, 4:00, 8:00]", Arrays.toString(solution.readBinaryWatch(1).toArray()));
+		assertEquals(44, solution.readBinaryWatch(2).size());
+		assertEquals("[0:03, 0:05, 0:09, 0:17, 0:33, 0:06, 0:10, 0:18, 0:34, 0:12, 0:20, 0:36, 0:24, 0:40, 0:48,"
+				   + " 1:01, 1:02, 1:04, 1:08, 1:16, 1:32,"
+				   + " 2:01, 2:02, 2:04, 2:08, 2:16, 2:32,"
+				   + " 4:01, 4:02, 4:04, 4:08, 4:16, 4:32,"
+				   + " 8:01, 8:02, 8:04, 8:08, 8:16, 8:32,"
+				   + " 3:00, 5:00, 9:00, 6:00, 10:00]", 
+				Arrays.toString(solution.readBinaryWatch(2).toArray()));
 		
 	}
 }
