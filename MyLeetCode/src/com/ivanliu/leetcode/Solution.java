@@ -2381,6 +2381,38 @@ public class Solution {
      *  The minute must be consist of two digits and may contain a leading zero, for example "10:2" is not valid, it should be "10:02".
      */
     public List<String> readBinaryWatch(int num) {
-        return null;
+    	List<String> resultList = new ArrayList<>();
+    	for (int n = 0; n <= num; ++n) {
+    		List<Integer> hours = this.readBinaryWatch_hours(n);
+    		List<Integer> minutes = this.readBinaryWatch_minutes(num - n);
+    		for (int i = 0; i < hours.size(); ++i) {
+    			for (int j = 0; j < minutes.size(); ++j) {
+    				resultList.add(String.format("%d:%02d", hours.get(i), minutes.get(j)));
+    			}
+    		}
+    	}
+        return resultList;
     }
+    public List<Integer> readBinaryWatch_hours(int num) {
+    	List<Integer> hourList = new ArrayList<>();
+    	this.readBinaryWatch_recurse(hourList, new int[] {1, 2, 4, 8}, 0, 0, 12, num);
+    	return hourList;
+    }
+    public List<Integer> readBinaryWatch_minutes(int num) {
+    	List<Integer> minuteList = new ArrayList<>();
+    	this.readBinaryWatch_recurse(minuteList, new int[] {1, 2, 4, 8, 16, 32}, 0, 0, 60, num);
+    	return minuteList;
+    }
+    public void readBinaryWatch_recurse(List<Integer> list, int[] binaries, int index, int val, int max, int left) {
+    	if (left == 0) {
+    		if (val < max) list.add(val);
+    		return;
+    	} else {
+    		--left;
+    		for (int i = index; i < binaries.length; ++i) {
+    			this.readBinaryWatch_recurse(list, binaries, i + 1, val + binaries[i], max, left);
+    		}
+    	}
+    }
+    
 }
