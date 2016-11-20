@@ -887,4 +887,16 @@ public class SolutionTest {
 		root = new TreeNode(1);
 		assertEquals(0, solution.sumOfLeftLeaves(root));
 	}
+	
+	@Test
+	public void test405() {
+		assertEquals("1a", solution.toHex(26));
+		assertEquals("305", solution.toHex(773));
+		assertEquals("315", solution.toHex(789));
+		assertEquals("13482", solution.toHex(78978));
+		assertEquals("ffffffff", solution.toHex(-1));
+		assertEquals("fffffffe", solution.toHex(-2));
+		// Wrong Answer
+		assertEquals("0", solution.toHex(0));
+	}
 }
