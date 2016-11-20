@@ -857,4 +857,34 @@ public class SolutionTest {
 				Arrays.toString(solution.readBinaryWatch(2).toArray()));
 		
 	}
+	
+	@Test
+	public void test404() {
+		TreeNode root = new TreeNode(3);
+		root.left = new TreeNode(9);
+		root.right = new TreeNode(20);
+		root.right.left = new TreeNode(15);
+		root.right.right = new TreeNode(7);
+		assertEquals(24, solution.sumOfLeftLeaves(root));
+		
+		root = new TreeNode(3);
+		root.left = new TreeNode(9);
+		root.right = new TreeNode(20);
+		root.right.left = new TreeNode(15);
+		root.right.right = new TreeNode(7);
+		root.right.right.left = new TreeNode(9);
+		assertEquals(33, solution.sumOfLeftLeaves(root));
+		
+		root = new TreeNode(3);
+		root.left = new TreeNode(9);
+		root.right = new TreeNode(20);
+		root.right.left = new TreeNode(15);
+		root.right.right = new TreeNode(7);
+		root.right.right.right = new TreeNode(9);
+		assertEquals(24, solution.sumOfLeftLeaves(root));
+		
+		// Wrong Answer
+		root = new TreeNode(1);
+		assertEquals(0, solution.sumOfLeftLeaves(root));
+	}
 }
