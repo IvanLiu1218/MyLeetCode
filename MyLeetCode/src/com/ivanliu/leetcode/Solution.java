@@ -2109,7 +2109,16 @@ public class Solution {
      *  Return 6.
      */
     public int guessNumber(int n) {
-        return 0;
+    	long low = 1;
+    	long high = n;
+    	while (low < high && (high - low) > 1) {
+    		long middle = (low + high) / 2;
+    		int res = guess((int)middle);
+    		if (res == 0) return (int)middle;
+    		else if (res == -1) high = middle;
+    		else if (res == 1) low = middle;
+    	}
+        return (int) (guess((int)low) == 0L ? low : high);
     }
     /* The guess API is defined in the parent class GuessGame.
      * @param num, your guess
@@ -2117,8 +2126,8 @@ public class Solution {
      * int guess(int num); */
     public int guessNumber_i_pick = 0;
     public int guess(int num) {
-    	if (num < this.guessNumber_i_pick) return -1;
-    	else if (num > this.guessNumber_i_pick) return 1;
+    	if (num < this.guessNumber_i_pick) return 1;
+    	else if (num > this.guessNumber_i_pick) return -1;
     	else return 0;
     }
 }
