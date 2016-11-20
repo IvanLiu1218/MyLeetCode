@@ -796,4 +796,13 @@ public class SolutionTest {
 		solution.guessNumber_i_pick = 1702766719;
 		assertEquals(1702766719, solution.guessNumber(2126753390)); // over the Integer.MAX_VALUE
 	}
+	
+	@Test
+	public void test383() {
+		assertEquals(false, solution.canConstruct("a", "b"));
+		assertEquals(false, solution.canConstruct("aa", "ab"));
+		assertEquals(true, solution.canConstruct("aa", "aab"));
+		assertEquals(true, solution.canConstruct("aa", "aabb"));
+		assertEquals(false, solution.canConstruct("aabb", "aab"));
+	}
 }

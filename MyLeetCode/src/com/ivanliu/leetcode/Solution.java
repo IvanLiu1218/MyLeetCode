@@ -2130,4 +2130,45 @@ public class Solution {
     	else if (num > this.guessNumber_i_pick) return -1;
     	else return 0;
     }
+    
+    /**
+     *  [Easy]
+     *  #383. Ransom Note
+     *  
+     *  Given an arbitrary ransom note string and another string containing letters from all the magazines, 
+     *  write a function that will return true if the ransom note can be constructed from the magazines ; 
+     *  otherwise, it will return false.Each letter in the magazine string can only be used once in your ransom note.
+     *  
+     *  Note:
+     *  You may assume that both strings contain only lowercase letters.
+     *  
+     *  canConstruct("a", "b") -> false
+     *  canConstruct("aa", "ab") -> false
+     *  canConstruct("aa", "aab") -> true
+     */
+    public boolean canConstruct(String ransomNote, String magazine) {
+    	Map<Character, Integer> map = new HashMap<>();
+    	for (int i = 0; i < magazine.length(); ++i) {
+    		char c = magazine.charAt(i);
+    		if (!map.containsKey(c)) {
+    			map.put(c, 1);
+    		} else {
+    			int val = map.get(c);
+    			map.put(c, ++val);
+    		}
+    	}
+    	for (int j = 0; j < ransomNote.length(); ++j) {
+    		char r = ransomNote.charAt(j);
+    		if (!map.containsKey(r)) return false;
+    		else {
+    			int val = map.get(r);
+    			if (--val <= 0) {
+    				map.remove(r);
+    			} else {
+    				map.put(r, val);
+    			}
+    		}
+    	}
+        return true;
+    }
 }
