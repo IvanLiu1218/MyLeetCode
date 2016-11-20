@@ -2147,6 +2147,28 @@ public class Solution {
      *  canConstruct("aa", "aab") -> true
      */
     public boolean canConstruct(String ransomNote, String magazine) {
-        return false;
+    	Map<Character, Integer> map = new HashMap<>();
+    	for (int i = 0; i < magazine.length(); ++i) {
+    		char c = magazine.charAt(i);
+    		if (!map.containsKey(c)) {
+    			map.put(c, 1);
+    		} else {
+    			int val = map.get(c);
+    			map.put(c, ++val);
+    		}
+    	}
+    	for (int j = 0; j < ransomNote.length(); ++j) {
+    		char r = ransomNote.charAt(j);
+    		if (!map.containsKey(r)) return false;
+    		else {
+    			int val = map.get(r);
+    			if (--val <= 0) {
+    				map.remove(r);
+    			} else {
+    				map.put(r, val);
+    			}
+    		}
+    	}
+        return true;
     }
 }
