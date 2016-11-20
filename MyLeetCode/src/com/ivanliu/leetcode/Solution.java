@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.Stack;
+import java.util.TreeMap;
 
 import com.ivanliu.leetcode.Utility.ListNode;
 import com.ivanliu.leetcode.Utility.TreeNode;
@@ -2170,5 +2171,38 @@ public class Solution {
     		}
     	}
         return true;
+    }
+    
+    /**
+     *  [Easy]
+     *  #387. First Unique Character in a String
+     *  
+     *  Given a string, find the first non-repeating character in it and return it's index. If it doesn't exist, return -1.
+     *  
+     *  Examples:
+     *  s = "leetcode"
+     *  return 0.
+     *  
+     *  s = "loveleetcode",
+     *  return 2.
+     *  Note: You may assume the string contain only lowercase letters.
+     */
+    public int firstUniqChar(String s) {
+    	Map<Character, Integer> map = new HashMap<>();
+    	for (int i = 0; i < s.length(); ++i) {
+    		char c = s.charAt(i);
+    		if (!map.containsKey(c)) {
+    			map.put(c, 1);
+    		} else {
+    			int val = map.get(c);
+    			map.put(c, ++val);
+    		}
+    	}
+    	for (int j = 0; j < s.length(); ++j) {
+    		char c = s.charAt(j);
+    		int val = map.get(c);
+    		if (val == 1) return j;
+    	}
+        return -1;
     }
 }
