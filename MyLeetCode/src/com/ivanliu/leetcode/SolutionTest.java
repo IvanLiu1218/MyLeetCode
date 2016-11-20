@@ -829,4 +829,18 @@ public class SolutionTest {
 		assertEquals(-2147483648, solution.maxRotateFunction(new int[] {-2147483648,-2147483648}));
 		// Time Limit Exceeded
 	}
+	
+	@Test
+	public void test400() {
+		assertEquals(8, solution.findNthDigit(8));
+		assertEquals(0, solution.findNthDigit(11));
+		assertEquals(2, solution.findNthDigit(6890));  // 9 + 180 + 2700 + 4001 => 2000
+		assertEquals(0, solution.findNthDigit(6891));  // 9 + 180 + 2700 + 4002 => 2001
+		assertEquals(9, solution.findNthDigit(10889)); // 9 + 180 + 2700 + 8000 => 2999
+		// Wrong Answer
+		assertEquals(3, solution.findNthDigit(3));
+		assertEquals(1, solution.findNthDigit(12));
+		assertEquals(1, solution.findNthDigit(1000000000));
+		
+	}
 }
