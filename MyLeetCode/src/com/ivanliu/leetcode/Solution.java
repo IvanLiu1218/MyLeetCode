@@ -2415,4 +2415,42 @@ public class Solution {
     	}
     }
     
+    /**
+     *  [Easy]
+     *  #404. Sum of Left Leaves
+     *  
+     *  Find the sum of all left leaves in a given binary tree.
+     *  
+     *  Example:
+     *  
+     *      3
+     *     / \
+     *    9  20
+     *      /  \
+     *     15   7
+     *  
+     *  There are two left leaves in the binary tree, with values 9 and 15 respectively. Return 24.
+     */
+    public int sumOfLeftLeaves(TreeNode root) {
+    	List<Integer> leftLeafList = new ArrayList<>();
+    	this.sumOfLeftLeaves_recurse(root, leftLeafList, false);
+    	int result = 0;
+    	for (int i = 0; i < leftLeafList.size(); ++i) {
+    		result += leftLeafList.get(i);
+    	}
+    	return result;
+    }
+    public void sumOfLeftLeaves_recurse(TreeNode node, List<Integer> leftLeaves, boolean isLeft) {
+    	if (node == null) {
+    		return;
+    	} else if (node.left == null && node.right == null && isLeft) {
+    		leftLeaves.add(node.val);
+    		return;
+    	} else {
+    		if (node.left != null)
+    			this.sumOfLeftLeaves_recurse(node.left, leftLeaves, true);
+    		if (node.right != null)
+    			this.sumOfLeftLeaves_recurse(node.right, leftLeaves, false);
+    	}
+    }
 }
