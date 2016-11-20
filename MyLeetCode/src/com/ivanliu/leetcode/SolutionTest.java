@@ -777,4 +777,23 @@ public class SolutionTest {
 		assertEquals(5, solution.getSum(3, 2));
 		assertEquals(32, solution.getSum(12, 20));
 	}
+	
+	@Test
+	public void test374() {
+		solution.guessNumber_i_pick = 65;
+		assertEquals(65, solution.guessNumber(100));
+		solution.guessNumber_i_pick = 1;
+		assertEquals(1, solution.guessNumber(1));
+		solution.guessNumber_i_pick = 66;
+		assertEquals(66, solution.guessNumber(66));
+		//  Wrong Answer
+		solution.guessNumber_i_pick = 1;
+		assertEquals(1, solution.guessNumber(2));
+		solution.guessNumber_i_pick = 2;
+		assertEquals(2, solution.guessNumber(2));
+		solution.guessNumber_i_pick = 6;
+		assertEquals(6, solution.guessNumber(10));
+		solution.guessNumber_i_pick = 1702766719;
+		assertEquals(1702766719, solution.guessNumber(2126753390)); // over the Integer.MAX_VALUE
+	}
 }
