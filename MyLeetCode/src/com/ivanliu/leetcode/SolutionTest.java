@@ -917,4 +917,16 @@ public class SolutionTest {
 		assertEquals("[1, 2, Fizz, 4, Buzz]", Arrays.toString(solution.fizzBuzz(5).toArray()));
 		assertEquals("[1, 2, Fizz, 4, Buzz, Fizz, 7, 8, Fizz, Buzz, 11, Fizz, 13, 14, FizzBuzz]", Arrays.toString(solution.fizzBuzz(15).toArray()));
 	}
+	
+	@Test
+	public void test414() {
+		assertEquals(1, solution.thirdMax(new int[] {3, 2, 1}));
+		assertEquals(2, solution.thirdMax(new int[] {1, 2}));
+		assertEquals(1, solution.thirdMax(new int[] {2, 2, 3, 1}));
+		assertEquals(2, solution.thirdMax(new int[] {2, 2, 2, 1}));
+		assertEquals(2, solution.thirdMax(new int[] {2, 2, 2, 2}));
+		assertEquals(Integer.MIN_VALUE, solution.thirdMax(new int[] {Integer.MAX_VALUE, 1, Integer.MIN_VALUE}));
+		assertEquals(Integer.MAX_VALUE, solution.thirdMax(new int[] {Integer.MAX_VALUE, Integer.MAX_VALUE, Integer.MIN_VALUE}));
+		assertEquals(Integer.MAX_VALUE, solution.thirdMax(new int[] {Integer.MAX_VALUE, Integer.MAX_VALUE, Integer.MAX_VALUE}));
+	}
 }

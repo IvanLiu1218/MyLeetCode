@@ -2616,7 +2616,9 @@ public class Solution {
     /**
      *  [Easy]
      *  #414. Third Maximum Number
-     *  Given a non-empty array of integers, return the third maximum number in this array. If it does not exist, return the maximum number. The time complexity must be in O(n).
+     *  Given a non-empty array of integers, return the third maximum number in this array. 
+     *  If it does not exist, return the maximum number. 
+     *  The time complexity must be in O(n).
      *  
      *  Example 1:
      *  Input: [3, 2, 1]
@@ -2637,7 +2639,33 @@ public class Solution {
      *  Explanation: Note that the third maximum here means the third maximum distinct number.
      *  Both numbers with value 2 are both considered as second maximum.
      */
+    boolean hasMax = false;
     public int thirdMax(int[] nums) {
-        return 0;
+    	int max_1st = this.thirdMax_findNthMax(nums);
+    	int max_2nd = this.thirdMax_findNthMax(nums, max_1st);
+    	this.hasMax = false;
+    	int max_3rd = this.thirdMax_findNthMax(nums, max_2nd);
+        return hasMax ?  max_3rd : max_1st;
+    }
+    public int thirdMax_findNthMax(int[] nums) {
+    	int max = Integer.MIN_VALUE;
+    	for (int i = 0; i < nums.length; ++i) {
+    		int num = nums[i];
+    		if (num >= max) {
+    			max = num;
+    		}
+    	}
+    	return max;
+    }
+    public int thirdMax_findNthMax(int[] nums, int lessThan) {
+    	int max = Integer.MIN_VALUE;
+    	for (int i = 0; i < nums.length; ++i) {
+    		int num = nums[i];
+    		if (num >= max && num < lessThan) {
+    			this.hasMax = true;
+    			max = num;
+    		}
+    	}
+    	return max;
     }
 }
