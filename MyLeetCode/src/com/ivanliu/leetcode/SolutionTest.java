@@ -929,4 +929,12 @@ public class SolutionTest {
 		assertEquals(Integer.MAX_VALUE, solution.thirdMax(new int[] {Integer.MAX_VALUE, Integer.MAX_VALUE, Integer.MIN_VALUE}));
 		assertEquals(Integer.MAX_VALUE, solution.thirdMax(new int[] {Integer.MAX_VALUE, Integer.MAX_VALUE, Integer.MAX_VALUE}));
 	}
+	
+	@Test
+	public void test415() {
+		assertEquals("3", solution.addStrings("1", "2"));
+		assertEquals("30", solution.addStrings("1", "29"));
+		assertEquals("100", solution.addStrings("91", "9"));
+		assertEquals("10000000000", solution.addStrings("9999999999", "1"));
+	}
 }
