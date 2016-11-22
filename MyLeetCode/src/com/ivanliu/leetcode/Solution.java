@@ -2681,6 +2681,47 @@ public class Solution {
      *  4. You must not use any built-in BigInteger library or convert the inputs to integer directly.
      */
     public String addStrings(String num1, String num2) {
-        return null;
+    	StringBuilder sb = new StringBuilder();
+    	int i = num1.length() - 1;
+    	int j = num2.length() - 1;
+    	int prev = 0;
+    	while (i >= 0 && j >= 0) {
+    		int v1 = num1.charAt(i--) - 48; // ASCII: '0' = 48
+    		int v2 = num2.charAt(j--) - 48;
+    		int v = v1 + v2 + prev;
+    		if (v > 9) {
+    			v -= 10;
+    			prev = 1;
+    		} else {
+    			prev = 0;
+    		}
+    		sb.insert(0, (char)(v + 48));
+    	}
+    	while (i >= 0) {
+    		int v1 = num1.charAt(i--) - 48;
+    		int v = v1 + prev;
+    		if (v > 9) {
+    			v -= 10;
+    			prev = 1;
+    		} else {
+    			prev = 0;
+    		}
+    		sb.insert(0, (char)(v + 48));
+    	}
+    	while (j >= 0) {
+    		int v2 = num2.charAt(j--) - 48;
+    		int v = v2 + prev;
+    		if (v > 9) {
+    			v -= 10;
+    			prev = 1;
+    		} else {
+    			prev = 0;
+    		}
+    		sb.insert(0, (char)(v + 48));
+    	}
+    	if (prev != 0) {
+    		sb.insert(0, (char)(prev + 48));
+    	}
+        return sb.toString();
     }
 }
