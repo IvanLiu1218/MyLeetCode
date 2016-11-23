@@ -2750,7 +2750,27 @@ public class Solution {
      *  2.  5 -> 2 -> 1
      *  3. -3 -> 11
      */
+    private int pathSum_count = 0;
     public int pathSum(TreeNode root, int sum) {
-        return 0;
+    	this.pathSum_count = 0;
+    	Deque<TreeNode> queue = new ArrayDeque<>();
+    	if (root != null) queue.addLast(root);
+    	while (queue.size() != 0) {
+    		TreeNode node = queue.pollFirst();
+    		this.pathSum_findPath(node, 0, sum);
+    		if (node.left != null) queue.addLast(node.left);
+    		if (node.right != null) queue.addLast(node.right);
+    	}
+        return this.pathSum_count;
+    }
+    public void pathSum_findPath(TreeNode node, int total, int sum) {
+    	if (node == null) {
+    		return;
+    	} else {
+    		total += node.val;
+    		if (total == sum) ++this.pathSum_count;
+    		this.pathSum_findPath(node.left, total, sum);
+    		this.pathSum_findPath(node.right, total, sum);
+    	}
     }
 }

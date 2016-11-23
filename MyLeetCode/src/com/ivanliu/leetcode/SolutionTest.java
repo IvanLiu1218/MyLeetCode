@@ -937,4 +937,26 @@ public class SolutionTest {
 		assertEquals("100", solution.addStrings("91", "9"));
 		assertEquals("10000000000", solution.addStrings("9999999999", "1"));
 	}
+	
+	@Test
+	public void test437() {
+		TreeNode root = new TreeNode(10);
+		root.left = new TreeNode(5);
+		root.left.left = new TreeNode(3);
+		root.left.left.left = new TreeNode(3);
+		root.left.left.right = new TreeNode(-2);
+		root.left.right = new TreeNode(2);
+		root.left.right.right = new TreeNode(1);
+		root.right = new TreeNode(-3);
+		root.right.right = new TreeNode(11);
+		assertEquals(3, solution.pathSum(root, 8));
+		
+		root.right.right.left = new TreeNode(0);
+		assertEquals(4, solution.pathSum(root, 8));
+		
+		root.right.right.right = new TreeNode(0);
+		assertEquals(5, solution.pathSum(root, 8));
+		
+		assertEquals(0, solution.pathSum(null, 8));
+	}
 }
