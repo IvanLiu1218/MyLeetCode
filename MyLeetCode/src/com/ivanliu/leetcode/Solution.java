@@ -2671,7 +2671,7 @@ public class Solution {
     
     /**
      *  [Easy]
-     *  415. Add Strings
+     *  #415. Add Strings
      *  Given two non-negative numbers num1 and num2 represented as string, return the sum of num1 and num2.
      *  
      *  Note:
@@ -2723,5 +2723,54 @@ public class Solution {
     		sb.insert(0, (char)(prev + 48));
     	}
         return sb.toString();
+    }
+    
+    /**
+     *  [Easy]
+     *  #437. Path Sum III
+     *  You are given a binary tree in which each node contains an integer value.
+     *  Find the number of paths that sum to a given value.
+     *  The path does not need to start or end at the root or a leaf, but it must go downwards (traveling only from parent nodes to child nodes).
+     *  The tree has no more than 1,000 nodes and the values are in the range -1,000,000 to 1,000,000.
+     *  
+     *  Example:
+     *  root = [10,5,-3,3,2,null,11,3,-2,null,1], sum = 8
+     *  
+     *        10
+     *       /  \
+     *      5   -3
+     *     / \    \
+     *    3   2   11
+     *   / \   \
+     *  3  -2   1
+     *  
+     *  Return 3. The paths that sum to 8 are:
+     *  
+     *  1.  5 -> 3
+     *  2.  5 -> 2 -> 1
+     *  3. -3 -> 11
+     */
+    private int pathSum_count = 0;
+    public int pathSum(TreeNode root, int sum) {
+    	this.pathSum_count = 0;
+    	Deque<TreeNode> queue = new ArrayDeque<>();
+    	if (root != null) queue.addLast(root);
+    	while (queue.size() != 0) {
+    		TreeNode node = queue.pollFirst();
+    		this.pathSum_findPath(node, 0, sum);
+    		if (node.left != null) queue.addLast(node.left);
+    		if (node.right != null) queue.addLast(node.right);
+    	}
+        return this.pathSum_count;
+    }
+    public void pathSum_findPath(TreeNode node, int total, int sum) {
+    	if (node == null) {
+    		return;
+    	} else {
+    		total += node.val;
+    		if (total == sum) ++this.pathSum_count;
+    		this.pathSum_findPath(node.left, total, sum);
+    		this.pathSum_findPath(node.right, total, sum);
+    	}
     }
 }
