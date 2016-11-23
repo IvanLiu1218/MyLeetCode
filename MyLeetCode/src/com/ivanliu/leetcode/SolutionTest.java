@@ -959,4 +959,11 @@ public class SolutionTest {
 		
 		assertEquals(0, solution.pathSum(null, 8));
 	}
+	
+	@Test
+	public void test438() {
+		assertEquals("[0, 6]", Arrays.toString(solution.findAnagrams("cbaebabacd", "abc").toArray()));
+		assertEquals("[0, 1, 2]", Arrays.toString(solution.findAnagrams("abab", "ab").toArray()));
+		// Time Limit Exceeded
+	}
 }

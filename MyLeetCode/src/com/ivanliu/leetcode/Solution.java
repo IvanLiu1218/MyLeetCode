@@ -2811,6 +2811,34 @@ public class Solution {
      *  The substring with start index = 2 is "ab", which is an anagram of "ab".
      */
     public List<Integer> findAnagrams(String s, String p) {
-        return null;
+    	List<Integer> list = new ArrayList<>();
+    	if (p.length() > s.length()) return list;
+    	Map<Character, Integer> pMap = new HashMap<>();
+    	for (int i = 0; i < p.length(); ++i) {
+    		char c = p.charAt(i);
+    		if (!pMap.containsKey(c)) {
+    			pMap.put(c, 1);
+    		} else {
+    			int val = pMap.get(c);
+    			pMap.put(c, ++val);
+    		}
+    	}
+    	int N = p.length();
+    	for (int i = 0; i < s.length(); ++i) {
+    		Map<Character, Integer> map = new HashMap<>();
+    		for (int j = i; j < s.length() && j < i + N; ++j) {
+    			char c = s.charAt(j);
+    			if (!map.containsKey(c)) {
+    				map.put(c, 1);
+    			} else {
+    				int val = map.get(c);
+    				map.put(c, ++val);
+    			}
+    		}
+    		if (map.equals(pMap)) {
+    			list.add(i);
+    		}
+    	}
+        return list;
     }
 }
