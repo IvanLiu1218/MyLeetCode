@@ -2824,9 +2824,9 @@ public class Solution {
     		}
     	}
     	int N = p.length();
-    	for (int i = 0; i < s.length(); ++i) {
+    	for (int i = 0; i <= s.length() - N; ++i) {
     		Map<Character, Integer> map = new HashMap<>();
-    		for (int j = i; j < s.length() && j < i + N; ++j) {
+    		for (int j = i; j < i + N; ++j) {
     			char c = s.charAt(j);
     			if (!map.containsKey(c)) {
     				map.put(c, 1);
