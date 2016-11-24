@@ -959,4 +959,12 @@ public class SolutionTest {
 		
 		assertEquals(0, solution.pathSum(null, 8));
 	}
+	
+	@Test
+	public void test441() {
+		assertEquals(0, solution.arrangeCoins(0));
+		assertEquals(1, solution.arrangeCoins(2));
+		assertEquals(2, solution.arrangeCoins(5));
+		assertEquals(3, solution.arrangeCoins(8));
+	}
 }
