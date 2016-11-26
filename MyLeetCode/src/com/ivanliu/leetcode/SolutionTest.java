@@ -976,4 +976,21 @@ public class SolutionTest {
 		assertEquals(20, solution.numberOfBoomerangs(new int[][] {{0,0},{1,0},{-1,0},{0,1},{0,-1}}));
 		// Time Limit Exceeded
 	}
+	
+	@Test
+	public void test453() {
+		assertEquals(1, solution.minMoves(new int[] {1,2}));
+		assertEquals(3, solution.minMoves(new int[] {1,2,3}));
+		assertEquals(4, solution.minMoves(new int[] {1,2,4}));
+		assertEquals(6, solution.minMoves(new int[] {1,2,3,4}));
+		assertEquals(10, solution.minMoves(new int[] {1,2,3,4,5}));
+		assertEquals(11, solution.minMoves(new int[] {1,2,3,4,6}));
+		assertEquals(15, solution.minMoves(new int[] {1,2,3,4,5,6}));
+		// Wrong Answer
+		assertEquals(0, solution.minMoves(new int[] {0}));
+		assertEquals(0, solution.minMoves(new int[] {0,0}));
+		// Time Limit Exceeded
+		assertEquals(2147483646, solution.minMoves(new int[] {1,2147483647}));
+		
+	}
 }
