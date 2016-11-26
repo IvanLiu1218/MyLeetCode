@@ -2929,6 +2929,76 @@ public class Solution {
      *  [1,2,3]  =>  [2,3,3]  =>  [3,4,3]  =>  [4,4,4]
      */
     public int minMoves(int[] nums) {
-        return 0;
+    	return this.minMoves_solution3(nums);
+    }
+    public int minMoves_solution3(int[] nums) {
+    	int min = Integer.MAX_VALUE;
+    	for (int num : nums) {
+    		if (num < min) min = num;
+    	}
+    	int steps = 0;
+    	for (int num : nums) {
+    		steps += num - min;
+    	}
+    	return steps;
+    }
+    public int minMoves_solution2(int[] nums) {  // Time Limit Exceeded
+    	int N = nums.length;
+    	int max = Integer.MIN_VALUE;
+    	int min = Integer.MAX_VALUE;
+    	for (int i = 0; i < N; ++i) {
+    		int num = nums[i];
+    		if (num > max) max = num;
+    		if (num < min) min = num;
+    	}
+    	if (max == min) return 0;
+    	int top = max;
+    	int total = 0;
+    	int max2 = Integer.MIN_VALUE;
+    	do {
+    		total = 0;
+    		max2 = Integer.MIN_VALUE;
+    		for (int i = 0; i < N; ++i) {
+    			int val = top - nums[i];
+    			if (val > max2) max2 = val;
+    			total += val;
+    		}
+    		++top;
+    	} while (total % (max2 * (N - 1)) != 0);
+    	return top - 1 - min;
+    }
+    public int minMoves_solution1(int[] nums) { // Time Limit Exceeded
+    	int steps = 0;
+    	while (!this.minMoves_equalsAll(nums)) {
+    		int maxIndex = this.minMoves_getMaxIndex(nums);
+    		this.minMoves_addExcept(nums, maxIndex);
+    		++steps;
+    	}
+    	return steps;
+    }
+    public boolean minMoves_equalsAll(int[] nums) {
+    	int val = nums[0];
+    	for (int i = 1; i < nums.length; ++i) {
+    		if (val != nums[i]) return false;
+    	}
+    	return true;
+    }
+    public int minMoves_getMaxIndex(int[] nums) {
+    	int max = Integer.MIN_VALUE;
+    	int maxIndex = -1;
+    	for (int i = 0; i < nums.length; ++i) {
+    		int num = nums[i];
+    		if (num > max) {
+    			max = num;
+    			maxIndex = i;
+    		}
+    	}
+    	return maxIndex;
+    }
+    public void minMoves_addExcept(int[] nums, int except) {
+    	for (int i = 0; i < nums.length; ++i) {
+    		if (i == except) continue;
+    		nums[i]++;
+    	}
     }
 }
