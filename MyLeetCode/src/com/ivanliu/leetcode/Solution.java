@@ -2814,4 +2814,98 @@ public class Solution {
     	}
         return result;
     }
+    
+    /**
+     *  [Easy]
+     *  #447. Number of Boomerangs
+     *  
+     *  Given n points in the plane that are all pairwise distinct, a "boomerang" is a tuple of points (i, j, k) 
+     *  such that the distance between i and j equals the distance between i and k (the order of the tuple matters).
+     *  Find the number of boomerangs. You may assume that n will be at most 500 and coordinates of points are all 
+     *  in the range [-10000, 10000] (inclusive).
+     *  
+     *  Example:
+     *  
+     *  Input:
+     *  [[0,0],[1,0],[2,0]]
+     *  
+     *  Output:
+     *  2
+     *  
+     *  Explanation:
+     *  The two boomerangs are [[1,0],[0,0],[2,0]] and [[1,0],[2,0],[0,0]]
+     */
+    public int numberOfBoomerangs(int[][] points) {
+    	return this.numberOfBoomerangs_solution2(points);
+    }
+    public int numberOfBoomerangs_solution2(int[][] points) {
+    	int result = 0;
+    	for (int i = 0; i < points.length; ++i) {
+    		int[] p1 = points[i];
+    		Map<Integer, Integer> map = new HashMap<>();
+    		for (int j = 0; j < points.length; ++j) {
+    			if (j == i) continue;
+    			int[] p2 = points[j];
+    			int dist = this.numberOfBoomerangs_distance(p1, p2);
+    			if (!map.containsKey(dist)) {
+    				map.put(dist, 1);
+    			}
+    			else {
+    				int val = map.get(dist);
+    				map.put(dist, ++val);
+    			}
+    		}
+    		Iterator<Integer> it = map.keySet().iterator();
+        	while (it.hasNext()) {
+        		int count = map.get(it.next());
+        		if (count >= 2) {
+        			result += this.numberOfBoomerangs_Pn2(count);
+        		}
+        	}
+    	}
+        return result;
+    }
+    public int numberOfBoomerangs_Pn2(int value) {
+    	int result = 1;
+    	int val = value;
+    	while (val > value - 2) {
+    		result *= val--;
+    	}
+    	return result;
+    }
+    public int numberOfBoomerangs_distance(int[] p1, int[] p2) {
+    	return (p1[0] - p2[0]) * (p1[0] - p2[0]) + (p1[1] - p2[1]) * (p1[1] - p2[1]);
+    }
+    public int numberOfBoomerangs_solution1(int[][] points) {
+    	int result = 0;
+    	for (int k = 0; k < points.length; ++k) {
+    		int[] p = points[k];
+    		for (int i = 0; i < points.length; ++i) {
+    			if (i == k) continue;
+    			int[] p1 = points[i];
+    			for (int j = i + 1; j < points.length; ++j) {
+    				if (j == k) continue;
+    				int[] p2 = points[j];
+    				if (this.numberOfBoomerangs_isOnline(p1, p2, p)) {
+    					result += 2;
+    				}
+    			}
+    		}
+    	}
+        return result;
+    }
+    public boolean numberOfBoomerangs_isOnline(int[] pj, int[] pk, int[] pi) {
+    	// because all points are integer, so the value /2 is not necessary!
+//    	if (pj[0] == pk[0] && pi[1] == (pj[1] + pk[1]) / 2) {
+//    		return true;
+//    	}
+//    	if (pj[1] == pk[1] && pi[0] == (pj[0] + pk[0]) / 2) {
+//    		return true;
+//    	}
+    	// 2x(x1-x2) + 2y(y1-y2) = (x1-x2)(x1+x2)+(y1-y2)(y1+y2)
+    	int value = 2 * pi[0] * (pj[0] - pk[0]) + 2 * pi[1] * (pj[1] - pk[1]) 
+    			    - ((pj[0] - pk[0]) * (pj[0] + pk[0]) + (pj[1] - pk[1]) * (pj[1] + pk[1]));
+    	
+    	return value == 0;
+    }
 }
