@@ -967,4 +967,13 @@ public class SolutionTest {
 		assertEquals(2, solution.arrangeCoins(5));
 		assertEquals(3, solution.arrangeCoins(8));
 	}
+	
+	@Test
+	public void test447() {
+		assertEquals(2, solution.numberOfBoomerangs(new int[][] {{0,0}, {1,0}, {2,0}}));
+		// Wrong Answer
+		assertEquals(2, solution.numberOfBoomerangs(new int[][] {{1,1},{2,2},{3,3}}));
+		assertEquals(20, solution.numberOfBoomerangs(new int[][] {{0,0},{1,0},{-1,0},{0,1},{0,-1}}));
+		// Time Limit Exceeded
+	}
 }
