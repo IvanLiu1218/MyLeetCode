@@ -2,6 +2,7 @@ package com.ivanliu.leetcode;
 
 import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Deque;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -3006,7 +3007,11 @@ public class Solution {
      *  [Easy]
      *  #455. Assign Cookies
      *  
-     *  Assume you are an awesome parent and want to give your children some cookies. But, you should give each child at most one cookie. Each child i has a greed factor gi, which is the minimum size of a cookie that the child will be content with; and each cookie j has a size sj. If sj >= gi, we can assign the cookie j to the child i, and the child i will be content. Your goal is to maximize the number of your content children and output the maximum number.
+     *  Assume you are an awesome parent and want to give your children some cookies. 
+     *  But, you should give each child at most one cookie. Each child i has a greed factor gi, 
+     *  which is the minimum size of a cookie that the child will be content with; 
+     *  and each cookie j has a size sj. If sj >= gi, we can assign the cookie j to the child i, 
+     *  and the child i will be content. Your goal is to maximize the number of your content children and output the maximum number.
      *  
      *  Note:
      *  You may assume the greed factor is always positive. 
@@ -3029,6 +3034,25 @@ public class Solution {
      *  You need to output 2.
      */
     public int findContentChildren(int[] g, int[] s) {
-        return 0;
+    	int gl = g.length;
+    	int sl = s.length;
+    	Arrays.sort(g);
+    	Arrays.sort(s);
+    	int minLength = Math.min(gl, sl);
+    	int count = Math.min(gl, sl);
+		int i = 0, j = 0;
+		while (i < minLength && j < sl) {
+			if (g[i] <= s[j]) {
+				++i;
+			}
+			++j;
+		}
+		if (i >= minLength) {
+			return count;
+		}
+		if (j >= minLength) {
+			count -= (minLength - i);
+		}
+        return count;
     }
 }
