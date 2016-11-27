@@ -1016,4 +1016,11 @@ public class SolutionTest {
 		assertEquals(true,  solution.repeatedSubstringPattern("aaaaa"));
 		assertEquals(true,  solution.repeatedSubstringPattern("abcabcabc"));
 	}
+	
+	@Test
+	public void test463() {
+		assertEquals(16, solution.islandPerimeter(new int[][]{{0,1,0,0},{1,1,1,0},{0,1,0,0},{1,1,0,0}}));
+		assertEquals(16, solution.islandPerimeter(new int[][]{{0,1,0,0},{1,1,1,0},{0,1,1,0},{1,1,0,0}}));
+		assertEquals(20, solution.islandPerimeter(new int[][]{{0,1,0,0,0},{1,1,1,1,1},{0,1,1,0,0},{1,1,0,0,0}}));
+	}
 }
