@@ -975,6 +975,14 @@ public class SolutionTest {
 	}
 	
 	@Test
+	public void test438() {
+		assertEquals("[0, 6]", Arrays.toString(solution.findAnagrams("cbaebabacd", "abc").toArray()));
+		assertEquals("[0, 1, 2]", Arrays.toString(solution.findAnagrams("abab", "ab").toArray()));
+		assertEquals("[1, 7]", Arrays.toString(solution.findAnagrams("ecbaebabacd", "abc").toArray()));
+		// Time Limit Exceeded
+	}
+	
+	@Test
 	public void test441() {
 		assertEquals(0, solution.arrangeCoins(0));
 		assertEquals(1, solution.arrangeCoins(2));

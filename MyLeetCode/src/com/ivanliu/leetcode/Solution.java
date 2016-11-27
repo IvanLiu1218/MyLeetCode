@@ -2650,6 +2650,7 @@ public class Solution {
     /**
      *  [Easy]
      *  #414. Third Maximum Number
+     *  
      *  Given a non-empty array of integers, return the third maximum number in this array. 
      *  If it does not exist, return the maximum number. 
      *  The time complexity must be in O(n).
@@ -2706,6 +2707,7 @@ public class Solution {
     /**
      *  [Easy]
      *  #415. Add Strings
+     *  
      *  Given two non-negative numbers num1 and num2 represented as string, return the sum of num1 and num2.
      *  
      *  Note:
@@ -2762,6 +2764,7 @@ public class Solution {
     /**
      *  [Easy]
      *  #437. Path Sum III
+     *  
      *  You are given a binary tree in which each node contains an integer value.
      *  Find the number of paths that sum to a given value.
      *  The path does not need to start or end at the root or a leaf, but it must go downwards (traveling only from parent nodes to child nodes).
@@ -2806,6 +2809,129 @@ public class Solution {
     		this.pathSum_findPath(node.left, total, sum);
     		this.pathSum_findPath(node.right, total, sum);
     	}
+    }
+    
+    /**
+     *  [Easy]
+     *  #438. Find All Anagrams in a String
+     *  
+     *  Given a string s and a non-empty string p, find all the start indices of p's anagrams in s.
+     *  Strings consists of lowercase English letters only and the length of both strings s and p will not be larger than 20,100.
+     *  The order of output does not matter.
+     *  
+     *  Example 1:
+     *  
+     *  Input:
+     *  s: "cbaebabacd" p: "abc"
+     *  
+     *  Output:
+     *  [0, 6]
+     *  
+     *  Explanation:
+     *  The substring with start index = 0 is "cba", which is an anagram of "abc".
+     *  The substring with start index = 6 is "bac", which is an anagram of "abc".
+     *  
+     *  Example 2:
+     *  
+     *  Input:
+     *  s: "abab" p: "ab"
+     *  
+     *  Output:
+     *  [0, 1, 2]
+     *  
+     *  Explanation:
+     *  The substring with start index = 0 is "ab", which is an anagram of "ab".
+     *  The substring with start index = 1 is "ba", which is an anagram of "ab".
+     *  The substring with start index = 2 is "ab", which is an anagram of "ab".
+     */
+    public List<Integer> findAnagrams(String s, String p) {
+    	return this.findAnagrams_solution2(s, p);
+    }
+    public List<Integer> findAnagrams_solution2(String s, String p) {
+    	List<Integer> list = new ArrayList<>();
+    	if (p.length() > s.length()) return list;
+    	Map<Character, Integer> pMap = new HashMap<>();
+    	for (int i = 0; i < p.length(); ++i) {
+    		char c = p.charAt(i);
+    		this.findAnagrams_mapAddOne(pMap, c);
+    	}
+    	int pl = p.length();
+    	int sl = s.length();
+    	int first = 0;
+    	int last = 0;
+    	while (first < sl && last < sl) {
+    		char c = s.charAt(last);
+    		if (pMap.containsKey(c)) {
+    			this.findAnagrams_mapMinusOne(pMap, c);
+    			++last;
+    		}
+    		else {
+    			char cc = s.charAt(first);
+    			++first;
+    			this.findAnagrams_mapAddOne(pMap, cc);
+    		}
+    		if (first == last) {
+    			char cc = s.charAt(last);
+    			if (!pMap.containsKey(cc)) {
+    				++first;
+    				++last;
+    			}
+    		}
+    		if (last - first == pl) {
+    			list.add(first);
+    			char cc = s.charAt(first);  // add the char back
+    			this.findAnagrams_mapAddOne(pMap, cc);
+    			++first;
+    		}
+    	}
+    	
+    	return list;
+    }
+    public void findAnagrams_mapAddOne(Map<Character, Integer> map, char c) {
+    	if (map.containsKey(c)) {
+    		int val = map.get(c);
+    		map.put(c, ++val);
+    	} else {
+    		map.put(c, 1);
+    	}
+    }
+    public void findAnagrams_mapMinusOne(Map<Character, Integer> map, char c) {
+    	if (map.containsKey(c)) {
+    		int val = map.get(c);
+    		map.put(c, --val);
+    		if (val == 0) map.remove(c);
+    	}
+    }
+    public List<Integer> findAnagrams_solution1(String s, String p) {  // Time Limit Exceeded
+    	List<Integer> list = new ArrayList<>();
+    	if (p.length() > s.length()) return list;
+    	Map<Character, Integer> pMap = new HashMap<>();
+    	for (int i = 0; i < p.length(); ++i) {
+    		char c = p.charAt(i);
+    		if (!pMap.containsKey(c)) {
+    			pMap.put(c, 1);
+    		} else {
+    			int val = pMap.get(c);
+    			pMap.put(c, ++val);
+    		}
+    	}
+    	int N = p.length();
+    	for (int i = 0; i <= s.length() - N; ++i) {
+    		Map<Character, Integer> map = new HashMap<>();
+    		for (int j = i; j < i + N; ++j) {
+    			char c = s.charAt(j);
+    			if (!map.containsKey(c)) {
+    				map.put(c, 1);
+    			} else {
+    				int val = map.get(c);
+    				map.put(c, ++val);
+    			}
+    		}
+    		if (map.equals(pMap)) {
+    			list.add(i);
+    		}
+    	}
+        return list;
     }
     
     /**
