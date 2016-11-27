@@ -3055,4 +3055,55 @@ public class Solution {
 		}
         return count;
     }
+    
+    /**
+     *  [Easy]
+     *  #459. Repeated Substring Pattern
+     *  
+     *  Given a non-empty string check if it can be constructed by taking a substring of it 
+     *  and appending multiple copies of the substring together. You may assume the given string consists of lowercase English letters only 
+     *  and its length will not exceed 10000.
+     *  
+     *  Example 1:
+     *  Input: "abab"
+     *  Output: True
+     *  
+     *  Explanation: It's the substring "ab" twice.
+     *  
+     *  Example 2:
+     *  Input: "aba"
+     *  Output: False
+     *  
+     *  Example 3:
+     *  Input: "abcabcabcabc"
+     *  Output: True
+     *  
+     *  Explanation: It's the substring "abc" four times. (And the substring "abcabc" twice.)
+     */
+    public boolean repeatedSubstringPattern(String str) {
+    	int length = str.length();
+    	int factor = 2;
+    	while (factor <= length) {
+    		if (length % factor == 0) {
+    			int delta = length / factor;
+    			int i = 0;
+    			while (i < delta) {
+    				char c0 = str.charAt(i);
+    				int j = i + delta;
+    				while (j < length) {
+    					char c = str.charAt(j);
+    					if (c != c0) break;
+    					j += delta;
+    				}
+    				if (j < length) break;
+    				++i;
+    			}
+    			if (i >= delta) {
+    				return true;
+    			}
+    		}
+    		++factor;
+    	}
+        return false;
+    }
 }
