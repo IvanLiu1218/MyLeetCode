@@ -2,6 +2,7 @@ package com.ivanliu.leetcode;
 
 import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Deque;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -1932,6 +1933,39 @@ public class Solution {
     
     /**
      *  [Easy]
+     *  #326. Power of Three
+     *  
+     *  Given an integer, write a function to determine if it is a power of three.
+     *  Follow up:
+     *  Could you do it without using any loop / recursion?
+     */
+    public boolean isPowerOfThree(int n) {
+        return this.isPowerOfThree_solution3(n);
+    }
+    public boolean isPowerOfThree_solution3(int n) {  // no loop or recursion
+    	// the max value which is power of three is 1162261467
+    	return n > 0 && 1162261467 % n == 0;
+    }
+    public boolean isPowerOfThree_solution2(int n) {  // Accepted
+    	if (n == 0) return false;
+    	int val = n;
+    	while (val % 3 == 0) {
+    		val = val / 3;
+    	}
+    	if (val == 1) return true;
+    	return false;
+    }
+    public boolean isPowerOfThree_solution1(int n) { // Time Limit Exceeded
+    	int factor = 1;
+    	while (factor <= n) {
+    		if (factor == n) return true;
+    		factor *= 3;
+    	}
+    	return false;
+    }
+    
+    /**
+     *  [Easy]
      *  #344. Reverse String
      *  
      *  Write a function that takes a string as input and returns the string reversed.
@@ -2880,5 +2914,343 @@ public class Solution {
     		++result;
     	}
         return result;
+    }
+    
+    /**
+     *  [Easy]
+     *  #447. Number of Boomerangs
+     *  
+     *  Given n points in the plane that are all pairwise distinct, a "boomerang" is a tuple of points (i, j, k) 
+     *  such that the distance between i and j equals the distance between i and k (the order of the tuple matters).
+     *  Find the number of boomerangs. You may assume that n will be at most 500 and coordinates of points are all 
+     *  in the range [-10000, 10000] (inclusive).
+     *  
+     *  Example:
+     *  
+     *  Input:
+     *  [[0,0],[1,0],[2,0]]
+     *  
+     *  Output:
+     *  2
+     *  
+     *  Explanation:
+     *  The two boomerangs are [[1,0],[0,0],[2,0]] and [[1,0],[2,0],[0,0]]
+     */
+    public int numberOfBoomerangs(int[][] points) {
+    	return this.numberOfBoomerangs_solution2(points);
+    }
+    public int numberOfBoomerangs_solution2(int[][] points) {
+    	int result = 0;
+    	for (int i = 0; i < points.length; ++i) {
+    		int[] p1 = points[i];
+    		Map<Integer, Integer> map = new HashMap<>();
+    		for (int j = 0; j < points.length; ++j) {
+    			if (j == i) continue;
+    			int[] p2 = points[j];
+    			int dist = this.numberOfBoomerangs_distance(p1, p2);
+    			if (!map.containsKey(dist)) {
+    				map.put(dist, 1);
+    			}
+    			else {
+    				int val = map.get(dist);
+    				map.put(dist, ++val);
+    			}
+    		}
+    		Iterator<Integer> it = map.keySet().iterator();
+        	while (it.hasNext()) {
+        		int count = map.get(it.next());
+        		if (count >= 2) {
+        			result += this.numberOfBoomerangs_Pn2(count);
+        		}
+        	}
+    	}
+        return result;
+    }
+    public int numberOfBoomerangs_Pn2(int value) {
+    	int result = 1;
+    	int val = value;
+    	while (val > value - 2) {
+    		result *= val--;
+    	}
+    	return result;
+    }
+    public int numberOfBoomerangs_distance(int[] p1, int[] p2) {
+    	return (p1[0] - p2[0]) * (p1[0] - p2[0]) + (p1[1] - p2[1]) * (p1[1] - p2[1]);
+    }
+    public int numberOfBoomerangs_solution1(int[][] points) {
+    	int result = 0;
+    	for (int k = 0; k < points.length; ++k) {
+    		int[] p = points[k];
+    		for (int i = 0; i < points.length; ++i) {
+    			if (i == k) continue;
+    			int[] p1 = points[i];
+    			for (int j = i + 1; j < points.length; ++j) {
+    				if (j == k) continue;
+    				int[] p2 = points[j];
+    				if (this.numberOfBoomerangs_isOnline(p1, p2, p)) {
+    					result += 2;
+    				}
+    			}
+    		}
+    	}
+        return result;
+    }
+    public boolean numberOfBoomerangs_isOnline(int[] pj, int[] pk, int[] pi) {
+    	// because all points are integer, so the value /2 is not necessary!
+//    	if (pj[0] == pk[0] && pi[1] == (pj[1] + pk[1]) / 2) {
+//    		return true;
+//    	}
+//    	if (pj[1] == pk[1] && pi[0] == (pj[0] + pk[0]) / 2) {
+//    		return true;
+//    	}
+    	// 2x(x1-x2) + 2y(y1-y2) = (x1-x2)(x1+x2)+(y1-y2)(y1+y2)
+    	int value = 2 * pi[0] * (pj[0] - pk[0]) + 2 * pi[1] * (pj[1] - pk[1]) 
+    			    - ((pj[0] - pk[0]) * (pj[0] + pk[0]) + (pj[1] - pk[1]) * (pj[1] + pk[1]));
+    	
+    	return value == 0;
+    }
+    
+    /**
+     *  [Easy]
+     *  #453. Minimum Moves to Equal Array Elements
+     *  
+     *  Given a non-empty integer array of size n, find the minimum number of moves required to make all array elements equal, 
+     *  where a move is incrementing n - 1 elements by 1.
+     *  
+     *  Example:
+     *  
+     *  Input:
+     *  [1,2,3]
+     *  
+     *  Output:
+     *  3
+     *  
+     *  Explanation:
+     *  Only three moves are needed (remember each move increments two elements):
+     *  [1,2,3]  =>  [2,3,3]  =>  [3,4,3]  =>  [4,4,4]
+     */
+    public int minMoves(int[] nums) {
+    	return this.minMoves_solution3(nums);
+    }
+    public int minMoves_solution3(int[] nums) {
+    	int min = Integer.MAX_VALUE;
+    	for (int num : nums) {
+    		if (num < min) min = num;
+    	}
+    	int steps = 0;
+    	for (int num : nums) {
+    		steps += num - min;
+    	}
+    	return steps;
+    }
+    public int minMoves_solution2(int[] nums) {  // Time Limit Exceeded
+    	int N = nums.length;
+    	int max = Integer.MIN_VALUE;
+    	int min = Integer.MAX_VALUE;
+    	for (int i = 0; i < N; ++i) {
+    		int num = nums[i];
+    		if (num > max) max = num;
+    		if (num < min) min = num;
+    	}
+    	if (max == min) return 0;
+    	int top = max;
+    	int total = 0;
+    	int max2 = Integer.MIN_VALUE;
+    	do {
+    		total = 0;
+    		max2 = Integer.MIN_VALUE;
+    		for (int i = 0; i < N; ++i) {
+    			int val = top - nums[i];
+    			if (val > max2) max2 = val;
+    			total += val;
+    		}
+    		++top;
+    	} while (total % (max2 * (N - 1)) != 0);
+    	return top - 1 - min;
+    }
+    public int minMoves_solution1(int[] nums) { // Time Limit Exceeded
+    	int steps = 0;
+    	while (!this.minMoves_equalsAll(nums)) {
+    		int maxIndex = this.minMoves_getMaxIndex(nums);
+    		this.minMoves_addExcept(nums, maxIndex);
+    		++steps;
+    	}
+    	return steps;
+    }
+    public boolean minMoves_equalsAll(int[] nums) {
+    	int val = nums[0];
+    	for (int i = 1; i < nums.length; ++i) {
+    		if (val != nums[i]) return false;
+    	}
+    	return true;
+    }
+    public int minMoves_getMaxIndex(int[] nums) {
+    	int max = Integer.MIN_VALUE;
+    	int maxIndex = -1;
+    	for (int i = 0; i < nums.length; ++i) {
+    		int num = nums[i];
+    		if (num > max) {
+    			max = num;
+    			maxIndex = i;
+    		}
+    	}
+    	return maxIndex;
+    }
+    public void minMoves_addExcept(int[] nums, int except) {
+    	for (int i = 0; i < nums.length; ++i) {
+    		if (i == except) continue;
+    		nums[i]++;
+    	}
+    }
+    
+    /**
+     *  [Easy]
+     *  #455. Assign Cookies
+     *  
+     *  Assume you are an awesome parent and want to give your children some cookies. 
+     *  But, you should give each child at most one cookie. Each child i has a greed factor gi, 
+     *  which is the minimum size of a cookie that the child will be content with; 
+     *  and each cookie j has a size sj. If sj >= gi, we can assign the cookie j to the child i, 
+     *  and the child i will be content. Your goal is to maximize the number of your content children and output the maximum number.
+     *  
+     *  Note:
+     *  You may assume the greed factor is always positive. 
+     *  You cannot assign more than one cookie to one child.
+     *  
+     *  Example 1:
+     *  Input: [1,2,3], [1,1]
+     *  Output: 1
+     *  
+     *  Explanation: You have 3 children and 2 cookies. The greed factors of 3 children are 1, 2, 3. 
+     *  And even though you have 2 cookies, since their size is both 1, you could only make the child whose greed factor is 1 content.
+     *  You need to output 1.
+     *  
+     *  Example 2:
+     *  Input: [1,2], [1,2,3]
+     *  Output: 2
+     *  
+     *  Explanation: You have 2 children and 3 cookies. The greed factors of 2 children are 1, 2. 
+     *  You have 3 cookies and their sizes are big enough to gratify all of the children, 
+     *  You need to output 2.
+     */
+    public int findContentChildren(int[] g, int[] s) {
+    	int gl = g.length;
+    	int sl = s.length;
+    	Arrays.sort(g);
+    	Arrays.sort(s);
+    	int minLength = Math.min(gl, sl);
+    	int count = Math.min(gl, sl);
+		int i = 0, j = 0;
+		while (i < minLength && j < sl) {
+			if (g[i] <= s[j]) {
+				++i;
+			}
+			++j;
+		}
+		if (i >= minLength) {
+			return count;
+		}
+		if (j >= minLength) {
+			count -= (minLength - i);
+		}
+        return count;
+    }
+    
+    /**
+     *  [Easy]
+     *  #459. Repeated Substring Pattern
+     *  
+     *  Given a non-empty string check if it can be constructed by taking a substring of it 
+     *  and appending multiple copies of the substring together. You may assume the given string consists of lowercase English letters only 
+     *  and its length will not exceed 10000.
+     *  
+     *  Example 1:
+     *  Input: "abab"
+     *  Output: True
+     *  
+     *  Explanation: It's the substring "ab" twice.
+     *  
+     *  Example 2:
+     *  Input: "aba"
+     *  Output: False
+     *  
+     *  Example 3:
+     *  Input: "abcabcabcabc"
+     *  Output: True
+     *  
+     *  Explanation: It's the substring "abc" four times. (And the substring "abcabc" twice.)
+     */
+    public boolean repeatedSubstringPattern(String str) {
+    	int length = str.length();
+    	int factor = 2;
+    	while (factor <= length) {
+    		if (length % factor == 0) {
+    			int delta = length / factor;
+    			int i = 0;
+    			while (i < delta) {
+    				char c0 = str.charAt(i);
+    				int j = i + delta;
+    				while (j < length) {
+    					char c = str.charAt(j);
+    					if (c != c0) break;
+    					j += delta;
+    				}
+    				if (j < length) break;
+    				++i;
+    			}
+    			if (i >= delta) {
+    				return true;
+    			}
+    		}
+    		++factor;
+    	}
+        return false;
+    }
+    
+    /**
+     *  [Easy]
+     *  #463. Island Perimeter
+     *  
+     *  You are given a map in form of a two-dimensional integer grid where 1 represents land and 0 represents water. 
+     *  Grid cells are connected horizontally/vertically (not diagonally). 
+     *  The grid is completely surrounded by water, and there is exactly one island (i.e., one or more connected land cells). 
+     *  The island doesn't have "lakes" (water inside that isn't connected to the water around the island). 
+     *  One cell is a square with side length 1. The grid is rectangular, width and height don't exceed 100. 
+     *  Determine the perimeter of the island.
+     *  
+     *  Example:
+     *  
+     *  [[0,1,0,0],
+     *   [1,1,1,0],
+     *   [0,1,0,0],
+     *   [1,1,0,0]]
+     *  
+     *  Answer: 16
+     *  Explanation: The perimeter is the 16 yellow stripes in the image below:
+     */
+    public int islandPerimeter(int[][] grid) {
+    	int perimeter = 0;
+    	for (int i = 0; i < grid.length; ++i) {
+    		int[] row = grid[i];
+    		for (int j = 0; j < row.length; ++j) {
+    			if (row[j] == 1) {
+    				perimeter += this.islandPerimeter_getSides(grid, i, j);
+    			}
+    		}
+    	}
+        return perimeter;
+    }
+    public int islandPerimeter_getSides(int[][] grid, int i, int j) {
+    	int sides = 0;
+    	// top side
+    	if (i - 1 < 0 || grid[i - 1][j] == 0) ++sides;
+    	// bottom side
+    	if (i + 1 >= grid.length || grid[i + 1][j] == 0) ++sides;
+    	// left side
+    	if (j - 1 < 0 || grid[i][j - 1] == 0) ++sides;
+    	// right side
+    	if (j + 1 >= grid[i].length || grid[i][j + 1] == 0) ++sides;
+    	
+    	return sides;
     }
 }
