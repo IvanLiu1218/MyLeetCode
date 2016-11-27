@@ -2845,6 +2845,64 @@ public class Solution {
      *  The substring with start index = 2 is "ab", which is an anagram of "ab".
      */
     public List<Integer> findAnagrams(String s, String p) {
+    	return this.findAnagrams_solution2(s, p);
+    }
+    public List<Integer> findAnagrams_solution2(String s, String p) {
+    	List<Integer> list = new ArrayList<>();
+    	if (p.length() > s.length()) return list;
+    	Map<Character, Integer> pMap = new HashMap<>();
+    	for (int i = 0; i < p.length(); ++i) {
+    		char c = p.charAt(i);
+    		this.findAnagrams_mapAddOne(pMap, c);
+    	}
+    	int pl = p.length();
+    	int sl = s.length();
+    	int first = 0;
+    	int last = 0;
+    	while (first < sl && last < sl) {
+    		char c = s.charAt(last);
+    		if (pMap.containsKey(c)) {
+    			this.findAnagrams_mapMinusOne(pMap, c);
+    			++last;
+    		}
+    		else {
+    			char cc = s.charAt(first);
+    			++first;
+    			this.findAnagrams_mapAddOne(pMap, cc);
+    		}
+    		if (first == last) {
+    			char cc = s.charAt(last);
+    			if (!pMap.containsKey(cc)) {
+    				++first;
+    				++last;
+    			}
+    		}
+    		if (last - first == pl) {
+    			list.add(first);
+    			char cc = s.charAt(first);  // add the char back
+    			this.findAnagrams_mapAddOne(pMap, cc);
+    			++first;
+    		}
+    	}
+    	
+    	return list;
+    }
+    public void findAnagrams_mapAddOne(Map<Character, Integer> map, char c) {
+    	if (map.containsKey(c)) {
+    		int val = map.get(c);
+    		map.put(c, ++val);
+    	} else {
+    		map.put(c, 1);
+    	}
+    }
+    public void findAnagrams_mapMinusOne(Map<Character, Integer> map, char c) {
+    	if (map.containsKey(c)) {
+    		int val = map.get(c);
+    		map.put(c, --val);
+    		if (val == 0) map.remove(c);
+    	}
+    }
+    public List<Integer> findAnagrams_solution1(String s, String p) {  // Time Limit Exceeded
     	List<Integer> list = new ArrayList<>();
     	if (p.length() > s.length()) return list;
     	Map<Character, Integer> pMap = new HashMap<>();
