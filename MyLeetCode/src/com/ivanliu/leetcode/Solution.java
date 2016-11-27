@@ -1940,10 +1940,22 @@ public class Solution {
      *  Could you do it without using any loop / recursion?
      */
     public boolean isPowerOfThree(int n) {
-        return this.isPowerOfThree_solution1(n);
+        return this.isPowerOfThree_solution3(n);
     }
-    
-    public boolean isPowerOfThree_solution1(int n) {
+    public boolean isPowerOfThree_solution3(int n) {  // no loop or recursion
+    	// the max value which is power of three is 1162261467
+    	return n > 0 && 1162261467 % n == 0;
+    }
+    public boolean isPowerOfThree_solution2(int n) {  // Accepted
+    	if (n == 0) return false;
+    	int val = n;
+    	while (val % 3 == 0) {
+    		val = val / 3;
+    	}
+    	if (val == 1) return true;
+    	return false;
+    }
+    public boolean isPowerOfThree_solution1(int n) { // Time Limit Exceeded
     	int factor = 1;
     	while (factor <= n) {
     		if (factor == n) return true;

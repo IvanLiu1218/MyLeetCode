@@ -747,7 +747,9 @@ public class SolutionTest {
 		assertEquals(true, solution.isPowerOfThree(59049));
 		assertEquals(false, solution.isPowerOfThree(59149));
 		// Time Limit Exceeded
-		//assertEquals(true, solution.isPowerOfThree(2147483647));
+		assertEquals(false, solution.isPowerOfThree(2147483647));
+		assertEquals(true, solution.isPowerOfThree(1162261467));
+		assertEquals(false, solution.isPowerOfThree(0));
 	}
 	
 	public void test344() {
