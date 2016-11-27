@@ -2,6 +2,7 @@ package com.ivanliu.leetcode;
 
 import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Deque;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -146,9 +147,9 @@ public class Solution {
 	 *  You may assume that the maximum length of S is 1000, 
 	 *  and there exists one unique longest palindromic substring.
 	 */
-	public String longestPalindrome(String s) {
-        return null;
-    }
+//	public String longestPalindrome(String s) {
+//        return null;
+//    }
 	
 	/**
 	 *  [Easy] #006. ZigZag Conversion
@@ -1949,5 +1950,1228 @@ public class Solution {
     		factor *= 3;
     	}
     	return false;
+    }
+    
+    /**
+     *  [Easy]
+     *  #344. Reverse String
+     *  
+     *  Write a function that takes a string as input and returns the string reversed.
+     *  
+     *  Example:
+     *  Given s = "hello", return "olleh".
+     */
+    public String reverseString(String s) {
+        StringBuilder sb = new StringBuilder();
+        for (int i = s.length() - 1; i >= 0; --i) {
+        	sb.append(s.charAt(i));
+        }
+        return sb.toString();
+    }
+    
+    /**
+     *  [Easy]
+     *  #345. Reverse Vowels of a String
+     *  
+     *  Write a function that takes a string as input and reverse only the vowels of a string.
+     *  
+     *  Example 1:
+     *  Given s = "hello", return "holle".
+     *  
+     *  Example 2:
+     *  Given s = "leetcode", return "leotcede".
+     *  
+     *  Note:
+     *  The vowels does not include the letter "y".
+     */
+    public String reverseVowels(String s) {
+    	Set<Character> vowels = new HashSet<>();
+    	vowels.add('a');
+    	vowels.add('e');
+    	vowels.add('i');
+    	vowels.add('o');
+    	vowels.add('u');
+    	vowels.add('A');
+    	vowels.add('E');
+    	vowels.add('I');
+    	vowels.add('O');
+    	vowels.add('U');
+    	char[] cs = s.toCharArray();
+    	int i = 0;
+    	int j = s.length() - 1;
+    	while (i < j) {
+    		while (i < j && !vowels.contains(cs[i])) ++i;
+    		while (i < j && !vowels.contains(cs[j])) --j;
+    		char temp = cs[i];
+    		cs[i] = cs[j];
+    		cs[j] = temp;
+    		++i;
+    		--j;
+    	}
+    	return new String(cs);
+    }
+    
+    /**
+     *  [Easy]
+     *  #349. Intersection of Two Arrays
+     *  
+     *  Given two arrays, write a function to compute their intersection.
+     *  
+     *  Example:
+     *  Given nums1 = [1, 2, 2, 1], nums2 = [2, 2], return [2].
+     *  
+     *  Note:
+     *  Each element in the result must be unique.
+     *  The result can be in any order.
+     */
+    public int[] intersection(int[] nums1, int[] nums2) {
+    	Set<Integer> set1 = new HashSet<>();
+    	for (int i = 0; i < nums1.length; ++i) {
+    		set1.add(nums1[i]);
+    	}
+    	Set<Integer> resSet = new HashSet<>();
+    	for (int j = 0; j < nums2.length; ++j) {
+    		if (set1.contains(nums2[j])) {
+    			resSet.add(nums2[j]);
+    		}
+    	}
+    	int[] result = new int[resSet.size()];
+    	int k = 0;
+    	Iterator<Integer> it = resSet.iterator();
+    	while (it.hasNext()) {
+    		result[k++] = (int)it.next();
+    	}
+        return result;
+    }
+    
+    /**
+     *  [Easy]
+     *  #350. Intersection of Two Arrays II
+     *  
+     *  Given two arrays, write a function to compute their intersection.
+     *  
+     *  Example:
+     *  Given nums1 = [1, 2, 2, 1], nums2 = [2, 2], return [2, 2].
+     *  
+     *  Note:
+     *  Each element in the result should appear as many times as it shows in both arrays.
+     *  The result can be in any order.
+     *  Follow up:
+     *   - What if the given array is already sorted? How would you optimize your algorithm?
+     *   - What if nums1's size is small compared to nums2's size? Which algorithm is better?
+     *   - What if elements of nums2 are stored on disk, and the memory is limited such that you cannot load all elements into the memory at once?
+     */
+    public int[] intersect(int[] nums1, int[] nums2) {
+    	Map<Integer, Integer> map1 = new HashMap<>();
+    	for (int i = 0; i < nums1.length; ++i) {
+    		int num = nums1[i];
+    		if (!map1.containsKey(num)) {
+    			map1.put(num, 1);
+    		} else {
+    			int val = map1.get(num);
+    			map1.put(num, ++val);
+    		}
+    	}
+    	List<Integer> resList = new ArrayList<>();
+    	for (int j = 0; j < nums2.length; ++j) {
+    		int num = nums2[j];
+    		if (map1.containsKey(num)) {
+    			resList.add(num);
+    			int val = map1.get(num);
+    			if (--val == 0) {
+    				map1.remove(num);
+    			} else {
+    				map1.put(num, val);
+    			}
+    		}
+    	}
+    	int[] result = new int[resList.size()];
+    	for (int k = 0; k < resList.size(); ++k) {
+    		result[k] = resList.get(k);
+     	}
+        return result;
+    }
+    
+    /**
+     *  [Easy]
+     *  #371. Sum of Two Integers
+     *  
+     *  Calculate the sum of two integers a and b, but you are not allowed to use the operator + and -.
+     *  
+     *  Example:
+     *  Given a = 1 and b = 2, return 3.
+     */
+    public int getSum(int a, int b) {
+    	int val1 = a;
+    	int val2 = b;
+    	int v1 = (val1 & val2) << 1;
+    	int v2 = val1 ^ val2;
+    	while ((v1 & v2) != 0) {
+    		val1 = v1;
+    		val2 = v2;
+    		v1 = (val1 & val2) << 1;
+    		v2 = val1 ^ val2;
+    	}
+        return v1 | v2;
+    }
+    
+    /**
+     *  [Easy]
+     *  #374. Guess Number Higher or Lower
+     *  We are playing the Guess Game. The game is as follows:
+     *  I pick a number from 1 to n. You have to guess which number I picked.
+     *  Every time you guess wrong, I'll tell you whether the number is higher or lower.
+     *  You call a pre-defined API guess(int num) which returns 3 possible results (-1, 1, or 0):
+     *    -1 : My number is lower
+     *     1 : My number is higher
+     *     0 : Congrats! You got it!
+     *  
+     *  Example:
+     *  n = 10, I pick 6.
+     *  Return 6.
+     */
+    public int guessNumber(int n) {
+    	long low = 1;
+    	long high = n;
+    	while (low < high && (high - low) > 1) {
+    		long middle = (low + high) / 2;
+    		int res = guess((int)middle);
+    		if (res == 0) return (int)middle;
+    		else if (res == -1) high = middle;
+    		else if (res == 1) low = middle;
+    	}
+        return (int) (guess((int)low) == 0L ? low : high);
+    }
+    /* The guess API is defined in the parent class GuessGame.
+     * @param num, your guess
+     * @return -1 if my number is lower, 1 if my number is higher, otherwise return 0
+     * int guess(int num); */
+    public int guessNumber_i_pick = 0;
+    public int guess(int num) {
+    	if (num < this.guessNumber_i_pick) return 1;
+    	else if (num > this.guessNumber_i_pick) return -1;
+    	else return 0;
+    }
+    
+    /**
+     *  [Easy]
+     *  #383. Ransom Note
+     *  
+     *  Given an arbitrary ransom note string and another string containing letters from all the magazines, 
+     *  write a function that will return true if the ransom note can be constructed from the magazines ; 
+     *  otherwise, it will return false.Each letter in the magazine string can only be used once in your ransom note.
+     *  
+     *  Note:
+     *  You may assume that both strings contain only lowercase letters.
+     *  
+     *  canConstruct("a", "b") -> false
+     *  canConstruct("aa", "ab") -> false
+     *  canConstruct("aa", "aab") -> true
+     */
+    public boolean canConstruct(String ransomNote, String magazine) {
+    	Map<Character, Integer> map = new HashMap<>();
+    	for (int i = 0; i < magazine.length(); ++i) {
+    		char c = magazine.charAt(i);
+    		if (!map.containsKey(c)) {
+    			map.put(c, 1);
+    		} else {
+    			int val = map.get(c);
+    			map.put(c, ++val);
+    		}
+    	}
+    	for (int j = 0; j < ransomNote.length(); ++j) {
+    		char r = ransomNote.charAt(j);
+    		if (!map.containsKey(r)) return false;
+    		else {
+    			int val = map.get(r);
+    			if (--val <= 0) {
+    				map.remove(r);
+    			} else {
+    				map.put(r, val);
+    			}
+    		}
+    	}
+        return true;
+    }
+    
+    /**
+     *  [Easy]
+     *  #387. First Unique Character in a String
+     *  
+     *  Given a string, find the first non-repeating character in it and return it's index. If it doesn't exist, return -1.
+     *  
+     *  Examples:
+     *  s = "leetcode"
+     *  return 0.
+     *  
+     *  s = "loveleetcode",
+     *  return 2.
+     *  Note: You may assume the string contain only lowercase letters.
+     */
+    public int firstUniqChar(String s) {
+    	Map<Character, Integer> map = new HashMap<>();
+    	for (int i = 0; i < s.length(); ++i) {
+    		char c = s.charAt(i);
+    		if (!map.containsKey(c)) {
+    			map.put(c, 1);
+    		} else {
+    			int val = map.get(c);
+    			map.put(c, ++val);
+    		}
+    	}
+    	for (int j = 0; j < s.length(); ++j) {
+    		char c = s.charAt(j);
+    		int val = map.get(c);
+    		if (val == 1) return j;
+    	}
+        return -1;
+    }
+    
+    /**
+     *  [Easy]
+     *  #389. Find the Difference
+     *  
+     *  Given two strings s and t which consist of only lowercase letters.
+     *  String t is generated by random shuffling string s and then add one more letter at a random position.
+     *  Find the letter that was added in t.
+     *  
+     *  Example:
+     *  Input:
+     *  s = "abcd"
+     *  t = "abcde"
+     *  
+     *  Output:
+     *  e
+     *  
+     *  Explanation:
+     *  'e' is the letter that was added.
+     */
+    public char findTheDifference(String s, String t) {
+    	Map<Character, Integer> map = new HashMap<>();
+    	for (int i = 0; i < s.length(); ++i) {
+    		char c = s.charAt(i);
+    		if (!map.containsKey(c)) {
+    			map.put(c, 1);
+    		} else {
+    			int val = map.get(c);
+    			map.put(c, ++val);
+    		}
+    	}
+    	for (int j = 0; j < t.length(); ++j) {
+    		char r = t.charAt(j);
+    		if (!map.containsKey(r)) return r;
+    		else {
+    			int val = map.get(r);
+    			if (--val <= 0) {
+    				map.remove(r);
+    			} else {
+    				map.put(r, val);
+    			}
+    		}
+    	}
+        return ' ';
+    }
+    
+    /**
+     *  [Easy]
+     *  #396. Rotate Function
+     *  
+     *  Given an array of integers A and let n to be its length.
+     *  Assume Bk to be an array obtained by rotating the array A k positions clock-wise, we define a "rotation function" F on A as follow:
+     *  F(k) = 0 * Bk[0] + 1 * Bk[1] + ... + (n-1) * Bk[n-1].
+     *  Calculate the maximum value of F(0), F(1), ..., F(n-1).
+     *  Note:
+     *  n is guaranteed to be less than 10^5.
+     *  
+     *  Example:
+     *  A = [4, 3, 2, 6]
+     *  
+     *  F(0) = (0 * 4) + (1 * 3) + (2 * 2) + (3 * 6) = 0 + 3 + 4 + 18 = 25
+     *  F(1) = (0 * 6) + (1 * 4) + (2 * 3) + (3 * 2) = 0 + 4 + 6 + 6 = 16
+     *  F(2) = (0 * 2) + (1 * 6) + (2 * 4) + (3 * 3) = 0 + 6 + 8 + 9 = 23
+     *  F(3) = (0 * 3) + (1 * 2) + (2 * 6) + (3 * 4) = 0 + 2 + 12 + 12 = 26
+     *  
+     *  So the maximum value of F(0), F(1), F(2), F(3) is F(3) = 26.
+     */
+    public int maxRotateFunction(int[] A) {
+    	/*
+    	 * F(0) = 0 * A[0] + 1 * A[1] + 2 * A[2] + 3 * A[3]
+    	 * F(1) = 1 * A[0] + 2 * A[1] + 3 * A[2] + 0 * A[3] = F(0) + ALL - 4 * A[3]
+    	 * F(2) = 2 * A[0] + 3 * A[1] + 0 * A[2] + 1 * A[3] = F(0) + 2All - 4 * A[2] - 4 * A[3]
+    	 *                                                  = F(1) + ALL - 4 * A[2]
+    	 * F(3) = 3 * A[0] + 0 * A[1] + 1 * A[2] + 2 * A[3] = F(0) + 3ALL - 4 * A[1] - 4 * A[2] - 4 * A[3]
+    	 *                                                  = F(2) + ALL - 4 * A[1]
+    	 */
+    	if (A == null || A.length == 0) return 0;
+    	int N = A.length;
+    	int f0 = 0;
+    	for (int i = 0; i < N; ++i) {
+    		f0 += i * A[i];
+    	}
+    	int sum = 0;
+    	for (int i = 0; i < N; ++i) {
+    		sum += A[i];
+    	}
+    	int result = f0;
+    	int value = f0;
+    	for (int j = 1; j < N; ++j) {
+    		value = value + sum - N * A[N - j];
+    		if (value > result) result = value;
+    	}
+    	return result;
+    	//return maxRotateFunction_TimeLimitExceeded(A);
+    }
+    // Time Limit Exceeded
+    public int maxRotateFunction_TimeLimitExceeded(int[] A) {
+    	if (A == null || A.length == 0) return 0;
+    	int N = A.length;
+    	int result = Integer.MIN_VALUE;
+    	for (int i = 0; i < N; ++i) {
+    		int value = 0;
+    		int factor = i;
+    		for (int j = 0; j < N; ++j) {
+    			value += A[j] * factor++;
+    			if (factor >= N) factor = factor % N;
+    		}
+    		if (value > result) result = value;
+    	}
+        return result;
+    }
+    
+    /**
+     *  [Easy]
+     *  #400. Nth Digit
+     *  
+     *  Find the nth digit of the infinite integer sequence 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, ...
+     *  
+     *  Note:
+     *  n is positive and will fit within the range of a 32-bit signed integer (n < 2^31).
+     *  
+     *  Example 1:
+     *  
+     *  Input:  3
+     *  Output: 3
+     *  
+     *  Example 2:
+     *  
+     *  Input:  11
+     *  Output: 0
+     *  
+     *  Explanation:
+     *  The 11th digit of the sequence 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, ... is a 0, which is part of the number 10.
+     */
+    public int findNthDigit(int n) {
+    	int pos = n;
+    	int i = 1;
+    	long power = 1;
+    	long scope = 9 * power * i;
+    	while (pos > scope) {
+    		pos -= scope;
+    		power *= 10;
+    		++i;
+    		scope = 9 * power * i;
+    	}
+    	if (i == 1) {  // 1 ~ 9
+    		return pos;
+    	} else if (pos % i == 1) {
+    		return (int) (pos / (i * power) + 1);
+    	} else if (pos % i == 0) {
+    		return (pos / i - 1) % 10;
+    	} else {
+    		return (int) ((pos / (Math.pow(10, (i - pos % i)) * i) ) % 10);
+    	}
+    }
+    
+    /**
+     *  [Easy]
+     *  #401. Binary Watch
+     *  
+     *  A binary watch has 4 LEDs on the top which represent the hours (0-11), and the 6 LEDs on the bottom represent the minutes (0-59).
+     *  Each LED represents a zero or one, with the least significant bit on the right.
+     *  
+     *  For example, the above binary watch reads "3:25".
+     *  Given a non-negative integer n which represents the number of LEDs that are currently on, return all possible times the watch could represent.
+     *  
+     *  Example:
+     *  
+     *  Input: n = 1
+     *  Return: ["1:00", "2:00", "4:00", "8:00", "0:01", "0:02", "0:04", "0:08", "0:16", "0:32"]
+     *  
+     *  Note:
+     *  The order of output does not matter.
+     *  The hour must not contain a leading zero, for example "01:00" is not valid, it should be "1:00".
+     *  The minute must be consist of two digits and may contain a leading zero, for example "10:2" is not valid, it should be "10:02".
+     */
+    public List<String> readBinaryWatch(int num) {
+    	List<String> resultList = new ArrayList<>();
+    	for (int n = 0; n <= num; ++n) {
+    		List<Integer> hours = this.readBinaryWatch_hours(n);
+    		List<Integer> minutes = this.readBinaryWatch_minutes(num - n);
+    		for (int i = 0; i < hours.size(); ++i) {
+    			for (int j = 0; j < minutes.size(); ++j) {
+    				resultList.add(String.format("%d:%02d", hours.get(i), minutes.get(j)));
+    			}
+    		}
+    	}
+        return resultList;
+    }
+    public List<Integer> readBinaryWatch_hours(int num) {
+    	List<Integer> hourList = new ArrayList<>();
+    	this.readBinaryWatch_recurse(hourList, new int[] {1, 2, 4, 8}, 0, 0, 12, num);
+    	return hourList;
+    }
+    public List<Integer> readBinaryWatch_minutes(int num) {
+    	List<Integer> minuteList = new ArrayList<>();
+    	this.readBinaryWatch_recurse(minuteList, new int[] {1, 2, 4, 8, 16, 32}, 0, 0, 60, num);
+    	return minuteList;
+    }
+    public void readBinaryWatch_recurse(List<Integer> list, int[] binaries, int index, int val, int max, int left) {
+    	if (left == 0) {
+    		if (val < max) list.add(val);
+    		return;
+    	} else {
+    		--left;
+    		for (int i = index; i < binaries.length; ++i) {
+    			this.readBinaryWatch_recurse(list, binaries, i + 1, val + binaries[i], max, left);
+    		}
+    	}
+    }
+    
+    /**
+     *  [Easy]
+     *  #404. Sum of Left Leaves
+     *  
+     *  Find the sum of all left leaves in a given binary tree.
+     *  
+     *  Example:
+     *  
+     *      3
+     *     / \
+     *    9  20
+     *      /  \
+     *     15   7
+     *  
+     *  There are two left leaves in the binary tree, with values 9 and 15 respectively. Return 24.
+     */
+    public int sumOfLeftLeaves(TreeNode root) {
+    	List<Integer> leftLeafList = new ArrayList<>();
+    	this.sumOfLeftLeaves_recurse(root, leftLeafList, false);
+    	int result = 0;
+    	for (int i = 0; i < leftLeafList.size(); ++i) {
+    		result += leftLeafList.get(i);
+    	}
+    	return result;
+    }
+    public void sumOfLeftLeaves_recurse(TreeNode node, List<Integer> leftLeaves, boolean isLeft) {
+    	if (node == null) {
+    		return;
+    	} else if (node.left == null && node.right == null && isLeft) {
+    		leftLeaves.add(node.val);
+    		return;
+    	} else {
+    		if (node.left != null)
+    			this.sumOfLeftLeaves_recurse(node.left, leftLeaves, true);
+    		if (node.right != null)
+    			this.sumOfLeftLeaves_recurse(node.right, leftLeaves, false);
+    	}
+    }
+    
+    /**
+     *  [Easy]
+     *  #405. Convert a Number to Hexadecimal
+     *  
+     *  Given an integer, write an algorithm to convert it to hexadecimal. For negative integer, two’s complement method is used.
+     *  
+     *  Note:
+     *  All letters in hexadecimal (a-f) must be in lowercase.
+     *  The hexadecimal string must not contain extra leading 0s. If the number is zero, it is represented by a single zero character '0'; otherwise, the first character in the hexadecimal string will not be the zero character.
+     *  The given number is guaranteed to fit within the range of a 32-bit signed integer.
+     *  You must not use any method provided by the library which converts/formats the number to hex directly.
+     *  
+     *  Example 1:
+     *  
+     *  Input:
+     *  26
+     *  Output:
+     *  "1a"
+     *  
+     *  Example 2:
+     *  
+     *  Input:
+     *  -1
+     *  Output:
+     *  "ffffffff"
+     */
+    public String toHex(int num) {
+    	Map<Integer, Character> map = new HashMap<>();
+    	map.put(0, '0');
+    	map.put(1, '1');
+    	map.put(2, '2');
+    	map.put(3, '3');
+    	map.put(4, '4');
+    	map.put(5, '5');
+    	map.put(6, '6');
+    	map.put(7, '7');
+    	map.put(8, '8');
+    	map.put(9, '9');
+    	map.put(10, 'a');
+    	map.put(11, 'b');
+    	map.put(12, 'c');
+    	map.put(13, 'd');
+    	map.put(14, 'e');
+    	map.put(15, 'f');
+    	StringBuilder sb = new StringBuilder();
+    	long value = num;
+    	if (value < 0) {
+    		value += Long.MAX_VALUE + 1;
+    	}
+    	int factor = 16;
+    	while (value > 0) {
+    		int v = (int) (value % factor);
+    		sb.insert(0, map.get(v));
+    		value = (value - v) / factor;
+    	}
+    	String res = sb.toString();
+    	if (res.length() == 0) return "0";
+        return res.length() <= 8 ? res : res.substring(res.length() - 8);
+    }
+    
+    /**
+     *  [Easy]
+     *  #409. Longest Palindrome
+     *  
+     *  Given a string which consists of lowercase or uppercase letters, find the length of the longest palindromes that can be built with those letters.
+     *  This is case sensitive, for example "Aa" is not considered a palindrome here.
+     *  
+     *  Note:
+     *  Assume the length of given string will not exceed 1,010.
+     *  
+     *  Example:
+     *  
+     *  Input:
+     *  "abccccdd"
+     *  
+     *  Output:
+     *  7
+     *  
+     *  Explanation:
+     *  One longest palindrome that can be built is "dccaccd", whose length is 7.
+     */
+    public int longestPalindrome(String s) {
+    	Map<Character, Integer> map = new HashMap<>();
+    	for (int i = 0; i < s.length(); ++i) {
+    		char c = s.charAt(i);
+    		if (!map.containsKey(c)) {
+    			map.put(c, 1);
+    		} else {
+    			int val = map.get(c);
+    			map.put(c, ++val);
+    		}
+    	}
+    	int result = 0;
+    	boolean addOdd = false;
+    	Iterator<Character> it = map.keySet().iterator();
+    	while (it.hasNext()) {
+    		int val = map.get(it.next());
+    		if (val % 2 == 1) {
+    			addOdd = true;
+    			result += val - 1;
+    		}
+    		else {
+    			result += val;
+    		}
+    	}
+    	if (addOdd) ++result;
+        return result;
+    }
+    
+    /**
+     *  [Easy]
+     *  #412. Fizz Buzz
+     *  
+     *  Write a program that outputs the string representation of numbers from 1 to n.
+     *  But for multiples of three it should output “Fizz” instead of the number and for the multiples of five output “Buzz”. 
+     *  For numbers which are multiples of both three and five output “FizzBuzz”.
+     *  
+     *  Example:
+     *  
+     *  n = 15,
+     *  Return:
+     *  [
+     *      "1",
+     *      "2",
+     *      "Fizz",
+     *      "4",
+     *      "Buzz",
+     *      "Fizz",
+     *      "7",
+     *      "8",
+     *      "Fizz",
+     *      "Buzz",
+     *      "11",
+     *      "Fizz",
+     *      "13",
+     *      "14",
+     *      "FizzBuzz"
+     *  ]
+     */
+    public List<String> fizzBuzz(int n) {
+        List<String> resList = new ArrayList<>();
+        for (int i = 1; i <= n; ++i) {
+        	int value = i;
+        	boolean isNumber = true;
+        	StringBuilder sb = new StringBuilder();
+        	if (value % 3 == 0) {
+        		isNumber = false;
+        		sb.append("Fizz");
+        	}
+        	if (value % 5 == 0) {
+        		isNumber = false;
+        		sb.append("Buzz");
+        	}
+        	if (isNumber) sb.append(value);
+        	resList.add(sb.toString());
+        }
+        return resList;
+    }
+    
+    /**
+     *  [Easy]
+     *  #414. Third Maximum Number
+     *  Given a non-empty array of integers, return the third maximum number in this array. 
+     *  If it does not exist, return the maximum number. 
+     *  The time complexity must be in O(n).
+     *  
+     *  Example 1:
+     *  Input: [3, 2, 1]
+     *  Output: 1
+     *  
+     *  Explanation: The third maximum is 1.
+     *  
+     *  Example 2:
+     *  Input: [1, 2]
+     *  Output: 2
+     *  
+     *  Explanation: The third maximum does not exist, so the maximum (2) is returned instead.
+     *  
+     *  Example 3:
+     *  Input: [2, 2, 3, 1]
+     *  Output: 1
+
+     *  Explanation: Note that the third maximum here means the third maximum distinct number.
+     *  Both numbers with value 2 are both considered as second maximum.
+     */
+    boolean hasMax = false;
+    public int thirdMax(int[] nums) {
+    	int max_1st = this.thirdMax_findNthMax(nums);
+    	int max_2nd = this.thirdMax_findNthMax(nums, max_1st);
+    	this.hasMax = false;
+    	int max_3rd = this.thirdMax_findNthMax(nums, max_2nd);
+        return hasMax ?  max_3rd : max_1st;
+    }
+    public int thirdMax_findNthMax(int[] nums) {
+    	int max = Integer.MIN_VALUE;
+    	for (int i = 0; i < nums.length; ++i) {
+    		int num = nums[i];
+    		if (num >= max) {
+    			max = num;
+    		}
+    	}
+    	return max;
+    }
+    public int thirdMax_findNthMax(int[] nums, int lessThan) {
+    	int max = Integer.MIN_VALUE;
+    	for (int i = 0; i < nums.length; ++i) {
+    		int num = nums[i];
+    		if (num >= max && num < lessThan) {
+    			this.hasMax = true;
+    			max = num;
+    		}
+    	}
+    	return max;
+    }
+    
+    /**
+     *  [Easy]
+     *  #415. Add Strings
+     *  Given two non-negative numbers num1 and num2 represented as string, return the sum of num1 and num2.
+     *  
+     *  Note:
+     *  1. The length of both num1 and num2 is < 5100.
+     *  2. Both num1 and num2 contains only digits 0-9.
+     *  3. Both num1 and num2 does not contain any leading zero.
+     *  4. You must not use any built-in BigInteger library or convert the inputs to integer directly.
+     */
+    public String addStrings(String num1, String num2) {
+    	StringBuilder sb = new StringBuilder();
+    	int i = num1.length() - 1;
+    	int j = num2.length() - 1;
+    	int prev = 0;
+    	while (i >= 0 && j >= 0) {
+    		int v1 = num1.charAt(i--) - 48; // ASCII: '0' = 48
+    		int v2 = num2.charAt(j--) - 48;
+    		int v = v1 + v2 + prev;
+    		if (v > 9) {
+    			v -= 10;
+    			prev = 1;
+    		} else {
+    			prev = 0;
+    		}
+    		sb.insert(0, (char)(v + 48));
+    	}
+    	while (i >= 0) {
+    		int v1 = num1.charAt(i--) - 48;
+    		int v = v1 + prev;
+    		if (v > 9) {
+    			v -= 10;
+    			prev = 1;
+    		} else {
+    			prev = 0;
+    		}
+    		sb.insert(0, (char)(v + 48));
+    	}
+    	while (j >= 0) {
+    		int v2 = num2.charAt(j--) - 48;
+    		int v = v2 + prev;
+    		if (v > 9) {
+    			v -= 10;
+    			prev = 1;
+    		} else {
+    			prev = 0;
+    		}
+    		sb.insert(0, (char)(v + 48));
+    	}
+    	if (prev != 0) {
+    		sb.insert(0, (char)(prev + 48));
+    	}
+        return sb.toString();
+    }
+    
+    /**
+     *  [Easy]
+     *  #437. Path Sum III
+     *  You are given a binary tree in which each node contains an integer value.
+     *  Find the number of paths that sum to a given value.
+     *  The path does not need to start or end at the root or a leaf, but it must go downwards (traveling only from parent nodes to child nodes).
+     *  The tree has no more than 1,000 nodes and the values are in the range -1,000,000 to 1,000,000.
+     *  
+     *  Example:
+     *  root = [10,5,-3,3,2,null,11,3,-2,null,1], sum = 8
+     *  
+     *        10
+     *       /  \
+     *      5   -3
+     *     / \    \
+     *    3   2   11
+     *   / \   \
+     *  3  -2   1
+     *  
+     *  Return 3. The paths that sum to 8 are:
+     *  
+     *  1.  5 -> 3
+     *  2.  5 -> 2 -> 1
+     *  3. -3 -> 11
+     */
+    private int pathSum_count = 0;
+    public int pathSum(TreeNode root, int sum) {
+    	this.pathSum_count = 0;
+    	Deque<TreeNode> queue = new ArrayDeque<>();
+    	if (root != null) queue.addLast(root);
+    	while (queue.size() != 0) {
+    		TreeNode node = queue.pollFirst();
+    		this.pathSum_findPath(node, 0, sum);
+    		if (node.left != null) queue.addLast(node.left);
+    		if (node.right != null) queue.addLast(node.right);
+    	}
+        return this.pathSum_count;
+    }
+    public void pathSum_findPath(TreeNode node, int total, int sum) {
+    	if (node == null) {
+    		return;
+    	} else {
+    		total += node.val;
+    		if (total == sum) ++this.pathSum_count;
+    		this.pathSum_findPath(node.left, total, sum);
+    		this.pathSum_findPath(node.right, total, sum);
+    	}
+    }
+    
+    /**
+     *  [Easy]
+     *  #441. Arranging Coins
+     *  
+     *  You have a total of n coins that you want to form in a staircase shape, where every k-th row must have exactly k coins.
+     *  Given n, find the total number of full staircase rows that can be formed.
+     *  n is a non-negative integer and fits within the range of a 32-bit signed integer.
+     *  
+     *  Example 1:
+     *  n = 5
+     *  
+     *  The coins can form the following rows:
+     *  ¤
+     *  ¤ ¤
+     *  ¤ ¤
+     *  
+     *  Because the 3rd row is incomplete, we return 2.
+     *  
+     *  Example 2:
+     *  n = 8
+     *  
+     *  The coins can form the following rows:
+     *  ¤
+     *  ¤ ¤
+     *  ¤ ¤ ¤
+     *  ¤ ¤
+     *  
+     *  Because the 4th row is incomplete, we return 3.
+     */
+    public int arrangeCoins(int n) {
+    	int result = 0;
+    	int val = n;
+    	int k = 1;
+    	while (val >= k) {
+    		val -= k;
+    		++k;
+    		++result;
+    	}
+        return result;
+    }
+    
+    /**
+     *  [Easy]
+     *  #447. Number of Boomerangs
+     *  
+     *  Given n points in the plane that are all pairwise distinct, a "boomerang" is a tuple of points (i, j, k) 
+     *  such that the distance between i and j equals the distance between i and k (the order of the tuple matters).
+     *  Find the number of boomerangs. You may assume that n will be at most 500 and coordinates of points are all 
+     *  in the range [-10000, 10000] (inclusive).
+     *  
+     *  Example:
+     *  
+     *  Input:
+     *  [[0,0],[1,0],[2,0]]
+     *  
+     *  Output:
+     *  2
+     *  
+     *  Explanation:
+     *  The two boomerangs are [[1,0],[0,0],[2,0]] and [[1,0],[2,0],[0,0]]
+     */
+    public int numberOfBoomerangs(int[][] points) {
+    	return this.numberOfBoomerangs_solution2(points);
+    }
+    public int numberOfBoomerangs_solution2(int[][] points) {
+    	int result = 0;
+    	for (int i = 0; i < points.length; ++i) {
+    		int[] p1 = points[i];
+    		Map<Integer, Integer> map = new HashMap<>();
+    		for (int j = 0; j < points.length; ++j) {
+    			if (j == i) continue;
+    			int[] p2 = points[j];
+    			int dist = this.numberOfBoomerangs_distance(p1, p2);
+    			if (!map.containsKey(dist)) {
+    				map.put(dist, 1);
+    			}
+    			else {
+    				int val = map.get(dist);
+    				map.put(dist, ++val);
+    			}
+    		}
+    		Iterator<Integer> it = map.keySet().iterator();
+        	while (it.hasNext()) {
+        		int count = map.get(it.next());
+        		if (count >= 2) {
+        			result += this.numberOfBoomerangs_Pn2(count);
+        		}
+        	}
+    	}
+        return result;
+    }
+    public int numberOfBoomerangs_Pn2(int value) {
+    	int result = 1;
+    	int val = value;
+    	while (val > value - 2) {
+    		result *= val--;
+    	}
+    	return result;
+    }
+    public int numberOfBoomerangs_distance(int[] p1, int[] p2) {
+    	return (p1[0] - p2[0]) * (p1[0] - p2[0]) + (p1[1] - p2[1]) * (p1[1] - p2[1]);
+    }
+    public int numberOfBoomerangs_solution1(int[][] points) {
+    	int result = 0;
+    	for (int k = 0; k < points.length; ++k) {
+    		int[] p = points[k];
+    		for (int i = 0; i < points.length; ++i) {
+    			if (i == k) continue;
+    			int[] p1 = points[i];
+    			for (int j = i + 1; j < points.length; ++j) {
+    				if (j == k) continue;
+    				int[] p2 = points[j];
+    				if (this.numberOfBoomerangs_isOnline(p1, p2, p)) {
+    					result += 2;
+    				}
+    			}
+    		}
+    	}
+        return result;
+    }
+    public boolean numberOfBoomerangs_isOnline(int[] pj, int[] pk, int[] pi) {
+    	// because all points are integer, so the value /2 is not necessary!
+//    	if (pj[0] == pk[0] && pi[1] == (pj[1] + pk[1]) / 2) {
+//    		return true;
+//    	}
+//    	if (pj[1] == pk[1] && pi[0] == (pj[0] + pk[0]) / 2) {
+//    		return true;
+//    	}
+    	// 2x(x1-x2) + 2y(y1-y2) = (x1-x2)(x1+x2)+(y1-y2)(y1+y2)
+    	int value = 2 * pi[0] * (pj[0] - pk[0]) + 2 * pi[1] * (pj[1] - pk[1]) 
+    			    - ((pj[0] - pk[0]) * (pj[0] + pk[0]) + (pj[1] - pk[1]) * (pj[1] + pk[1]));
+    	
+    	return value == 0;
+    }
+    
+    /**
+     *  [Easy]
+     *  #453. Minimum Moves to Equal Array Elements
+     *  
+     *  Given a non-empty integer array of size n, find the minimum number of moves required to make all array elements equal, 
+     *  where a move is incrementing n - 1 elements by 1.
+     *  
+     *  Example:
+     *  
+     *  Input:
+     *  [1,2,3]
+     *  
+     *  Output:
+     *  3
+     *  
+     *  Explanation:
+     *  Only three moves are needed (remember each move increments two elements):
+     *  [1,2,3]  =>  [2,3,3]  =>  [3,4,3]  =>  [4,4,4]
+     */
+    public int minMoves(int[] nums) {
+    	return this.minMoves_solution3(nums);
+    }
+    public int minMoves_solution3(int[] nums) {
+    	int min = Integer.MAX_VALUE;
+    	for (int num : nums) {
+    		if (num < min) min = num;
+    	}
+    	int steps = 0;
+    	for (int num : nums) {
+    		steps += num - min;
+    	}
+    	return steps;
+    }
+    public int minMoves_solution2(int[] nums) {  // Time Limit Exceeded
+    	int N = nums.length;
+    	int max = Integer.MIN_VALUE;
+    	int min = Integer.MAX_VALUE;
+    	for (int i = 0; i < N; ++i) {
+    		int num = nums[i];
+    		if (num > max) max = num;
+    		if (num < min) min = num;
+    	}
+    	if (max == min) return 0;
+    	int top = max;
+    	int total = 0;
+    	int max2 = Integer.MIN_VALUE;
+    	do {
+    		total = 0;
+    		max2 = Integer.MIN_VALUE;
+    		for (int i = 0; i < N; ++i) {
+    			int val = top - nums[i];
+    			if (val > max2) max2 = val;
+    			total += val;
+    		}
+    		++top;
+    	} while (total % (max2 * (N - 1)) != 0);
+    	return top - 1 - min;
+    }
+    public int minMoves_solution1(int[] nums) { // Time Limit Exceeded
+    	int steps = 0;
+    	while (!this.minMoves_equalsAll(nums)) {
+    		int maxIndex = this.minMoves_getMaxIndex(nums);
+    		this.minMoves_addExcept(nums, maxIndex);
+    		++steps;
+    	}
+    	return steps;
+    }
+    public boolean minMoves_equalsAll(int[] nums) {
+    	int val = nums[0];
+    	for (int i = 1; i < nums.length; ++i) {
+    		if (val != nums[i]) return false;
+    	}
+    	return true;
+    }
+    public int minMoves_getMaxIndex(int[] nums) {
+    	int max = Integer.MIN_VALUE;
+    	int maxIndex = -1;
+    	for (int i = 0; i < nums.length; ++i) {
+    		int num = nums[i];
+    		if (num > max) {
+    			max = num;
+    			maxIndex = i;
+    		}
+    	}
+    	return maxIndex;
+    }
+    public void minMoves_addExcept(int[] nums, int except) {
+    	for (int i = 0; i < nums.length; ++i) {
+    		if (i == except) continue;
+    		nums[i]++;
+    	}
+    }
+    
+    /**
+     *  [Easy]
+     *  #455. Assign Cookies
+     *  
+     *  Assume you are an awesome parent and want to give your children some cookies. 
+     *  But, you should give each child at most one cookie. Each child i has a greed factor gi, 
+     *  which is the minimum size of a cookie that the child will be content with; 
+     *  and each cookie j has a size sj. If sj >= gi, we can assign the cookie j to the child i, 
+     *  and the child i will be content. Your goal is to maximize the number of your content children and output the maximum number.
+     *  
+     *  Note:
+     *  You may assume the greed factor is always positive. 
+     *  You cannot assign more than one cookie to one child.
+     *  
+     *  Example 1:
+     *  Input: [1,2,3], [1,1]
+     *  Output: 1
+     *  
+     *  Explanation: You have 3 children and 2 cookies. The greed factors of 3 children are 1, 2, 3. 
+     *  And even though you have 2 cookies, since their size is both 1, you could only make the child whose greed factor is 1 content.
+     *  You need to output 1.
+     *  
+     *  Example 2:
+     *  Input: [1,2], [1,2,3]
+     *  Output: 2
+     *  
+     *  Explanation: You have 2 children and 3 cookies. The greed factors of 2 children are 1, 2. 
+     *  You have 3 cookies and their sizes are big enough to gratify all of the children, 
+     *  You need to output 2.
+     */
+    public int findContentChildren(int[] g, int[] s) {
+    	int gl = g.length;
+    	int sl = s.length;
+    	Arrays.sort(g);
+    	Arrays.sort(s);
+    	int minLength = Math.min(gl, sl);
+    	int count = Math.min(gl, sl);
+		int i = 0, j = 0;
+		while (i < minLength && j < sl) {
+			if (g[i] <= s[j]) {
+				++i;
+			}
+			++j;
+		}
+		if (i >= minLength) {
+			return count;
+		}
+		if (j >= minLength) {
+			count -= (minLength - i);
+		}
+        return count;
+    }
+    
+    /**
+     *  [Easy]
+     *  #459. Repeated Substring Pattern
+     *  
+     *  Given a non-empty string check if it can be constructed by taking a substring of it 
+     *  and appending multiple copies of the substring together. You may assume the given string consists of lowercase English letters only 
+     *  and its length will not exceed 10000.
+     *  
+     *  Example 1:
+     *  Input: "abab"
+     *  Output: True
+     *  
+     *  Explanation: It's the substring "ab" twice.
+     *  
+     *  Example 2:
+     *  Input: "aba"
+     *  Output: False
+     *  
+     *  Example 3:
+     *  Input: "abcabcabcabc"
+     *  Output: True
+     *  
+     *  Explanation: It's the substring "abc" four times. (And the substring "abcabc" twice.)
+     */
+    public boolean repeatedSubstringPattern(String str) {
+    	int length = str.length();
+    	int factor = 2;
+    	while (factor <= length) {
+    		if (length % factor == 0) {
+    			int delta = length / factor;
+    			int i = 0;
+    			while (i < delta) {
+    				char c0 = str.charAt(i);
+    				int j = i + delta;
+    				while (j < length) {
+    					char c = str.charAt(j);
+    					if (c != c0) break;
+    					j += delta;
+    				}
+    				if (j < length) break;
+    				++i;
+    			}
+    			if (i >= delta) {
+    				return true;
+    			}
+    		}
+    		++factor;
+    	}
+        return false;
+    }
+    
+    /**
+     *  [Easy]
+     *  #463. Island Perimeter
+     *  
+     *  You are given a map in form of a two-dimensional integer grid where 1 represents land and 0 represents water. 
+     *  Grid cells are connected horizontally/vertically (not diagonally). 
+     *  The grid is completely surrounded by water, and there is exactly one island (i.e., one or more connected land cells). 
+     *  The island doesn't have "lakes" (water inside that isn't connected to the water around the island). 
+     *  One cell is a square with side length 1. The grid is rectangular, width and height don't exceed 100. 
+     *  Determine the perimeter of the island.
+     *  
+     *  Example:
+     *  
+     *  [[0,1,0,0],
+     *   [1,1,1,0],
+     *   [0,1,0,0],
+     *   [1,1,0,0]]
+     *  
+     *  Answer: 16
+     *  Explanation: The perimeter is the 16 yellow stripes in the image below:
+     */
+    public int islandPerimeter(int[][] grid) {
+    	int perimeter = 0;
+    	for (int i = 0; i < grid.length; ++i) {
+    		int[] row = grid[i];
+    		for (int j = 0; j < row.length; ++j) {
+    			if (row[j] == 1) {
+    				perimeter += this.islandPerimeter_getSides(grid, i, j);
+    			}
+    		}
+    	}
+        return perimeter;
+    }
+    public int islandPerimeter_getSides(int[][] grid, int i, int j) {
+    	int sides = 0;
+    	// top side
+    	if (i - 1 < 0 || grid[i - 1][j] == 0) ++sides;
+    	// bottom side
+    	if (i + 1 >= grid.length || grid[i + 1][j] == 0) ++sides;
+    	// left side
+    	if (j - 1 < 0 || grid[i][j - 1] == 0) ++sides;
+    	// right side
+    	if (j + 1 >= grid[i].length || grid[i][j + 1] == 0) ++sides;
+    	
+    	return sides;
     }
 }

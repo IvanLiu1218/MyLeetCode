@@ -748,6 +748,290 @@ public class SolutionTest {
 		assertEquals(false, solution.isPowerOfThree(59149));
 		// Time Limit Exceeded
 		//assertEquals(true, solution.isPowerOfThree(2147483647));
+	}
+	
+	public void test344() {
+		assertEquals("olleh", solution.reverseString("hello"));
+		assertEquals("nmlkjihgfedcba", solution.reverseString("abcdefghijklmn"));
+	}
+	
+	@Test
+	public void test345() {
+		assertEquals("holle", solution.reverseVowels("hello"));
+		assertEquals("leotcede", solution.reverseVowels("leetcode"));
+		assertEquals("ae", solution.reverseVowels("ea"));
+		assertEquals("o", solution.reverseVowels("o"));
+		assertEquals("abc", solution.reverseVowels("abc"));
+		assertEquals("bac", solution.reverseVowels("bac"));
+		assertEquals("bca", solution.reverseVowels("bca"));
+		assertEquals("", solution.reverseVowels(""));
+		// Wrong Answer
+		assertEquals("Aa", solution.reverseVowels("aA"));
+	}
+	
+	@Test
+	public void test349() {
+		assertEquals("[2]", Arrays.toString(solution.intersection(new int[] {1,2,2,1}, new int[] {2,2})));
+		assertEquals("[1, 2]", Arrays.toString(solution.intersection(new int[] {1,2,2,1}, new int[] {2,1})));
+		assertEquals("[]", Arrays.toString(solution.intersection(new int[] {}, new int[] {2,2})));
+		assertEquals("[]", Arrays.toString(solution.intersection(new int[] {1,2,2,1}, new int[] {})));
+	}
+	
+	@Test
+	public void test350() {
+		assertEquals("[2, 2]", Arrays.toString(solution.intersect(new int[] {1,2,2,1}, new int[] {2,2})));
+		assertEquals("[2, 2]", Arrays.toString(solution.intersect(new int[] {1,2,2,1,2}, new int[] {2,2})));
+		assertEquals("[2, 2]", Arrays.toString(solution.intersect(new int[] {1,2,2,1,3}, new int[] {2,2,2})));
+	}
+	
+	@Test
+	public void test371() {
+		assertEquals(3, solution.getSum(1, 2));
+		assertEquals(5, solution.getSum(3, 2));
+		assertEquals(32, solution.getSum(12, 20));
+	}
+	
+	@Test
+	public void test374() {
+		solution.guessNumber_i_pick = 65;
+		assertEquals(65, solution.guessNumber(100));
+		solution.guessNumber_i_pick = 1;
+		assertEquals(1, solution.guessNumber(1));
+		solution.guessNumber_i_pick = 66;
+		assertEquals(66, solution.guessNumber(66));
+		//  Wrong Answer
+		solution.guessNumber_i_pick = 1;
+		assertEquals(1, solution.guessNumber(2));
+		solution.guessNumber_i_pick = 2;
+		assertEquals(2, solution.guessNumber(2));
+		solution.guessNumber_i_pick = 6;
+		assertEquals(6, solution.guessNumber(10));
+		solution.guessNumber_i_pick = 1702766719;
+		assertEquals(1702766719, solution.guessNumber(2126753390)); // over the Integer.MAX_VALUE
+	}
+	
+	@Test
+	public void test383() {
+		assertEquals(false, solution.canConstruct("a", "b"));
+		assertEquals(false, solution.canConstruct("aa", "ab"));
+		assertEquals(true, solution.canConstruct("aa", "aab"));
+		assertEquals(true, solution.canConstruct("aa", "aabb"));
+		assertEquals(false, solution.canConstruct("aabb", "aab"));
+	}
+	
+	@Test
+	public void test387() {
+		assertEquals(0, solution.firstUniqChar("leetcode"));
+		assertEquals(2, solution.firstUniqChar("loveleetcode"));
+		assertEquals(7, solution.firstUniqChar("loveleetcodev"));
+		assertEquals(8, solution.firstUniqChar("loveleetcodevt"));
+		assertEquals(-1, solution.firstUniqChar("loveleetcodevtcd"));
+	}
+	
+	@Test
+	public void test389() {
+		assertEquals('e', solution.findTheDifference("abcd", "abcde"));
+		assertEquals('e', solution.findTheDifference("abcd", "dceba"));
+	}
+	
+	@Test
+	public void test396() {
+		assertEquals(26, solution.maxRotateFunction(new int[] {4,3,2,6}));
+		// Wrong Answer
+		assertEquals(0, solution.maxRotateFunction(new int[] {}));
+		assertEquals(-2147483648, solution.maxRotateFunction(new int[] {-2147483648,-2147483648}));
+		// Time Limit Exceeded
+	}
+	
+	@Test
+	public void test400() {
+		assertEquals(8, solution.findNthDigit(8));
+		assertEquals(0, solution.findNthDigit(11));
+		assertEquals(2, solution.findNthDigit(6890));  // 9 + 180 + 2700 + 4001 => 2000
+		assertEquals(0, solution.findNthDigit(6891));  // 9 + 180 + 2700 + 4002 => 2001
+		assertEquals(9, solution.findNthDigit(10889)); // 9 + 180 + 2700 + 8000 => 2999
+		// Wrong Answer
+		assertEquals(3, solution.findNthDigit(3));
+		assertEquals(1, solution.findNthDigit(12));
+		assertEquals(1, solution.findNthDigit(1000000000));
+	}
+	
+	@Test
+	public void test401() {
+		assertEquals(10, solution.readBinaryWatch(1).size());
+		assertEquals("[0:01, 0:02, 0:04, 0:08, 0:16, 0:32, 1:00, 2:00, 4:00, 8:00]", Arrays.toString(solution.readBinaryWatch(1).toArray()));
+		assertEquals(44, solution.readBinaryWatch(2).size());
+		assertEquals("[0:03, 0:05, 0:09, 0:17, 0:33, 0:06, 0:10, 0:18, 0:34, 0:12, 0:20, 0:36, 0:24, 0:40, 0:48,"
+				   + " 1:01, 1:02, 1:04, 1:08, 1:16, 1:32,"
+				   + " 2:01, 2:02, 2:04, 2:08, 2:16, 2:32,"
+				   + " 4:01, 4:02, 4:04, 4:08, 4:16, 4:32,"
+				   + " 8:01, 8:02, 8:04, 8:08, 8:16, 8:32,"
+				   + " 3:00, 5:00, 9:00, 6:00, 10:00]", 
+				Arrays.toString(solution.readBinaryWatch(2).toArray()));
+	}
+	
+	@Test
+	public void test404() {
+		TreeNode root = new TreeNode(3);
+		root.left = new TreeNode(9);
+		root.right = new TreeNode(20);
+		root.right.left = new TreeNode(15);
+		root.right.right = new TreeNode(7);
+		assertEquals(24, solution.sumOfLeftLeaves(root));
 		
+		root = new TreeNode(3);
+		root.left = new TreeNode(9);
+		root.right = new TreeNode(20);
+		root.right.left = new TreeNode(15);
+		root.right.right = new TreeNode(7);
+		root.right.right.left = new TreeNode(9);
+		assertEquals(33, solution.sumOfLeftLeaves(root));
+		
+		root = new TreeNode(3);
+		root.left = new TreeNode(9);
+		root.right = new TreeNode(20);
+		root.right.left = new TreeNode(15);
+		root.right.right = new TreeNode(7);
+		root.right.right.right = new TreeNode(9);
+		assertEquals(24, solution.sumOfLeftLeaves(root));
+		
+		// Wrong Answer
+		root = new TreeNode(1);
+		assertEquals(0, solution.sumOfLeftLeaves(root));
+	}
+	
+	@Test
+	public void test405() {
+		assertEquals("1a", solution.toHex(26));
+		assertEquals("305", solution.toHex(773));
+		assertEquals("315", solution.toHex(789));
+		assertEquals("13482", solution.toHex(78978));
+		assertEquals("ffffffff", solution.toHex(-1));
+		assertEquals("fffffffe", solution.toHex(-2));
+		// Wrong Answer
+		assertEquals("0", solution.toHex(0));
+	}
+	
+	@Test
+	public void test409() {
+		assertEquals(7, solution.longestPalindrome("abccccdd"));
+		// Wrong Answer
+		assertEquals(3, solution.longestPalindrome("ccc"));
+		assertEquals(3, solution.longestPalindrome("ccca"));
+		assertEquals(5, solution.longestPalindrome("cccaaa"));
+	}
+	
+	@Test
+	public void test412() {
+		assertEquals("[1]", Arrays.toString(solution.fizzBuzz(1).toArray()));
+		assertEquals("[1, 2]", Arrays.toString(solution.fizzBuzz(2).toArray()));
+		assertEquals("[1, 2, Fizz]", Arrays.toString(solution.fizzBuzz(3).toArray()));
+		assertEquals("[1, 2, Fizz, 4, Buzz]", Arrays.toString(solution.fizzBuzz(5).toArray()));
+		assertEquals("[1, 2, Fizz, 4, Buzz, Fizz, 7, 8, Fizz, Buzz, 11, Fizz, 13, 14, FizzBuzz]", Arrays.toString(solution.fizzBuzz(15).toArray()));
+	}
+	
+	@Test
+	public void test414() {
+		assertEquals(1, solution.thirdMax(new int[] {3, 2, 1}));
+		assertEquals(2, solution.thirdMax(new int[] {1, 2}));
+		assertEquals(1, solution.thirdMax(new int[] {2, 2, 3, 1}));
+		assertEquals(2, solution.thirdMax(new int[] {2, 2, 2, 1}));
+		assertEquals(2, solution.thirdMax(new int[] {2, 2, 2, 2}));
+		assertEquals(Integer.MIN_VALUE, solution.thirdMax(new int[] {Integer.MAX_VALUE, 1, Integer.MIN_VALUE}));
+		assertEquals(Integer.MAX_VALUE, solution.thirdMax(new int[] {Integer.MAX_VALUE, Integer.MAX_VALUE, Integer.MIN_VALUE}));
+		assertEquals(Integer.MAX_VALUE, solution.thirdMax(new int[] {Integer.MAX_VALUE, Integer.MAX_VALUE, Integer.MAX_VALUE}));
+	}
+	
+	@Test
+	public void test415() {
+		assertEquals("3", solution.addStrings("1", "2"));
+		assertEquals("30", solution.addStrings("1", "29"));
+		assertEquals("100", solution.addStrings("91", "9"));
+		assertEquals("10000000000", solution.addStrings("9999999999", "1"));
+	}
+	
+	@Test
+	public void test437() {
+		TreeNode root = new TreeNode(10);
+		root.left = new TreeNode(5);
+		root.left.left = new TreeNode(3);
+		root.left.left.left = new TreeNode(3);
+		root.left.left.right = new TreeNode(-2);
+		root.left.right = new TreeNode(2);
+		root.left.right.right = new TreeNode(1);
+		root.right = new TreeNode(-3);
+		root.right.right = new TreeNode(11);
+		assertEquals(3, solution.pathSum(root, 8));
+		
+		root.right.right.left = new TreeNode(0);
+		assertEquals(4, solution.pathSum(root, 8));
+		
+		root.right.right.right = new TreeNode(0);
+		assertEquals(5, solution.pathSum(root, 8));
+		
+		assertEquals(0, solution.pathSum(null, 8));
+	}
+	
+	@Test
+	public void test441() {
+		assertEquals(0, solution.arrangeCoins(0));
+		assertEquals(1, solution.arrangeCoins(2));
+		assertEquals(2, solution.arrangeCoins(5));
+		assertEquals(3, solution.arrangeCoins(8));
+	}
+	
+	@Test
+	public void test447() {
+		assertEquals(2, solution.numberOfBoomerangs(new int[][] {{0,0}, {1,0}, {2,0}}));
+		// Wrong Answer
+		assertEquals(2, solution.numberOfBoomerangs(new int[][] {{1,1},{2,2},{3,3}}));
+		assertEquals(20, solution.numberOfBoomerangs(new int[][] {{0,0},{1,0},{-1,0},{0,1},{0,-1}}));
+		// Time Limit Exceeded
+	}
+	
+	@Test
+	public void test453() {
+		assertEquals(1, solution.minMoves(new int[] {1,2}));
+		assertEquals(3, solution.minMoves(new int[] {1,2,3}));
+		assertEquals(4, solution.minMoves(new int[] {1,2,4}));
+		assertEquals(6, solution.minMoves(new int[] {1,2,3,4}));
+		assertEquals(10, solution.minMoves(new int[] {1,2,3,4,5}));
+		assertEquals(11, solution.minMoves(new int[] {1,2,3,4,6}));
+		assertEquals(15, solution.minMoves(new int[] {1,2,3,4,5,6}));
+		// Wrong Answer
+		assertEquals(0, solution.minMoves(new int[] {0}));
+		assertEquals(0, solution.minMoves(new int[] {0,0}));
+		// Time Limit Exceeded
+		assertEquals(2147483646, solution.minMoves(new int[] {1,2147483647}));
+	}
+	
+	@Test
+	public void test455() {
+		assertEquals(1, solution.findContentChildren(new int[] {1,2,3}, new int[] {1,1}));
+		assertEquals(1, solution.findContentChildren(new int[] {3,2,1}, new int[] {1,1}));
+		assertEquals(2, solution.findContentChildren(new int[] {1,2}, new int[] {1,2,3}));
+		assertEquals(2, solution.findContentChildren(new int[] {2,1}, new int[] {2,3,1}));
+		assertEquals(0, solution.findContentChildren(new int[] {1,2,3}, new int[] {}));
+		assertEquals(0, solution.findContentChildren(new int[] {}, new int[] {1,1}));
+		assertEquals(3, solution.findContentChildren(new int[] {1,2,3}, new int[] {1,3,3}));
+		// Wrong Answer
+		assertEquals(12, solution.findContentChildren(new int[] {250,490,328,149,495,325,314,360,333,418,430,458},
+				new int[] {376,71,228,110,215,410,363,135,508,268,494,288,24,362,20,5,247,118,152,393,458,354,201,188,425,167,220,114,148,43,403,385,512,459,71,425,142,102,361,102,232,203,25,461,298,437,252,364,171,240,233,257,305,346,307,408,163,216,243,261,137,319,33,91,116,390,139,283,174,409,191,338,123,231,101,458,497,306,400,513,175,454,273,88,169,250,196,109,505,413,371,448,12,193,396,321,466,526,276,276,198,260,131,322,65,381,204,32,83,431,81,108,366,188,443,331,102,72,496,521,502,165,439,161,257,324,348,176,272,341,230,323,124,13,51,241,186,329,70,387,93,126,159,370,292,16,211,327,431,26,70,239,379,368,215,501,382,299,481,163,100,488,259,524,481,87,118,112,110,425,295,352,62,162,19,404,301,163,389,13,383,43,397,165,385,274,59,499,136,309,301,345,381,124,394,492,96,243,4,297,153,9,210,291,33,450,202,313,138,214,308,239,129,154,354,289,484,388,351,339,337,161,97,185,190,498,348,242,38,217,343,170,269,465,514,89,366,447,166,52,33,436,268,3,74,505,403,302,513,69,439,68,72,403,33,130,466,417,186,339,328,237,138,427,392,496,430,442,260,229,372,217,399,203,170,246,153,137,358,138,22,19,110,304,399,458,165,372,254,358,364,345,52,150,121,226,156,231,83,377,237,342,184,27,73,392,238,366,258,434,498,184,309,394,110,246,430,437,33,488,520,69,24,18,221,146,19,147,283,407,437,185,399,238,471,117,110,266,507,263,293,94,314,31,217,224,36,515,147,432,270,327,521,113,153,14,160,435,396,501,13,461,103,441,461,68,55,510,380,291,305,365,511,218,515,148,324,136,291,519,201,192,97,183,448,294,242,379,52,154,224,183,344,452,240,380,338,337,437,92,206,490,405,396,274,41,305,170,423,437,92,480,477,260,224,176,239,466,525,458,226,189,251,516,479,305,463,116,126,88,490,93,389,246,480,139,193,303,205,270,83,89,461,492,209,311,368,457,478,188,484,4,501,513,18,2,90,39,205,500,391,191,229,32,147,438,123,493,71,363,143,163,110,199,305,476,430,86,378,416,444,325,207,519,380,81,116,503,13,211,290,327,510,141,37,242,370,117,208,58,336,432,19,474,488,74,472,63,287,11,470,221,349,211,191,497,50,442,315,376,355,302,206,291,376,499,405,498,202,40,115,178,66,438,446,498,443,292,123,493,505,205,490,368,349,341,107,290,428,141,271,117,54,410,172,92,450,524,427,371,69,77,35,234,25,152,365,509,154,61,143,111,188,101,327,21,378,186,57,241,351,136,213,143,86,325,83,358,79,427,406,491,192,248,360,428,478,385,252,270,106,524,343,92,483,9,15,54,511,296,238,392,106,198,64,394,122,187,14,481,50,221,226,63,50,449,504,357,499,120,448,275,363,465,451,68,25,233,124,520,415,90,302,246,19,63,335,308,235,297,410,349,78,324,210,327,199,202,455,387,159,148,344,375,127,368,305,347,307,451,412,323,188,16,139,143,362,228,493,334,341,406,113,368,234,439,193,211,500,231,311,204,99,82,52,66,286,142,27,445,12,410,370,118,104,358,330,96,351,93,469,63,450,14,455,309,84,101,58,166,224,34,158,322,388,345,328,329,509,168,292,367,5,309,477,75,306,524,416,35,417,229,448,513,99,179,526,147,390,260,459,394,503,414,221,429,469,160,415,417,435,139,277,195,340,526,7,369,177,324,132,505,36,239,354,414,144,221,378,441,13,93,70,104,449,387,288,492,329,257,489,501,308,376,289,421,320,226,407,294,463,209,322,34,72,310,2,293,11,196,411,136,455,106,432,193,475,518,243,306,410,14,273,145,492,290,33,345,108,75,271,115,517,456,326,108,319,470,40,429,408,380,271,423,475,100,402,408,379,428,512,340,8,172,43,383,72,422,35,57,281,185,304,442,224,376,163,478,210,146,266,139,309,263,210}));
+	}
+	
+	@Test
+	public void test459() {
+		assertEquals(true,  solution.repeatedSubstringPattern("abab"));
+		assertEquals(false, solution.repeatedSubstringPattern("aba"));
+		assertEquals(true,  solution.repeatedSubstringPattern("abcabcabcabc"));
+		assertEquals(true,  solution.repeatedSubstringPattern("aaaaa"));
+		assertEquals(true,  solution.repeatedSubstringPattern("abcabcabc"));
+	}
+	
+	@Test
+	public void test463() {
+		assertEquals(16, solution.islandPerimeter(new int[][]{{0,1,0,0},{1,1,1,0},{0,1,0,0},{1,1,0,0}}));
+		assertEquals(16, solution.islandPerimeter(new int[][]{{0,1,0,0},{1,1,1,0},{0,1,1,0},{1,1,0,0}}));
+		assertEquals(20, solution.islandPerimeter(new int[][]{{0,1,0,0,0},{1,1,1,1,1},{0,1,1,0,0},{1,1,0,0,0}}));
 	}
 }
