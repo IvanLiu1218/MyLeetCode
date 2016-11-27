@@ -737,6 +737,21 @@ public class SolutionTest {
 	}
 	
 	@Test
+	public void test326() {
+		assertEquals(true, solution.isPowerOfThree(1));
+		assertEquals(false, solution.isPowerOfThree(2));
+		assertEquals(true, solution.isPowerOfThree(3));
+		assertEquals(true, solution.isPowerOfThree(243));
+		assertEquals(true, solution.isPowerOfThree(2187));
+		assertEquals(false, solution.isPowerOfThree(2188));
+		assertEquals(true, solution.isPowerOfThree(59049));
+		assertEquals(false, solution.isPowerOfThree(59149));
+		// Time Limit Exceeded
+		assertEquals(false, solution.isPowerOfThree(2147483647));
+		assertEquals(true, solution.isPowerOfThree(1162261467));
+		assertEquals(false, solution.isPowerOfThree(0));
+	}
+	
 	public void test344() {
 		assertEquals("olleh", solution.reverseString("hello"));
 		assertEquals("nmlkjihgfedcba", solution.reverseString("abcdefghijklmn"));
@@ -855,7 +870,6 @@ public class SolutionTest {
 				   + " 8:01, 8:02, 8:04, 8:08, 8:16, 8:32,"
 				   + " 3:00, 5:00, 9:00, 6:00, 10:00]", 
 				Arrays.toString(solution.readBinaryWatch(2).toArray()));
-		
 	}
 	
 	@Test
@@ -991,7 +1005,6 @@ public class SolutionTest {
 		assertEquals(0, solution.minMoves(new int[] {0,0}));
 		// Time Limit Exceeded
 		assertEquals(2147483646, solution.minMoves(new int[] {1,2147483647}));
-		
 	}
 	
 	@Test
