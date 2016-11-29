@@ -209,7 +209,8 @@ public class Solution {
 	}
 	
 	/**
-	 *  [Hard] #004. Median of Two Sorted Arrays
+	 *  [Hard]
+	 *  #004. Median of Two Sorted Arrays
 	 *  
 	 *  There are two sorted arrays nums1 and nums2 of size m and n respectively.
 	 *  Find the median of the two sorted arrays. The overall run time complexity should be O(log (m+n)).
@@ -229,7 +230,9 @@ public class Solution {
     }
 	
 	/**
-	 *  [Medium] #005. Longest Palindromic Substring
+	 *  [Medium]
+	 *  #005. Longest Palindromic Substring
+	 *  
 	 *  Given a string S, find the longest palindromic substring in S. 
 	 *  You may assume that the maximum length of S is 1000, 
 	 *  and there exists one unique longest palindromic substring.
@@ -239,9 +242,11 @@ public class Solution {
 //    }
 	
 	/**
-	 *  [Easy] #006. ZigZag Conversion
+	 *  [Easy]
+	 *  #006. ZigZag Conversion
 	 *  
-	 *  The string "PAYPALISHIRING" is written in a zigzag pattern on a given number of rows like this: (you may want to display this pattern in a fixed font for better legibility)
+	 *  The string "PAYPALISHIRING" is written in a zigzag pattern on a given number of rows like this: 
+	 *  (you may want to display this pattern in a fixed font for better legibility)
 	 *  P   A   H   N
 	 *  A P L S I I G
 	 *  Y   I   R
