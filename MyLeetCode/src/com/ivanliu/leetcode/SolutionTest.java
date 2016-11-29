@@ -55,6 +55,8 @@ public class SolutionTest {
 		assertEquals(1, solution.lengthOfLongestSubstring("c"));
 		assertEquals(3, solution.lengthOfLongestSubstring("dvdf"));
 		assertEquals(2, solution.lengthOfLongestSubstring("abba"));
+		// Wrong Answer
+		assertEquals(5, solution.lengthOfLongestSubstring("tmmzuxt"));
 	}
 	
 	@Test

@@ -96,7 +96,8 @@ public class Solution {
     }
 	
 	/**
-	 *  [Medium] #003. Longest Substring Without Repeating Characters
+	 *  [Medium]
+	 *  #003. Longest Substring Without Repeating Characters
 	 *  
 	 *  Given a string, find the length of the longest substring without repeating characters.
 	 *  
@@ -128,7 +129,84 @@ public class Solution {
 		if (length > maxLength) maxLength = length;
 		
         return maxLength;
+		//return this.lengthOfLongestSubstring_answer1(s);
+		//return this.lengthOfLongestSubstring_answer2(s);
+		//return this.lengthOfLongestSubstring_answer3(s);
     }
+	/*
+	 *  Java (Assuming ASCII 128)
+	 *  
+	 *  The previous implements all have no assumption on the charset of the string s.
+	 *  If we know that the charset is rather small, we can replace the Map with an integer array as direct access table.
+	 *  
+	 *  Commonly used tables are:
+	 *  int[26] for Letters 'a' - 'z' or 'A' - 'Z'
+	 *  int[128] for ASCII
+	 *  int[256] for Extended ASCII
+	 */
+	public int lengthOfLongestSubstring_answer3(String s) {
+		int length = s.length();
+		int[] index = new int[128];  // default value is 0
+		int maxLength = 0;
+		int i = 0;
+		int j = 0;
+		while (i < length && j < length) {
+			char c = s.charAt(j);
+			i = Math.max(index[c], i);
+			maxLength = Math.max(maxLength, j - i + 1);
+			index[c] = ++j; // record the next index of current char
+		}
+		return maxLength;
+	}
+	/*
+	 *  Sliding Window Optimized [Accepted]
+	 *  Time complexity: O(n). Index jj will iterate nn times.
+	 *  Space complexity (HashMap): O(min(m,n)). Same as the previous approach.
+	 *  Space complexity (Table): O(m). m is the size of the charset.
+	 */
+	public int lengthOfLongestSubstring_answer2(String s) {
+		int length = s.length();
+		int maxLength = 0;
+		Map<Character, Integer> map = new HashMap<>();
+		int i = 0;
+		int j = 0;
+		while (i < length && j < length) {
+			char c = s.charAt(j);
+			if (map.containsKey(c)) {
+				i = Math.max(map.get(c) + 1, i);
+			}
+			maxLength = Math.max(maxLength, j - i + 1);
+			map.put(c, j);
+			++j;
+		}
+		return maxLength;
+	}
+	/*
+	 *  Sliding Window [Accepted]
+	 *  Time complexity :  O(2n) = O(n). In the worst case each character will be visited twice by i and j.
+	 *  Space complexity : O(min(m,n)). Same as the previous approach. We need O(k) space for the sliding window, 
+	 *                     where k is the size of the Set. The size of the Set is upper bounded by the size of the string n 
+	 *                     and the size of the charset/alphabet m.
+	 */
+	public int lengthOfLongestSubstring_answer1(String s) {
+		int length = s.length();
+		int maxLength = 0;
+		int i = 0;
+		int j = 0;
+		Set<Character> set = new HashSet<>();
+		while (i < length && j < length) {
+			char c = s.charAt(j);
+			if (!set.contains(c)) {
+				set.add(c);
+				++j;
+				maxLength = Math.max(maxLength, j - i);
+			} else {
+				set.remove(s.charAt(i));
+				++i;
+			}
+		}
+		return maxLength;
+	}
 	
 	/**
 	 *  [Hard] #004. Median of Two Sorted Arrays
