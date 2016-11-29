@@ -18,7 +18,8 @@ import com.ivanliu.leetcode.Utility.TreeNode;
 public class Solution {
 	
 	/**
-	 *  [Easy] #001. Two Sum
+	 *  [Easy]
+	 *  #001. Two Sum
 	 *  
 	 *  Given an array of integers, return indices of the two numbers such that they add up to a specific target.
 	 *  You may assume that each input would have exactly one solution.
@@ -28,7 +29,10 @@ public class Solution {
 	 *  Because nums[0] + nums[1] = 2 + 7 = 9,
 	 *  return [0, 1].
 	 */
-	public int[] twoSum(int[] nums, int target) {
+	// One-pass Hash Table
+	// Time complexity:  O(n)
+	// Space complexity: O(n)
+	public int[] twoSum(int[] nums, int target) {  // Accepted
 		HashMap<Integer, Integer> map = new HashMap<>();
         for (int i = 0; i < nums.length; ++i) {
         	if (!map.containsKey(nums[i])) {
@@ -41,17 +45,19 @@ public class Solution {
         }
         return null;
     }
-//	public int[] twoSum(int[] nums, int target) {
-//		for (int i = 0; i < nums.length; ++i) {
-//			int leftTarget = target - nums[i];
-//			for (int j = i + 1; j < nums.length; ++j) {
-//				if (nums[j] == leftTarget) {
-//					return new int[] { i, j };
-//				}
-//			}
-//		}
-//		return null;
-//    }
+	// Time complexity:  O(n^2)
+	// Space complexity: O(1)
+	public int[] twoSum_solution1(int[] nums, int target) {  // Time Limit Exceeded
+		for (int i = 0; i < nums.length; ++i) {
+			int leftTarget = target - nums[i];
+			for (int j = i + 1; j < nums.length; ++j) {
+				if (nums[j] == leftTarget) {
+					return new int[] { i, j };
+				}
+			}
+		}
+		return null;
+    }
 	
 	/**
 	 *  [Medium] #002. Add Two Numbers
