@@ -80,6 +80,12 @@ public class SolutionTest {
 	}
 	
 	@Test
+	public void test007() {
+		assertEquals(123, solution.reverse(321));
+		assertEquals(-123, solution.reverse(-321));
+	}
+	
+	@Test
 	public void test014() {
 		assertEquals("ab", solution.longestCommonPrefix(new String[] {"abc","ab","abcd"}));
 		assertEquals("a", solution.longestCommonPrefix(new String[] {"abc","ad","abcd"}));
