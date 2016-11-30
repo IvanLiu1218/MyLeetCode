@@ -89,6 +89,14 @@ public class SolutionTest {
 	}
 	
 	@Test
+	public void test008() {
+		assertEquals(123459, solution.myAtoi("+123459skeo3"));
+		assertEquals(123459, solution.myAtoi("   +123459skeo3"));
+		assertEquals(Integer.MAX_VALUE, solution.myAtoi("+2147483649"));
+		assertEquals(Integer.MIN_VALUE, solution.myAtoi("-2147483649"));
+	}
+	
+	@Test
 	public void test014() {
 		assertEquals("ab", solution.longestCommonPrefix(new String[] {"abc","ab","abcd"}));
 		assertEquals("a", solution.longestCommonPrefix(new String[] {"abc","ad","abcd"}));
