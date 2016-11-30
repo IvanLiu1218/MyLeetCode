@@ -83,6 +83,9 @@ public class SolutionTest {
 	public void test007() {
 		assertEquals(123, solution.reverse(321));
 		assertEquals(-123, solution.reverse(-321));
+		assertEquals(0, solution.reverse(1534236469));
+		assertEquals(0, solution.reverse(2147483643));
+		assertEquals(7654321, solution.reverse(1234567));
 	}
 	
 	@Test

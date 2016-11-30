@@ -303,6 +303,7 @@ public class Solution {
 	 *  Test cases had been added to test the overflow behavior.
 	 */
 	public int reverse(int x) {
+		int maxOverflow = Integer.MAX_VALUE / 10;
 		boolean isNegative = false;
 		int num = x;
 		if (num < 0) {
@@ -311,6 +312,7 @@ public class Solution {
 		}
 		int result = 0;
 		while (num > 0) {
+			if (result > maxOverflow) return 0;  // if overflow
 			result *= 10;
 			int left = num % 10;
 			result += left;
