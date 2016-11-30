@@ -55,6 +55,8 @@ public class SolutionTest {
 		assertEquals(1, solution.lengthOfLongestSubstring("c"));
 		assertEquals(3, solution.lengthOfLongestSubstring("dvdf"));
 		assertEquals(2, solution.lengthOfLongestSubstring("abba"));
+		// Wrong Answer
+		assertEquals(5, solution.lengthOfLongestSubstring("tmmzuxt"));
 	}
 	
 	@Test
@@ -75,6 +77,15 @@ public class SolutionTest {
 		assertEquals("PINALSIGYAHRPI", solution.convert("PAYPALISHIRING", 4));
 		assertEquals("PAYPALISHIRING", solution.convert("PAYPALISHIRING", 1));
 		assertEquals("A", solution.convert("A", 1));
+	}
+	
+	@Test
+	public void test007() {
+		assertEquals(123, solution.reverse(321));
+		assertEquals(-123, solution.reverse(-321));
+		assertEquals(0, solution.reverse(1534236469));
+		assertEquals(0, solution.reverse(2147483643));
+		assertEquals(7654321, solution.reverse(1234567));
 	}
 	
 	@Test

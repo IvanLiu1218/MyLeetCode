@@ -18,7 +18,8 @@ import com.ivanliu.leetcode.Utility.TreeNode;
 public class Solution {
 	
 	/**
-	 *  [Easy] #001. Two Sum
+	 *  [Easy]
+	 *  #001. Two Sum
 	 *  
 	 *  Given an array of integers, return indices of the two numbers such that they add up to a specific target.
 	 *  You may assume that each input would have exactly one solution.
@@ -28,7 +29,10 @@ public class Solution {
 	 *  Because nums[0] + nums[1] = 2 + 7 = 9,
 	 *  return [0, 1].
 	 */
-	public int[] twoSum(int[] nums, int target) {
+	// One-pass Hash Table
+	// Time complexity:  O(n)
+	// Space complexity: O(n)
+	public int[] twoSum(int[] nums, int target) {  // Accepted
 		HashMap<Integer, Integer> map = new HashMap<>();
         for (int i = 0; i < nums.length; ++i) {
         	if (!map.containsKey(nums[i])) {
@@ -41,20 +45,23 @@ public class Solution {
         }
         return null;
     }
-//	public int[] twoSum(int[] nums, int target) {
-//		for (int i = 0; i < nums.length; ++i) {
-//			int leftTarget = target - nums[i];
-//			for (int j = i + 1; j < nums.length; ++j) {
-//				if (nums[j] == leftTarget) {
-//					return new int[] { i, j };
-//				}
-//			}
-//		}
-//		return null;
-//    }
+	// Time complexity:  O(n^2)
+	// Space complexity: O(1)
+	public int[] twoSum_solution1(int[] nums, int target) {  // Time Limit Exceeded
+		for (int i = 0; i < nums.length; ++i) {
+			int leftTarget = target - nums[i];
+			for (int j = i + 1; j < nums.length; ++j) {
+				if (nums[j] == leftTarget) {
+					return new int[] { i, j };
+				}
+			}
+		}
+		return null;
+    }
 	
 	/**
-	 *  [Medium] #002. Add Two Numbers
+	 *  [Medium]
+	 *  #002. Add Two Numbers
 	 *  
 	 *  You are given two linked lists representing two non-negative numbers. 
 	 *  The digits are stored in reverse order and each of their nodes contain a single digit. 
@@ -63,6 +70,8 @@ public class Solution {
 	 *  Input: (2 -> 4 -> 3) + (5 -> 6 -> 4)
 	 *  Output: 7 -> 0 -> 8
 	 */
+	// Time complexity : O(\max(m, n))O(max(m,n))
+	// Space complexity: O(\max(m, n))O(max(m,n)). The length of the new list is at most max(m,n) + 1
 	public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
 		ListNode n1 = l1;
 		ListNode n2 = l2;
@@ -87,7 +96,8 @@ public class Solution {
     }
 	
 	/**
-	 *  [Medium] #003. Longest Substring Without Repeating Characters
+	 *  [Medium]
+	 *  #003. Longest Substring Without Repeating Characters
 	 *  
 	 *  Given a string, find the length of the longest substring without repeating characters.
 	 *  
@@ -119,10 +129,88 @@ public class Solution {
 		if (length > maxLength) maxLength = length;
 		
         return maxLength;
+		//return this.lengthOfLongestSubstring_answer1(s);
+		//return this.lengthOfLongestSubstring_answer2(s);
+		//return this.lengthOfLongestSubstring_answer3(s);
     }
+	/*
+	 *  Java (Assuming ASCII 128)
+	 *  
+	 *  The previous implements all have no assumption on the charset of the string s.
+	 *  If we know that the charset is rather small, we can replace the Map with an integer array as direct access table.
+	 *  
+	 *  Commonly used tables are:
+	 *  int[26] for Letters 'a' - 'z' or 'A' - 'Z'
+	 *  int[128] for ASCII
+	 *  int[256] for Extended ASCII
+	 */
+	public int lengthOfLongestSubstring_answer3(String s) {
+		int length = s.length();
+		int[] index = new int[128];  // default value is 0
+		int maxLength = 0;
+		int i = 0;
+		int j = 0;
+		while (i < length && j < length) {
+			char c = s.charAt(j);
+			i = Math.max(index[c], i);
+			maxLength = Math.max(maxLength, j - i + 1);
+			index[c] = ++j; // record the next index of current char
+		}
+		return maxLength;
+	}
+	/*
+	 *  Sliding Window Optimized [Accepted]
+	 *  Time complexity: O(n). Index jj will iterate nn times.
+	 *  Space complexity (HashMap): O(min(m,n)). Same as the previous approach.
+	 *  Space complexity (Table): O(m). m is the size of the charset.
+	 */
+	public int lengthOfLongestSubstring_answer2(String s) {
+		int length = s.length();
+		int maxLength = 0;
+		Map<Character, Integer> map = new HashMap<>();
+		int i = 0;
+		int j = 0;
+		while (i < length && j < length) {
+			char c = s.charAt(j);
+			if (map.containsKey(c)) {
+				i = Math.max(map.get(c) + 1, i);
+			}
+			maxLength = Math.max(maxLength, j - i + 1);
+			map.put(c, j);
+			++j;
+		}
+		return maxLength;
+	}
+	/*
+	 *  Sliding Window [Accepted]
+	 *  Time complexity :  O(2n) = O(n). In the worst case each character will be visited twice by i and j.
+	 *  Space complexity : O(min(m,n)). Same as the previous approach. We need O(k) space for the sliding window, 
+	 *                     where k is the size of the Set. The size of the Set is upper bounded by the size of the string n 
+	 *                     and the size of the charset/alphabet m.
+	 */
+	public int lengthOfLongestSubstring_answer1(String s) {
+		int length = s.length();
+		int maxLength = 0;
+		int i = 0;
+		int j = 0;
+		Set<Character> set = new HashSet<>();
+		while (i < length && j < length) {
+			char c = s.charAt(j);
+			if (!set.contains(c)) {
+				set.add(c);
+				++j;
+				maxLength = Math.max(maxLength, j - i);
+			} else {
+				set.remove(s.charAt(i));
+				++i;
+			}
+		}
+		return maxLength;
+	}
 	
 	/**
-	 *  [Hard] #004. Median of Two Sorted Arrays
+	 *  [Hard]
+	 *  #004. Median of Two Sorted Arrays
 	 *  
 	 *  There are two sorted arrays nums1 and nums2 of size m and n respectively.
 	 *  Find the median of the two sorted arrays. The overall run time complexity should be O(log (m+n)).
@@ -142,7 +230,9 @@ public class Solution {
     }
 	
 	/**
-	 *  [Medium] #005. Longest Palindromic Substring
+	 *  [Medium]
+	 *  #005. Longest Palindromic Substring
+	 *  
 	 *  Given a string S, find the longest palindromic substring in S. 
 	 *  You may assume that the maximum length of S is 1000, 
 	 *  and there exists one unique longest palindromic substring.
@@ -152,9 +242,11 @@ public class Solution {
 //    }
 	
 	/**
-	 *  [Easy] #006. ZigZag Conversion
+	 *  [Easy]
+	 *  #006. ZigZag Conversion
 	 *  
-	 *  The string "PAYPALISHIRING" is written in a zigzag pattern on a given number of rows like this: (you may want to display this pattern in a fixed font for better legibility)
+	 *  The string "PAYPALISHIRING" is written in a zigzag pattern on a given number of rows like this: 
+	 *  (you may want to display this pattern in a fixed font for better legibility)
 	 *  P   A   H   N
 	 *  A P L S I I G
 	 *  Y   I   R
@@ -187,6 +279,49 @@ public class Solution {
 			++r;
 		}
         return sb.toString();
+    }
+	
+	/**
+	 *  [Easy]
+	 *  #007. Reverse Integer
+	 *  
+	 *  Reverse digits of an integer.
+	 *  
+	 *  Example1: x = 123, return 321
+	 *  Example2: x = -123, return -321
+	 *  
+	 *  Have you thought about this?
+	 *  Here are some good questions to ask before coding. Bonus points for you if you have already thought through this!
+	 *  
+	 *  If the integer's last digit is 0, what should the output be? ie, cases such as 10, 100.
+	 *  
+	 *  Did you notice that the reversed integer might overflow? Assume the input is a 32-bit integer, 
+	 *  then the reverse of 1000000003 overflows. How should you handle such cases?
+	 *  For the purpose of this problem, assume that your function returns 0 when the reversed integer overflows.
+	 *  
+	 *  Update (2014-11-10):
+	 *  Test cases had been added to test the overflow behavior.
+	 */
+	public int reverse(int x) {
+		int maxOverflow = Integer.MAX_VALUE / 10;
+		boolean isNegative = false;
+		int num = x;
+		if (num < 0) {
+			num *= -1;
+			isNegative = true;
+		}
+		int result = 0;
+		while (num > 0) {
+			if (result > maxOverflow) return 0;  // if overflow
+			result *= 10;
+			int left = num % 10;
+			result += left;
+			num = num / 10;
+		}
+		if (isNegative) {
+			result *= -1;
+		}
+		return result;
     }
 	
 	/**
