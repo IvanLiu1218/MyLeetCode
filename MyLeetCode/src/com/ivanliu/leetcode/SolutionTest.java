@@ -114,6 +114,12 @@ public class SolutionTest {
 	}
 	
 	@Test
+	public void test013() {
+		assertEquals(4, solution.romanToInt("IV"));
+		assertEquals(3999, solution.romanToInt("MMMCMXCIX"));
+	}
+	
+	@Test
 	public void test014() {
 		assertEquals("ab", solution.longestCommonPrefix(new String[] {"abc","ab","abcd"}));
 		assertEquals("a", solution.longestCommonPrefix(new String[] {"abc","ad","abcd"}));
