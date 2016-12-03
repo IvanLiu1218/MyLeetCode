@@ -624,6 +624,38 @@ public class Solution {
     }
 	
 	/**
+	 *  [Easy]
+	 *  #021. Merge Two Sorted Lists
+	 *  
+	 *  Merge two sorted linked lists and return it as a new list. 
+	 *  The new list should be made by splicing together the nodes of the first two lists.
+	 */
+	public ListNode mergeTwoLists(ListNode l1, ListNode l2) {
+		ListNode thead = new ListNode(-1);
+		ListNode node = thead;
+		ListNode p1 = l1;
+		ListNode p2 = l2;
+		while (p1 != null && p2 != null) {
+			if (p1.val <= p2.val) {
+				node.next = p1;
+				p1 = p1.next;
+			}
+			else {
+				node.next = p2;
+				p2 = p2.next;
+			}
+			node = node.next;
+		}
+		if (p1 != null) {
+			node.next = p1;
+		}
+		if (p2 != null) {
+			node.next = p2;
+		}
+		return thead.next;
+    }
+	
+	/**
 	 *  [Medium] #022. Generate Parentheses
 	 *  
 	 *  Given n pairs of parentheses, write a function to generate all combinations of well-formed parentheses.
