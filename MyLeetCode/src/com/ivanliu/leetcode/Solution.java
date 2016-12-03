@@ -7,6 +7,7 @@ import java.util.Deque;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -1066,6 +1067,52 @@ public class Solution {
 		}
         return countAndSayList.get(n - 1);
     }
+	
+	/**
+	 *  [Medium]
+	 *  #046. Permutations
+	 *  
+	 *  Given a collection of distinct numbers, return all possible permutations.
+	 *  
+	 *  For example,
+	 *  [1,2,3] have the following permutations:
+	 *  [
+	 *    [1,2,3],
+	 *    [1,3,2],
+	 *    [2,1,3],
+	 *    [2,3,1],
+	 *    [3,1,2],
+	 *    [3,2,1]
+	 *  ]
+	 */
+	private List<List<Integer>> permute_llist = null;
+	public List<List<Integer>> permute(int[] nums) {
+		permute_llist = new ArrayList<List<Integer>>();
+		if (nums == null || nums.length == 0) return permute_llist;
+		
+		List<Integer> range = new LinkedList<Integer>();
+		for (int i = 0; i < nums.length; ++i) {
+			
+			range.add(nums[i]);
+		}
+		List<Integer> list = new ArrayList<Integer>();
+		permute_getPermutation(range, list);
+		
+		return permute_llist;
+    }
+	private void permute_getPermutation(List<Integer> range, List<Integer> list) {
+		if (range.size() == 0) {
+			permute_llist.add(new ArrayList<Integer>(list));
+			return;
+		}
+		for (int i = 0; i < range.size(); ++i) {
+			int val = range.remove(i);
+			list.add(val);
+			permute_getPermutation(range, list);
+			range.add(i, val);
+			list.remove(list.size() - 1);
+		}
+	}
 	
 	/**
 	 *  [Easy]
