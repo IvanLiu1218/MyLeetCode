@@ -244,6 +244,14 @@ public class SolutionTest {
 	}
 	
 	@Test
+	public void test035() {
+		assertEquals(2, solution.searchInsert(new int[]{1,3,5,6}, 5));
+		assertEquals(1, solution.searchInsert(new int[]{1,3,5,6}, 2));
+		assertEquals(4, solution.searchInsert(new int[]{1,3,5,6}, 7));
+		assertEquals(0, solution.searchInsert(new int[]{1,3,5,6}, 0));
+	}
+	
+	@Test
 	public void test036() {
 		char[][] board = new char[][] { {'5','3','.','.','7','.','.','.','.'},
 			                            {'6','.','.','1','9','5','.','.','.'},
