@@ -432,6 +432,68 @@ public class Solution {
 	}
 	
 	/**
+	 *  [Easy]
+	 *  #012. Integer to Roman
+	 *  
+	 *  Given an integer, convert it to a roman numeral.
+	 *  Input is guaranteed to be within the range from 1 to 3999.
+	 *  Subscribe to see which companies asked this question
+	 */
+	public String intToRoman(int num) {
+		Map<Integer, String> romanMap = new HashMap<Integer, String>();
+		romanMap.put(1000, "M");
+		romanMap.put(500, "D");
+		romanMap.put(100, "C");
+		romanMap.put(50, "L");
+		romanMap.put(10, "X");
+		romanMap.put(5, "V");
+		romanMap.put(1, "I");
+		StringBuilder sb = new StringBuilder();
+		int n = num;
+		int factor = 1000;
+		while (n > 0) {
+			int left = n / factor;
+			if (left > 0) {
+				sb.append(intToRoman_digitToRoman(left, factor, romanMap));
+			}
+			n = n - left * factor;
+			factor = factor / 10;
+		}
+		return sb.toString();
+    }
+	private String intToRoman_digitToRoman(int digit, int factor, Map<Integer, String> map) {
+		StringBuilder sb = new StringBuilder();
+		if (digit == 9) {
+			sb.append(map.get(factor));
+			sb.append(map.get(factor * 10));
+			return sb.toString();
+		}
+		else if (digit == 5) {
+			return map.get(digit * factor);
+		}
+		else if (digit == 4) {
+			sb.append(map.get(factor));
+			sb.append(map.get(5 * factor));
+			return sb.toString();
+		}
+		else if (digit < 4) {  // 1,2,3
+			String sig = map.get(factor);
+			for (int i = 0; i < digit; ++i) {
+				
+				sb.append(sig);
+			}
+			return sb.toString();
+		}
+		else { // digit 6,7,8
+			sb.append(map.get(5 * factor));
+			for (int i = 5; i < digit; ++i) {
+				sb.append(map.get(factor));
+			}
+			return sb.toString();
+		}
+	}
+	
+	/**
 	 *  [Easy] #014. Longest Common Prefix
 	 *  
 	 *  Write a function to find the longest common prefix string amongst an array of strings.
