@@ -309,6 +309,12 @@ public class SolutionTest {
 		assertEquals(28, solution.uniquePaths(3, 7));
 		assertEquals(21, solution.uniquePaths(3, 6));
 	}
+	
+	@Test
+	public void test064() {
+		assertEquals(12, solution.minPathSum(new int[][]{{2,2,2,2},{2,1,1,2},{2,2,2,2},{2,2,2,2}}));
+		assertEquals(16, solution.minPathSum(new int[][]{{2,5,7,8},{5,5,6,1},{7,1,7,1},{8,1,1,1}}));
+	}
 
 	@Test
 	public void test067() {
