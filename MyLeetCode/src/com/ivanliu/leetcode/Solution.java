@@ -837,6 +837,66 @@ public class Solution {
 	}
 	
 	/**
+	 *  [Easy]
+	 *  #027. Remove Element
+	 *  
+	 *  Given an array and a value, remove all instances of that value in place and return the new length.
+	 *  
+	 *  Do not allocate extra space for another array, you must do this in place with constant memory.
+	 *  
+	 *  The order of elements can be changed. It doesn't matter what you leave beyond the new length.
+	 *  
+	 *  Example:
+	 *  Given input array nums = [3,2,2,3], val = 3
+	 *  
+	 *  Your function should return length = 2, with the first two elements of nums being 2.
+	 *  
+	 *  Hint:
+	 *  
+	 *  1. Try two pointers.
+	 *  2. Did you use the property of "the order of elements can be changed"?
+	 *  3. What happens when the elements to remove are rare?
+	 */
+	public int removeElement(int[] nums, int val) {
+		if (nums == null || nums.length == 0) return 0;
+		int length = nums.length;
+		int i = 0;
+		int j = length - 1;
+		while (i <= j && i < nums.length && 0 <= j) {
+			while (0 <= j && nums[j] == val) {
+				--length;
+				--j;
+			}
+			if (i < j && nums[i] == val) {
+				int temp = nums[i];
+				nums[i] = nums[j];
+				nums[j] = temp;
+				--j;
+				--length;
+			}
+			++i;
+		}
+		return length;
+    }
+	public int removeElement_solution1(int[] nums, int val) {
+		if (nums == null || nums.length == 0) return 0;
+		int length = nums.length;
+		int i = 0;
+		while (i < length) {
+			if (nums[i] == val) {
+				for (int j = i; j < length - 1; ++j) {
+					nums[j] = nums[j + 1];
+				}
+				--length;
+			}
+			else {
+				++i;
+			}
+		}
+		return length;
+	}
+	
+	/**
 	 *  [Easy] #028. Implement strStr()
 	 *  
 	 *  Implement strStr().

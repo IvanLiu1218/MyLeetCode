@@ -212,6 +212,19 @@ public class SolutionTest {
 	}
 	
 	@Test
+	public void test027() {
+		assertEquals(2, solution.removeElement(new int[] {3,2,1,3}, 3));
+		assertEquals(3, solution.removeElement(new int[] {3,2,1,0}, 3));
+		assertEquals(3, solution.removeElement(new int[] {0,2,1,3}, 3));
+		// Runtime Error
+		assertEquals(0, solution.removeElement(new int[] {3,3}, 3));
+		// Wrong Answer
+		assertEquals(0, solution.removeElement(new int[] {1}, 1));
+		assertEquals(1, solution.removeElement(new int[] {2,2,3}, 2));
+		assertEquals(0, solution.removeElement(new int[] {2,2,2}, 2));
+	}
+	
+	@Test
 	public void test028() {
 		assertEquals(3, solution.strStr("abcdefg", "def"));
 		assertEquals(0, solution.strStr("abcdefg", "abc"));
