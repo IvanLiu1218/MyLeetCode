@@ -199,6 +199,19 @@ public class SolutionTest {
 	}
 	
 	@Test
+	public void test026() {
+		int[] array = new int[] {1,1,2};
+		assertEquals(2, solution.removeDuplicates(array));
+		assertEquals(1, array[0]);
+		assertEquals(2, array[1]);
+		array = new int[]{1,1,2,2,2,2,2,2,3,3};
+		assertEquals(3, solution.removeDuplicates(array));
+		assertEquals(1, array[0]);
+		assertEquals(2, array[1]);
+		assertEquals(3, array[2]);
+	}
+	
+	@Test
 	public void test028() {
 		assertEquals(3, solution.strStr("abcdefg", "def"));
 		assertEquals(0, solution.strStr("abcdefg", "abc"));
