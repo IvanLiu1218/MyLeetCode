@@ -187,6 +187,18 @@ public class SolutionTest {
 	}
 	
 	@Test
+	public void test024() {
+		ListNode list = new ListNode(1, new ListNode(2, new ListNode(3, new ListNode(4, null))));
+		assertEquals("[2,1,4,3]", Utility.toString(solution.swapPairs(list)));
+		list = new ListNode(1, new ListNode(2, new ListNode(3, new ListNode(4, new ListNode(5, null)))));
+		assertEquals("[2,1,4,3,5]", Utility.toString(solution.swapPairs(list)));
+		list = new ListNode(1, null);
+		assertEquals("[1]", Utility.toString(solution.swapPairs(list)));
+		list = null;
+		assertEquals("[]", Utility.toString(solution.swapPairs(list)));
+	}
+	
+	@Test
 	public void test028() {
 		assertEquals(3, solution.strStr("abcdefg", "def"));
 		assertEquals(0, solution.strStr("abcdefg", "abc"));
