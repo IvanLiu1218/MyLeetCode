@@ -897,7 +897,8 @@ public class Solution {
 	}
 	
 	/**
-	 *  [Easy] #028. Implement strStr()
+	 *  [Easy]
+	 *  #028. Implement strStr()
 	 *  
 	 *  Implement strStr().
 	 *  Returns the index of the first occurrence of needle in haystack, or -1 if needle is not part of haystack.
@@ -926,7 +927,38 @@ public class Solution {
     }
 	
 	/**
-	 *  [Easy] #036. Valid Sudoku
+	 *  [Hard]
+	 *  #033. Search in Rotated Sorted Array
+	 *  
+	 *  Suppose a sorted array is rotated at some pivot unknown to you beforehand.
+	 *  
+	 *  (i.e., 0 1 2 4 5 6 7 might become 4 5 6 7 0 1 2).
+	 *  
+	 *  You are given a target value to search. If found in the array return its index, otherwise return -1.
+	 *  
+	 *  You may assume no duplicate exists in the array.
+	 */
+	public int search(int[] nums, int target) {
+		if (nums == null || nums.length == 0) return -1;
+		int pivot = nums[0];
+		if (target < pivot) {
+			for (int i = nums.length - 1; i >= 0; --i) {
+				if (nums[i] > pivot) break;
+				if (nums[i] == target) return i;
+			}
+		}
+		else {
+			for (int i = 0; i < nums.length; ++i) {
+				if (nums[i] < pivot) break;
+				if (nums[i] == target) return i;
+			}
+		}
+		return -1;
+    }
+	
+	/**
+	 *  [Easy]
+	 *  #036. Valid Sudoku
 	 *  
 	 *  Determine if a Sudoku is valid, according to: Sudoku Puzzles - The Rules.
 	 *  The Sudoku board could be partially filled, where empty cells are filled with the character '.'.
