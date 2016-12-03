@@ -237,6 +237,11 @@ public class SolutionTest {
 		assertEquals(-1, solution.strStr("aaa", "aaaa"));
 		assertEquals(-1, solution.strStr("aaaa", "aaab"));
 	}
+	@Test
+	public void test033() {
+		assertEquals(-1, solution.search(new int[]{5,6,7,0,1,2,3,4}, 8));
+		assertEquals(7, solution.search(new int[]{5,6,7,0,1,2,3,4}, 4));
+	}
 	
 	@Test
 	public void test036() {
