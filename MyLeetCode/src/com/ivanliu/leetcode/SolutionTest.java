@@ -303,6 +303,12 @@ public class SolutionTest {
 		assertEquals("[11, 16, 15, 6]", Arrays.toString(matrix[2]));
 		assertEquals("[10, 9, 8, 7]", Arrays.toString(matrix[3]));
 	}
+	
+	@Test
+	public void test062() {
+		assertEquals(28, solution.uniquePaths(3, 7));
+		assertEquals(21, solution.uniquePaths(3, 6));
+	}
 
 	@Test
 	public void test067() {
