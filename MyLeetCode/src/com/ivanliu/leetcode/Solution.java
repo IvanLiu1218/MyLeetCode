@@ -1194,6 +1194,46 @@ public class Solution {
     }
 	
 	/**
+	 *  [Medium]
+	 *  #062. Unique Paths
+	 *  
+	 *  A robot is located at the top-left corner of a m x n grid (marked 'Start' in the diagram below).
+	 *  
+	 *  The robot can only move either down or right at any point in time. 
+	 *  The robot is trying to reach the bottom-right corner of the grid (marked 'Finish' in the diagram below).
+	 *  
+	 *  How many possible unique paths are there?
+	 *  
+	 *  Above is a 3 x 7 grid. How many possible unique paths are there?
+	 *  
+	 *  Note: m and n will be at most 100.
+	 */
+	public int uniquePaths(int m, int n) {
+		if (m <= 0 || n <= 0) return -1;
+		int[][] metrix = new int[m][n];
+		for (int i = 0; i < m; ++i) {
+			for (int j = 0; j < n; ++j) {
+				metrix[i][j] = uniquePaths_getMetrixValue(metrix, i, j);
+			}
+		}
+		return metrix[m - 1][n - 1];
+    }
+	private int uniquePaths_getMetrixValue(int[][] metrix, int i , int j) {
+		if (i == 0 && j == 0) {
+			return 1;
+		}
+		int up = 0;
+		int left = 0;
+		if (i - 1 >= 0) {
+			up = metrix[i - 1][j];
+		}
+		if (j - 1 >= 0) {
+			left = metrix[i][j - 1];
+		}
+		return up + left;
+	}
+	
+	/**
 	 *  [Easy]
 	 *  #067. Add Binary
 	 *  
