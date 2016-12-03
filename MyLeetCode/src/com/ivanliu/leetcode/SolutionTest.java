@@ -277,6 +277,12 @@ public class SolutionTest {
 		assertEquals("13112221", solution.countAndSay(7));
 		assertEquals("1113213211", solution.countAndSay(8));
 	}
+	
+	@Test
+	public void test046() {
+		List<List<Integer>> llist = solution.permute(new int[]{1,2,3});
+		assertEquals(6, llist.size());
+	}
 
 	@Test
 	public void test067() {
