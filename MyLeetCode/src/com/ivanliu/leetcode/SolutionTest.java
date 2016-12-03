@@ -163,6 +163,13 @@ public class SolutionTest {
 	}
 	
 	@Test
+	public void test021() {
+		ListNode l1 = new ListNode(1, new ListNode(6, new ListNode(7, null)));
+		ListNode l2 = new ListNode(2, new ListNode(3, new ListNode(5, new ListNode(8, null))));
+		assertEquals("[1,2,3,5,6,7,8]", Utility.toString(solution.mergeTwoLists(l1, l2)));
+	}
+	
+	@Test
 	public void test022() {
 		List<String> result = solution.generateParenthesis(3);
 		assertEquals(5, result.size());
