@@ -283,6 +283,13 @@ public class SolutionTest {
 		List<List<Integer>> llist = solution.permute(new int[]{1,2,3});
 		assertEquals(6, llist.size());
 	}
+	
+	@Test
+	public void test058() {
+		assertEquals(5, solution.lengthOfLastWord("Hello World"));
+		assertEquals(10, solution.lengthOfLastWord("HelloWorld"));
+		assertEquals(5, solution.lengthOfLastWord("Hello World "));
+	}
 
 	@Test
 	public void test067() {
