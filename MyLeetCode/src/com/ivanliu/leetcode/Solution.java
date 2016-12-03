@@ -381,6 +381,57 @@ public class Solution {
     }
 	
 	/**
+	 *  [Easy]
+	 *  #009. Palindrome Number
+	 *  
+	 *  Determine whether an integer is a palindrome. Do this without extra space.
+	 *  
+	 *  Some hints:
+	 *  Could negative integers be palindromes? (ie, -1)
+	 *  
+	 *  If you are thinking of converting the integer to string, note the restriction of using extra space.
+	 *  
+	 *  You could also try reversing an integer. However, if you have solved the problem "Reverse Integer", 
+	 *  you know that the reversed integer might overflow. How would you handle such case?
+	 *  
+	 *  There is a more generic way of solving this problem.
+	 */
+	public boolean isPalindrome(int x) {
+		if (x < 0) return false;
+		if (x == 0) return true;
+		int length = isPalindrome_getLengthOfInt(x);
+		int factor = isPalindrome_getFactor(length);
+		while (x > 9) {  // 12321 -> 232 -> 3
+			             // 1221 -> 22 -> 0
+			int a = x / factor;
+			int b = x % 10;
+			if (a != b) return false;
+			x = (x - a * factor - b) / 10;
+			factor = factor / 100;
+		}
+		if (x == 0) return true;
+		if (factor != 1 && factor != 0) return false;
+		return true;
+    }
+	private int isPalindrome_getLengthOfInt(int x) {
+		if (x == 0) return 1;
+		int length = 0;
+		int num = x;
+		while (num > 0) {
+			length++;
+			num = num / 10;
+		}
+		return length;
+	}
+	private int isPalindrome_getFactor(int length) {
+		int factor = 1;
+		for (int i = 0; i < length - 1; ++i) {
+			factor *= 10;
+		}
+		return factor;
+	}
+	
+	/**
 	 *  [Easy] #014. Longest Common Prefix
 	 *  
 	 *  Write a function to find the longest common prefix string amongst an array of strings.

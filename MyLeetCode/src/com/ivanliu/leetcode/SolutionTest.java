@@ -97,6 +97,14 @@ public class SolutionTest {
 	}
 	
 	@Test
+	public void test009() {
+		assertEquals(false, solution.isPalindrome(-12321));
+		assertEquals(true, solution.isPalindrome(0));
+		assertEquals(true, solution.isPalindrome(1234554321));
+		assertEquals(true, solution.isPalindrome(123454321));
+	}
+	
+	@Test
 	public void test014() {
 		assertEquals("ab", solution.longestCommonPrefix(new String[] {"abc","ab","abcd"}));
 		assertEquals("a", solution.longestCommonPrefix(new String[] {"abc","ad","abcd"}));
