@@ -528,7 +528,8 @@ public class Solution {
     }
 	
 	/**
-	 *  [Easy] #014. Longest Common Prefix
+	 *  [Easy]
+	 *  #014. Longest Common Prefix
 	 *  
 	 *  Write a function to find the longest common prefix string amongst an array of strings.
 	 */
@@ -557,7 +558,8 @@ public class Solution {
     }
 	
 	/**
-	 *  [Easy] #019. Remove Nth Node From End of List
+	 *  [Easy]
+	 *  #019. Remove Nth Node From End of List
 	 *  
 	 *  Given a linked list, remove the nth node from the end of list and return its head.
 	 *  
@@ -591,7 +593,8 @@ public class Solution {
     }
 	
 	/**
-	 *  [Easy] #020. Valid Parentheses
+	 *  [Easy]
+	 *  #020. Valid Parentheses
 	 * 
 	 *  Given a string containing just the characters '(', ')', '{', '}', '[' and ']', determine if the input string is valid.
 	 *  The brackets must close in the correct order, "()" and "()[]{}" are all valid but "(]" and "([)]" are not.
@@ -656,7 +659,8 @@ public class Solution {
     }
 	
 	/**
-	 *  [Medium] #022. Generate Parentheses
+	 *  [Medium]
+	 *  #022. Generate Parentheses
 	 *  
 	 *  Given n pairs of parentheses, write a function to generate all combinations of well-formed parentheses.
 	 *  
@@ -692,6 +696,54 @@ public class Solution {
 				generateParenthesis(result, str + "(", numStart - 1, numEnd);
 			}
 		}
+	}
+	
+	/**
+	 *  [Hard]
+	 *  #023. Merge k Sorted Lists
+	 *  
+	 *  Merge k sorted linked lists and return it as one sorted list. Analyze and describe its complexity.
+	 */
+	public ListNode mergeKLists(ListNode[] lists) {
+		if (lists == null || lists.length == 0) return null;
+		if (lists.length == 1) return lists[0];
+		int mid = (lists.length - 1) / 2;
+		ListNode n1 = mergeKLists_mergeKLists(lists, 0, mid);
+		ListNode n2 = mergeKLists_mergeKLists(lists, mid + 1, lists.length - 1);
+		return mergeKLists_mergeKLists(n1, n2);
+    }
+	public ListNode mergeKLists_mergeKLists(ListNode[] lists, int start, int end) {
+		if (start == end) {
+			return lists[start];
+		}
+		int mid = (start + end) / 2;
+		ListNode n1 = mergeKLists_mergeKLists(lists, start, mid);
+		ListNode n2 = mergeKLists_mergeKLists(lists, mid + 1, end);
+		return mergeKLists_mergeKLists(n1, n2);
+	}
+	public ListNode mergeKLists_mergeKLists(ListNode h1, ListNode h2) {
+		ListNode nhead = new ListNode(-1);
+		ListNode pnode = nhead;
+		ListNode n1 = h1;
+		ListNode n2 = h2;
+		while (n1 != null && n2 != null) {
+			if (n1.val < n2.val) {
+				pnode.next = n1;
+				n1 = n1.next;
+			}
+			else {
+				pnode.next = n2;
+				n2 = n2.next;
+			}
+			pnode = pnode.next;
+		}
+		if (n1 != null) {
+			pnode.next = n1;
+		}
+		if (n2 != null) {
+			pnode.next = n2;
+		}
+		return nhead.next;
 	}
 	
 	/**

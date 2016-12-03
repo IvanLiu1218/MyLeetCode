@@ -177,6 +177,16 @@ public class SolutionTest {
 	}
 	
 	@Test
+	public void test023() {
+		ListNode[] lists = new ListNode[4];
+		lists[0] = new ListNode(1, new ListNode(9, null));
+		lists[1] = new ListNode(2, new ListNode(6, new ListNode(7, null)));
+		lists[2] = new ListNode(3, null);
+		lists[3] = new ListNode(4, new ListNode(5, new ListNode(8, new ListNode(11, null))));
+		assertEquals("[1,2,3,4,5,6,7,8,9,11]", Utility.toString(solution.mergeKLists(lists)));
+	}
+	
+	@Test
 	public void test028() {
 		assertEquals(3, solution.strStr("abcdefg", "def"));
 		assertEquals(0, solution.strStr("abcdefg", "abc"));
