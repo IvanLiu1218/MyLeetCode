@@ -494,6 +494,40 @@ public class Solution {
 	}
 	
 	/**
+	 *  [Easy]
+	 *  #013. Roman to Integer
+	 *  
+	 *  Given a roman numeral, convert it to an integer.
+	 *  
+	 *  Input is guaranteed to be within the range from 1 to 3999.
+	 */
+	public int romanToInt(String s) {
+		if (s == null || s.length() == 0) return 0;
+		Map<Character, Integer> romanMap = new HashMap<Character, Integer>();
+		romanMap.put('M', 1000);
+		romanMap.put('D', 500);
+		romanMap.put('C', 100);
+		romanMap.put('L', 50);
+		romanMap.put('X', 10);
+		romanMap.put('V', 5);
+		romanMap.put('I', 1);
+		int result = 0;
+		int prev = -1;
+		for (int i = s.length() - 1; i >= 0; --i) {
+			int val = romanMap.get(s.charAt(i));
+			if (prev == -1) {
+				prev = val;
+			}
+			else if (val < prev) {
+				val *= -1;
+			}
+			result += val;
+			prev = val;
+		}
+		return result;
+    }
+	
+	/**
 	 *  [Easy] #014. Longest Common Prefix
 	 *  
 	 *  Write a function to find the longest common prefix string amongst an array of strings.
