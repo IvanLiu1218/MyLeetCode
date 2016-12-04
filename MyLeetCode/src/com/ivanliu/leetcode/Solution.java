@@ -1337,6 +1337,28 @@ public class Solution {
 	
 	/**
 	 *  [Easy]
+	 *  #070. Climbing Stairs
+	 *  
+	 *  You are climbing a stair case. It takes n steps to reach to the top.
+	 *  
+	 *  Each time you can either climb 1 or 2 steps. In how many distinct ways can you climb to the top?
+	 */
+	private Map<Integer, Integer> climbStairs_resMap = new HashMap<>();
+	public int climbStairs(int n) {
+		if (climbStairs_resMap.containsKey(n)) {
+			return climbStairs_resMap.get(n);
+		}
+		if (n == 1 || n == 2) {
+			climbStairs_resMap.put(n, n);
+			return n;
+		}
+		int value = climbStairs(n - 1) + climbStairs(n - 2);
+		climbStairs_resMap.put(n, value);
+		return value;
+	}
+	
+	/**
+	 *  [Easy]
 	 *  #107. Binary Tree Level Order Traversal II
 	 *  Given a binary tree, return the bottom-up level order traversal of its nodes' values.
 	 *  (ie, from left to right, level by level from leaf to root).
