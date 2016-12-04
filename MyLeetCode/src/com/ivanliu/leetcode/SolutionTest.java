@@ -315,6 +315,11 @@ public class SolutionTest {
 		assertEquals(12, solution.minPathSum(new int[][]{{2,2,2,2},{2,1,1,2},{2,2,2,2},{2,2,2,2}}));
 		assertEquals(16, solution.minPathSum(new int[][]{{2,5,7,8},{5,5,6,1},{7,1,7,1},{8,1,1,1}}));
 	}
+	
+	@Test
+	public void test066() {
+		assertEquals("[1, 0, 0, 0, 0, 0]", Arrays.toString(solution.plusOne(new int[]{9,9,9,9,9})));
+	}
 
 	@Test
 	public void test067() {
