@@ -337,6 +337,38 @@ public class SolutionTest {
 	}
 	
 	@Test
+	public void test073() {
+		int[][] metrix = new int[4][5];
+		metrix[0] = new int[] {1,1,1,1,1};
+		metrix[1] = new int[] {1,0,1,1,1};
+		metrix[2] = new int[] {1,1,1,1,1};
+		metrix[3] = new int[] {1,1,1,1,1};
+		solution.setZeroes(metrix);
+		assertEquals("[1, 0, 1, 1, 1]", Arrays.toString(metrix[0]));
+		assertEquals("[0, 0, 0, 0, 0]", Arrays.toString(metrix[1]));
+		assertEquals("[1, 0, 1, 1, 1]", Arrays.toString(metrix[2]));
+		assertEquals("[1, 0, 1, 1, 1]", Arrays.toString(metrix[3]));
+		metrix[0] = new int[] {0,1,1,1,1};
+		metrix[1] = new int[] {1,1,1,1,1};
+		metrix[2] = new int[] {1,1,1,1,1};
+		metrix[3] = new int[] {1,1,1,1,1};
+		solution.setZeroes(metrix);
+		assertEquals("[0, 0, 0, 0, 0]", Arrays.toString(metrix[0]));
+		assertEquals("[0, 1, 1, 1, 1]", Arrays.toString(metrix[1]));
+		assertEquals("[0, 1, 1, 1, 1]", Arrays.toString(metrix[2]));
+		assertEquals("[0, 1, 1, 1, 1]", Arrays.toString(metrix[3]));
+		metrix[0] = new int[] {1,1,1,1,1};
+		metrix[1] = new int[] {1,1,1,1,1};
+		metrix[2] = new int[] {1,1,1,1,1};
+		metrix[3] = new int[] {1,1,1,1,0};
+		solution.setZeroes(metrix);
+		assertEquals("[1, 1, 1, 1, 0]", Arrays.toString(metrix[0]));
+		assertEquals("[1, 1, 1, 1, 0]", Arrays.toString(metrix[1]));
+		assertEquals("[1, 1, 1, 1, 0]", Arrays.toString(metrix[2]));
+		assertEquals("[0, 0, 0, 0, 0]", Arrays.toString(metrix[3]));
+	}
+	
+	@Test
 	public void test107() {
 		TreeNode head = new TreeNode(3);
 		head.left = new TreeNode(9);
