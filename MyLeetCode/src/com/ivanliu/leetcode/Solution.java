@@ -1493,6 +1493,55 @@ public class Solution {
     }
 	
 	/**
+	 *  [Medium]
+	 *  #077. Combinations
+	 *  
+	 *  Given two integers n and k, return all possible combinations of k numbers out of 1 ... n.
+	 *  
+	 *  For example,
+	 *  If n = 4 and k = 2, a solution is:
+	 *  
+	 *  [
+	 *    [2,4],
+	 *    [3,4],
+	 *    [2,3],
+	 *    [1,2],
+	 *    [1,3],
+	 *    [1,4],
+	 *  ]
+	 */
+	private List<List<Integer>> combine_combineList = null;
+	public List<List<Integer>> combine(int n, int k) {
+		List<Integer> rangeList = new ArrayList<>();
+		for (int i = 1; i <= n; ++i) {
+			rangeList.add(i);
+		}
+		combine_combineList = new ArrayList<>();
+		int level = 1;
+		for (int i = 0; i < rangeList.size(); ++i) {
+			List<Integer> list = new ArrayList<Integer>();
+			int num = rangeList.get(i);
+			list.add(num);
+			combine_getCombine(rangeList, i + 1, level, k, list);
+		}
+		return combine_combineList;
+    }
+	private void combine_getCombine(List<Integer> range, int index, int level, int maxLevel, List<Integer> list) {
+		if (level >= maxLevel) {
+			combine_combineList.add(new ArrayList<Integer>(list));
+			return;
+		}
+		level++;
+		for (int i = index; i < range.size(); ++i) {
+			int num = range.get(i);
+			list.add(num);
+			combine_getCombine(range, i + 1, level, maxLevel, list);
+			list.remove(new Integer(num));
+			//range.add(i, num);
+		}
+	}
+	
+	/**
 	 *  [Easy]
 	 *  #107. Binary Tree Level Order Traversal II
 	 *  Given a binary tree, return the bottom-up level order traversal of its nodes' values.

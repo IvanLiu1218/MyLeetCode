@@ -392,6 +392,24 @@ public class SolutionTest {
 	}
 	
 	@Test
+	public void test077() {
+		List<List<Integer>> llist = solution.combine(4, 2);
+		assertEquals(6, llist.size());
+		assertEquals("[1, 2]", Arrays.toString(llist.get(0).toArray()));
+		assertEquals("[1, 3]", Arrays.toString(llist.get(1).toArray()));
+		assertEquals("[1, 4]", Arrays.toString(llist.get(2).toArray()));
+		assertEquals("[2, 3]", Arrays.toString(llist.get(3).toArray()));
+		assertEquals("[2, 4]", Arrays.toString(llist.get(4).toArray()));
+		assertEquals("[3, 4]", Arrays.toString(llist.get(5).toArray()));
+		llist = solution.combine(4, 3);
+		assertEquals(4, llist.size());
+		assertEquals("[1, 2, 3]", Arrays.toString(llist.get(0).toArray()));
+		assertEquals("[1, 2, 4]", Arrays.toString(llist.get(1).toArray()));
+		assertEquals("[1, 3, 4]", Arrays.toString(llist.get(2).toArray()));
+		assertEquals("[2, 3, 4]", Arrays.toString(llist.get(3).toArray()));
+	}
+	
+	@Test
 	public void test107() {
 		TreeNode head = new TreeNode(3);
 		head.left = new TreeNode(9);
