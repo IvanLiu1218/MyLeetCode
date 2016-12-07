@@ -3,6 +3,7 @@ package com.ivanliu.leetcode;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Deque;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -1538,6 +1539,57 @@ public class Solution {
 			combine_getCombine(range, i + 1, level, maxLevel, list);
 			list.remove(new Integer(num));
 			//range.add(i, num);
+		}
+	}
+	
+	/**
+	 *  [Medium]
+	 *  #078. Subsets
+	 *  
+	 *  Given a set of distinct integers, nums, return all possible subsets.
+	 *  
+	 *  Note: The solution set must not contain duplicate subsets.
+	 *  
+	 *  For example,
+	 *  If nums = [1,2,3], a solution is:
+	 *  
+	 *  [
+	 *    [3],
+	 *    [1],
+	 *    [2],
+	 *    [1,2,3],
+	 *    [1,3],
+	 *    [2,3],
+	 *    [1,2],
+	 *    []
+	 *  ]
+	 */
+	private List<List<Integer>> subsets_illist = null;
+	public List<List<Integer>> subsets(int[] nums) {
+		subsets_illist = new LinkedList<>();
+		for (int i = nums.length; i >= 0; --i) {
+			subsets_getSubSets(nums, i);
+		}
+		for (int i = 0; i < subsets_illist.size(); ++i) {
+			Collections.sort(subsets_illist.get(i));
+		}
+		Collections.reverse(subsets_illist);
+		return subsets_illist;
+    }
+	private void subsets_getSubSets(int[] nums, int num) {
+		List<Integer> list = new ArrayList<>();
+		subsets_getSubSets(nums, 0, num, list);
+	}
+	private void subsets_getSubSets(int[] nums, int start, int num, List<Integer> list) {
+		if (num == 0) {
+			//Collections.sort(list);
+			subsets_illist.add(new LinkedList<Integer>(list));
+			return;
+		}
+		for (int i = start; i < nums.length; ++i) {
+			list.add(nums[i]);
+			subsets_getSubSets(nums, i + 1, num - 1, list);
+			list.remove(list.size() - 1);
 		}
 	}
 	

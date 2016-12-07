@@ -410,6 +410,20 @@ public class SolutionTest {
 	}
 	
 	@Test
+	public void test078() {
+		List<List<Integer>> llist = solution.subsets(new int[] {1, 2, 3});
+		assertEquals(8, llist.size());
+		assertEquals("[]", Arrays.toString(llist.get(0).toArray()));
+		assertEquals("[3]", Arrays.toString(llist.get(1).toArray()));
+		assertEquals("[2]", Arrays.toString(llist.get(2).toArray()));
+		assertEquals("[1]", Arrays.toString(llist.get(3).toArray()));
+		assertEquals("[2, 3]", Arrays.toString(llist.get(4).toArray()));
+		assertEquals("[1, 3]", Arrays.toString(llist.get(5).toArray()));
+		assertEquals("[1, 2]", Arrays.toString(llist.get(6).toArray()));
+		assertEquals("[1, 2, 3]", Arrays.toString(llist.get(7).toArray()));
+	}
+	
+	@Test
 	public void test107() {
 		TreeNode head = new TreeNode(3);
 		head.left = new TreeNode(9);
