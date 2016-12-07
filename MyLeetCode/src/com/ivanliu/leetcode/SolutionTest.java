@@ -379,8 +379,16 @@ public class SolutionTest {
 		assertEquals(false, solution.searchMatrix(matrix, 10));
 		assertEquals(false, solution.searchMatrix(matrix, 16));
 		assertEquals(false, solution.searchMatrix(matrix, 21));
-		
-		
+	}
+	
+	@Test
+	public void test075() {
+		int[] nums = new int[] {2,1,1,1,2,0,2,1};
+		solution.sortColors(nums);
+		assertEquals("[0, 1, 1, 1, 1, 2, 2, 2]", Arrays.toString(nums));
+		nums = new int[] {1,1,1,1,1,1,1,1};
+		solution.sortColors(nums);
+		assertEquals("[1, 1, 1, 1, 1, 1, 1, 1]", Arrays.toString(nums));
 	}
 	
 	@Test
