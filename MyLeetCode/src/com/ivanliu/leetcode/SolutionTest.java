@@ -338,34 +338,49 @@ public class SolutionTest {
 	
 	@Test
 	public void test073() {
-		int[][] metrix = new int[4][5];
-		metrix[0] = new int[] {1,1,1,1,1};
-		metrix[1] = new int[] {1,0,1,1,1};
-		metrix[2] = new int[] {1,1,1,1,1};
-		metrix[3] = new int[] {1,1,1,1,1};
-		solution.setZeroes(metrix);
-		assertEquals("[1, 0, 1, 1, 1]", Arrays.toString(metrix[0]));
-		assertEquals("[0, 0, 0, 0, 0]", Arrays.toString(metrix[1]));
-		assertEquals("[1, 0, 1, 1, 1]", Arrays.toString(metrix[2]));
-		assertEquals("[1, 0, 1, 1, 1]", Arrays.toString(metrix[3]));
-		metrix[0] = new int[] {0,1,1,1,1};
-		metrix[1] = new int[] {1,1,1,1,1};
-		metrix[2] = new int[] {1,1,1,1,1};
-		metrix[3] = new int[] {1,1,1,1,1};
-		solution.setZeroes(metrix);
-		assertEquals("[0, 0, 0, 0, 0]", Arrays.toString(metrix[0]));
-		assertEquals("[0, 1, 1, 1, 1]", Arrays.toString(metrix[1]));
-		assertEquals("[0, 1, 1, 1, 1]", Arrays.toString(metrix[2]));
-		assertEquals("[0, 1, 1, 1, 1]", Arrays.toString(metrix[3]));
-		metrix[0] = new int[] {1,1,1,1,1};
-		metrix[1] = new int[] {1,1,1,1,1};
-		metrix[2] = new int[] {1,1,1,1,1};
-		metrix[3] = new int[] {1,1,1,1,0};
-		solution.setZeroes(metrix);
-		assertEquals("[1, 1, 1, 1, 0]", Arrays.toString(metrix[0]));
-		assertEquals("[1, 1, 1, 1, 0]", Arrays.toString(metrix[1]));
-		assertEquals("[1, 1, 1, 1, 0]", Arrays.toString(metrix[2]));
-		assertEquals("[0, 0, 0, 0, 0]", Arrays.toString(metrix[3]));
+		int[][] matrix = new int[4][5];
+		matrix[0] = new int[] {1,1,1,1,1};
+		matrix[1] = new int[] {1,0,1,1,1};
+		matrix[2] = new int[] {1,1,1,1,1};
+		matrix[3] = new int[] {1,1,1,1,1};
+		solution.setZeroes(matrix);
+		assertEquals("[1, 0, 1, 1, 1]", Arrays.toString(matrix[0]));
+		assertEquals("[0, 0, 0, 0, 0]", Arrays.toString(matrix[1]));
+		assertEquals("[1, 0, 1, 1, 1]", Arrays.toString(matrix[2]));
+		assertEquals("[1, 0, 1, 1, 1]", Arrays.toString(matrix[3]));
+		matrix[0] = new int[] {0,1,1,1,1};
+		matrix[1] = new int[] {1,1,1,1,1};
+		matrix[2] = new int[] {1,1,1,1,1};
+		matrix[3] = new int[] {1,1,1,1,1};
+		solution.setZeroes(matrix);
+		assertEquals("[0, 0, 0, 0, 0]", Arrays.toString(matrix[0]));
+		assertEquals("[0, 1, 1, 1, 1]", Arrays.toString(matrix[1]));
+		assertEquals("[0, 1, 1, 1, 1]", Arrays.toString(matrix[2]));
+		assertEquals("[0, 1, 1, 1, 1]", Arrays.toString(matrix[3]));
+		matrix[0] = new int[] {1,1,1,1,1};
+		matrix[1] = new int[] {1,1,1,1,1};
+		matrix[2] = new int[] {1,1,1,1,1};
+		matrix[3] = new int[] {1,1,1,1,0};
+		solution.setZeroes(matrix);
+		assertEquals("[1, 1, 1, 1, 0]", Arrays.toString(matrix[0]));
+		assertEquals("[1, 1, 1, 1, 0]", Arrays.toString(matrix[1]));
+		assertEquals("[1, 1, 1, 1, 0]", Arrays.toString(matrix[2]));
+		assertEquals("[0, 0, 0, 0, 0]", Arrays.toString(matrix[3]));
+	}
+	
+	@Test
+	public void test074() {
+		int[][] matrix = new int[3][4];
+		matrix[0] = new int[] { 1, 2, 3, 4};
+		matrix[1] = new int[] { 6, 7, 8, 9};
+		matrix[2] = new int[] {12,15,18,20};
+		assertEquals(true, solution.searchMatrix(matrix, 3));
+		assertEquals(false, solution.searchMatrix(matrix, 5));
+		assertEquals(false, solution.searchMatrix(matrix, 10));
+		assertEquals(false, solution.searchMatrix(matrix, 16));
+		assertEquals(false, solution.searchMatrix(matrix, 21));
+		
+		
 	}
 	
 	@Test
