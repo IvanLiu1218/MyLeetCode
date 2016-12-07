@@ -329,6 +329,101 @@ public class SolutionTest {
 	}
 	
 	@Test
+	public void test070() {
+		assertEquals(1, solution.climbStairs(1));
+		assertEquals(2, solution.climbStairs(2));
+		assertEquals(3, solution.climbStairs(3));
+		assertEquals(5, solution.climbStairs(4));
+	}
+	
+	@Test
+	public void test073() {
+		int[][] matrix = new int[4][5];
+		matrix[0] = new int[] {1,1,1,1,1};
+		matrix[1] = new int[] {1,0,1,1,1};
+		matrix[2] = new int[] {1,1,1,1,1};
+		matrix[3] = new int[] {1,1,1,1,1};
+		solution.setZeroes(matrix);
+		assertEquals("[1, 0, 1, 1, 1]", Arrays.toString(matrix[0]));
+		assertEquals("[0, 0, 0, 0, 0]", Arrays.toString(matrix[1]));
+		assertEquals("[1, 0, 1, 1, 1]", Arrays.toString(matrix[2]));
+		assertEquals("[1, 0, 1, 1, 1]", Arrays.toString(matrix[3]));
+		matrix[0] = new int[] {0,1,1,1,1};
+		matrix[1] = new int[] {1,1,1,1,1};
+		matrix[2] = new int[] {1,1,1,1,1};
+		matrix[3] = new int[] {1,1,1,1,1};
+		solution.setZeroes(matrix);
+		assertEquals("[0, 0, 0, 0, 0]", Arrays.toString(matrix[0]));
+		assertEquals("[0, 1, 1, 1, 1]", Arrays.toString(matrix[1]));
+		assertEquals("[0, 1, 1, 1, 1]", Arrays.toString(matrix[2]));
+		assertEquals("[0, 1, 1, 1, 1]", Arrays.toString(matrix[3]));
+		matrix[0] = new int[] {1,1,1,1,1};
+		matrix[1] = new int[] {1,1,1,1,1};
+		matrix[2] = new int[] {1,1,1,1,1};
+		matrix[3] = new int[] {1,1,1,1,0};
+		solution.setZeroes(matrix);
+		assertEquals("[1, 1, 1, 1, 0]", Arrays.toString(matrix[0]));
+		assertEquals("[1, 1, 1, 1, 0]", Arrays.toString(matrix[1]));
+		assertEquals("[1, 1, 1, 1, 0]", Arrays.toString(matrix[2]));
+		assertEquals("[0, 0, 0, 0, 0]", Arrays.toString(matrix[3]));
+	}
+	
+	@Test
+	public void test074() {
+		int[][] matrix = new int[3][4];
+		matrix[0] = new int[] { 1, 2, 3, 4};
+		matrix[1] = new int[] { 6, 7, 8, 9};
+		matrix[2] = new int[] {12,15,18,20};
+		assertEquals(true, solution.searchMatrix(matrix, 3));
+		assertEquals(false, solution.searchMatrix(matrix, 5));
+		assertEquals(false, solution.searchMatrix(matrix, 10));
+		assertEquals(false, solution.searchMatrix(matrix, 16));
+		assertEquals(false, solution.searchMatrix(matrix, 21));
+	}
+	
+	@Test
+	public void test075() {
+		int[] nums = new int[] {2,1,1,1,2,0,2,1};
+		solution.sortColors(nums);
+		assertEquals("[0, 1, 1, 1, 1, 2, 2, 2]", Arrays.toString(nums));
+		nums = new int[] {1,1,1,1,1,1,1,1};
+		solution.sortColors(nums);
+		assertEquals("[1, 1, 1, 1, 1, 1, 1, 1]", Arrays.toString(nums));
+	}
+	
+	@Test
+	public void test077() {
+		List<List<Integer>> llist = solution.combine(4, 2);
+		assertEquals(6, llist.size());
+		assertEquals("[1, 2]", Arrays.toString(llist.get(0).toArray()));
+		assertEquals("[1, 3]", Arrays.toString(llist.get(1).toArray()));
+		assertEquals("[1, 4]", Arrays.toString(llist.get(2).toArray()));
+		assertEquals("[2, 3]", Arrays.toString(llist.get(3).toArray()));
+		assertEquals("[2, 4]", Arrays.toString(llist.get(4).toArray()));
+		assertEquals("[3, 4]", Arrays.toString(llist.get(5).toArray()));
+		llist = solution.combine(4, 3);
+		assertEquals(4, llist.size());
+		assertEquals("[1, 2, 3]", Arrays.toString(llist.get(0).toArray()));
+		assertEquals("[1, 2, 4]", Arrays.toString(llist.get(1).toArray()));
+		assertEquals("[1, 3, 4]", Arrays.toString(llist.get(2).toArray()));
+		assertEquals("[2, 3, 4]", Arrays.toString(llist.get(3).toArray()));
+	}
+	
+	@Test
+	public void test078() {
+		List<List<Integer>> llist = solution.subsets(new int[] {1, 2, 3});
+		assertEquals(8, llist.size());
+		assertEquals("[]", Arrays.toString(llist.get(0).toArray()));
+		assertEquals("[3]", Arrays.toString(llist.get(1).toArray()));
+		assertEquals("[2]", Arrays.toString(llist.get(2).toArray()));
+		assertEquals("[1]", Arrays.toString(llist.get(3).toArray()));
+		assertEquals("[2, 3]", Arrays.toString(llist.get(4).toArray()));
+		assertEquals("[1, 3]", Arrays.toString(llist.get(5).toArray()));
+		assertEquals("[1, 2]", Arrays.toString(llist.get(6).toArray()));
+		assertEquals("[1, 2, 3]", Arrays.toString(llist.get(7).toArray()));
+	}
+	
+	@Test
 	public void test107() {
 		TreeNode head = new TreeNode(3);
 		head.left = new TreeNode(9);

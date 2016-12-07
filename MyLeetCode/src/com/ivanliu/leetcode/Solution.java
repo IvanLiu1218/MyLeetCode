@@ -3,6 +3,7 @@ package com.ivanliu.leetcode;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Deque;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -1334,6 +1335,263 @@ public class Solution {
 		if (carry > 0) sb.append(carry);
         return sb.reverse().toString();
     }
+	
+	/**
+	 *  [Easy]
+	 *  #070. Climbing Stairs
+	 *  
+	 *  You are climbing a stair case. It takes n steps to reach to the top.
+	 *  
+	 *  Each time you can either climb 1 or 2 steps. In how many distinct ways can you climb to the top?
+	 */
+	private Map<Integer, Integer> climbStairs_resMap = new HashMap<>();
+	public int climbStairs(int n) {
+		if (climbStairs_resMap.containsKey(n)) {
+			return climbStairs_resMap.get(n);
+		}
+		if (n == 1 || n == 2) {
+			climbStairs_resMap.put(n, n);
+			return n;
+		}
+		int value = climbStairs(n - 1) + climbStairs(n - 2);
+		climbStairs_resMap.put(n, value);
+		return value;
+	}
+	
+	/**
+	 *  [Medium]
+	 *  #073. Set Matrix Zeroes
+	 *  
+	 *  Given a m x n matrix, if an element is 0, set its entire row and column to 0. Do it in place.
+	 *  
+	 *  Follow up:
+	 *  Did you use extra space?
+	 *  A straight forward solution using O(mn) space is probably a bad idea.
+	 *  A simple improvement uses O(m + n) space, but still not the best solution.
+	 *  Could you devise a constant space solution?
+	 */
+	public void setZeroes(int[][] matrix) {
+		boolean isFirstRow = false;
+		boolean isFirstColumn = false;
+		for (int j = 0; j < matrix[0].length; ++j) {
+			if (matrix[0][j] == 0) {
+				isFirstRow = true;
+				break;
+			}
+		}
+		for (int i = 0; i < matrix.length; ++i) {
+			if (matrix[i][0] == 0) {
+				isFirstColumn = true;
+				break;
+			}
+		}
+		for (int i = 1; i < matrix.length; ++i) {
+			for (int j = 1; j < matrix[i].length; ++j) {
+				if (matrix[i][j] == 0) {
+					matrix[i][0] = 0;
+					matrix[0][j] = 0;
+				}
+			}
+		}
+		// check row
+		for (int i = 1; i < matrix.length; ++i) {
+			if (matrix[i][0] == 0) {
+				for (int j = 1; j < matrix[i].length; ++j) {
+					matrix[i][j] = 0;
+				}
+			}
+		}
+		// check column
+		for (int j = 1; j < matrix[0].length; ++j) {
+			if (matrix[0][j] == 0) {
+				for (int i = 1; i < matrix.length; ++i) {
+					matrix[i][j] = 0;
+				}
+			}
+		}
+		if (isFirstRow) {
+			for (int j = 0; j < matrix[0].length; ++j) {
+				matrix[0][j] = 0;
+			}
+		}
+		if (isFirstColumn) {
+			for (int i = 0; i < matrix.length; ++i) {
+				matrix[i][0] = 0;
+			}
+		}
+    }
+	
+	/**
+	 *  [Medium]
+	 *  #074. Search a 2D Matrix
+	 *  
+	 *  Write an efficient algorithm that searches for a value in an m x n matrix. This matrix has the following properties:
+	 *  
+	 *  Integers in each row are sorted from left to right.
+	 *  The first integer of each row is greater than the last integer of the previous row.
+	 *  For example,
+	 *  
+	 *  Consider the following matrix:
+	 *  [
+	 *    [1,   3,  5,  7],
+	 *    [10, 11, 16, 20],
+	 *    [23, 30, 34, 50]
+	 *  ]
+	 *  Given target = 3, return true.
+	 */
+	public boolean searchMatrix(int[][] matrix, int target) {
+		if (matrix == null || matrix.length <= 0 || matrix[0].length <= 0) return false;
+		int rows = matrix.length;
+		int columns = matrix[0].length;
+        int i = 0;
+        while (i < rows) {
+        	if (target <= matrix[i][columns - 1]) break;
+        	++i;
+        }
+        if (i < rows) {
+        	for (int j = 0; j < columns; ++j) {
+        		if (matrix[i][j] == target) return true;
+        		if (matrix[i][j] > target) break;
+        	}
+        }
+        return false;
+    }
+	
+	/**
+	 *  [Medium]
+	 *  #075. Sort Colors
+	 *  
+	 *  Given an array with n objects colored red, white or blue, sort them so that objects of the same color are adjacent, 
+	 *  with the colors in the order red, white and blue.
+	 *  
+	 *  Here, we will use the integers 0, 1, and 2 to represent the color red, white, and blue respectively.
+	 *  
+	 *  Note:
+	 *  You are not suppose to use the library's sort function for this problem.
+	 *  
+	 *  Follow up:
+	 *  A rather straight forward solution is a two-pass algorithm using counting sort.
+	 *  First, iterate the array counting number of 0's, 1's, and 2's, then overwrite array with total number of 0's, then 1's and followed by 2's.
+	 *  
+	 *  Could you come up with an one-pass algorithm using only constant space?
+	 */
+	public void sortColors(int[] nums) {
+		if (nums == null || nums.length == 0) return;
+		int i = 0;
+		for (int k = 0; k < 2; ++k) {
+			int j = nums.length - 1;
+			while (i < j && i < nums.length) {
+				while (i < nums.length && nums[i] == k) i++;
+				while (0 <= j && nums[j] != k) j--;
+				if (i < j) {
+					int temp = nums[i];
+					nums[i] = nums[j];
+					nums[j] = temp;
+					i++;
+				}
+			}
+		}
+    }
+	
+	/**
+	 *  [Medium]
+	 *  #077. Combinations
+	 *  
+	 *  Given two integers n and k, return all possible combinations of k numbers out of 1 ... n.
+	 *  
+	 *  For example,
+	 *  If n = 4 and k = 2, a solution is:
+	 *  
+	 *  [
+	 *    [2,4],
+	 *    [3,4],
+	 *    [2,3],
+	 *    [1,2],
+	 *    [1,3],
+	 *    [1,4],
+	 *  ]
+	 */
+	private List<List<Integer>> combine_combineList = null;
+	public List<List<Integer>> combine(int n, int k) {
+		List<Integer> rangeList = new ArrayList<>();
+		for (int i = 1; i <= n; ++i) {
+			rangeList.add(i);
+		}
+		combine_combineList = new ArrayList<>();
+		int level = 1;
+		for (int i = 0; i < rangeList.size(); ++i) {
+			List<Integer> list = new ArrayList<Integer>();
+			int num = rangeList.get(i);
+			list.add(num);
+			combine_getCombine(rangeList, i + 1, level, k, list);
+		}
+		return combine_combineList;
+    }
+	private void combine_getCombine(List<Integer> range, int index, int level, int maxLevel, List<Integer> list) {
+		if (level >= maxLevel) {
+			combine_combineList.add(new ArrayList<Integer>(list));
+			return;
+		}
+		level++;
+		for (int i = index; i < range.size(); ++i) {
+			int num = range.get(i);
+			list.add(num);
+			combine_getCombine(range, i + 1, level, maxLevel, list);
+			list.remove(new Integer(num));
+			//range.add(i, num);
+		}
+	}
+	
+	/**
+	 *  [Medium]
+	 *  #078. Subsets
+	 *  
+	 *  Given a set of distinct integers, nums, return all possible subsets.
+	 *  
+	 *  Note: The solution set must not contain duplicate subsets.
+	 *  
+	 *  For example,
+	 *  If nums = [1,2,3], a solution is:
+	 *  
+	 *  [
+	 *    [3],
+	 *    [1],
+	 *    [2],
+	 *    [1,2,3],
+	 *    [1,3],
+	 *    [2,3],
+	 *    [1,2],
+	 *    []
+	 *  ]
+	 */
+	private List<List<Integer>> subsets_illist = null;
+	public List<List<Integer>> subsets(int[] nums) {
+		subsets_illist = new LinkedList<>();
+		for (int i = nums.length; i >= 0; --i) {
+			subsets_getSubSets(nums, i);
+		}
+		for (int i = 0; i < subsets_illist.size(); ++i) {
+			Collections.sort(subsets_illist.get(i));
+		}
+		Collections.reverse(subsets_illist);
+		return subsets_illist;
+    }
+	private void subsets_getSubSets(int[] nums, int num) {
+		List<Integer> list = new ArrayList<>();
+		subsets_getSubSets(nums, 0, num, list);
+	}
+	private void subsets_getSubSets(int[] nums, int start, int num, List<Integer> list) {
+		if (num == 0) {
+			//Collections.sort(list);
+			subsets_illist.add(new LinkedList<Integer>(list));
+			return;
+		}
+		for (int i = start; i < nums.length; ++i) {
+			list.add(nums[i]);
+			subsets_getSubSets(nums, i + 1, num - 1, list);
+			list.remove(list.size() - 1);
+		}
+	}
 	
 	/**
 	 *  [Easy]
