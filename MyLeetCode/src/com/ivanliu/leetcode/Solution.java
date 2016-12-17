@@ -15,6 +15,7 @@ import java.util.Set;
 import java.util.Stack;
 
 import com.ivanliu.leetcode.Utility.ListNode;
+import com.ivanliu.leetcode.Utility.TreeLinkNode;
 import com.ivanliu.leetcode.Utility.TreeNode;
 
 public class Solution {
@@ -2396,6 +2397,406 @@ public class Solution {
 			return Math.max(levelLeft, levelRight);
 		}
 	}
+	
+	/**
+	 *  [Easy]
+	 *  #111. Minimum Depth of Binary Tree
+	 *  
+	 *  Given a binary tree, find its minimum depth.
+	 *  
+	 *  The minimum depth is the number of nodes along the shortest path from the root node down to the nearest leaf node.
+	 */
+	private int minDepth_minDepth = Integer.MAX_VALUE;
+	public int minDepth(TreeNode root) {
+		if (root == null) return 0;
+		minDepth_minDepth = Integer.MAX_VALUE;
+		int depth = 0;
+		minDepth_searchTreeDFS(root, depth);
+		return minDepth_minDepth;
+    }
+	private void minDepth_searchTreeDFS(TreeNode node, int depth) {
+		if (node.left == null && node.right == null) {
+			depth++;
+			if (depth < minDepth_minDepth)
+				minDepth_minDepth = depth;
+			return;
+		}
+		depth++;
+		if (node.left != null) minDepth_searchTreeDFS(node.left, depth);
+		if (node.right != null) minDepth_searchTreeDFS(node.right, depth);
+	}
+	
+	/**
+	 *  [Easy]
+	 *  #112. Path Sum
+	 *  Given a binary tree and a sum, determine if the tree has a root-to-leaf path such that adding up all the values along the path equals the given sum.
+	 *  
+	 *  For example:
+	 *  Given the below binary tree and sum = 22,
+	 *                5
+	 *               / \
+	 *              4   8
+	 *             /   / \
+	 *            11  13  4
+	 *           /  \      \
+	 *          7    2      1
+	 *  return true, as there exist a root-to-leaf path 5->4->11->2 which sum is 22.
+	 */
+	private boolean hasPathSum_result = false;
+	public boolean hasPathSum(TreeNode root, int sum) {
+		if (root == null) return false;
+		hasPathSum_result = false;
+		int value = 0;
+		hasPathSum_searchPath(root, value, sum);
+		return hasPathSum_result;
+    }
+	public void hasPathSum_searchPath(TreeNode node, int value, int sum) {
+		if (node.left == null && node.right == null) {
+			value += node.val;
+			if (value == sum) {
+				hasPathSum_result = true;
+			}
+		}
+		value += node.val;
+		if (node.left != null) {
+			hasPathSum_searchPath(node.left, value, sum);
+		}
+		if (node.right != null) {
+			hasPathSum_searchPath(node.right, value, sum);
+		}
+	}
+	
+	/**
+	 *  [Medium]
+	 *  #113. Path Sum II
+	 *  Given a binary tree and a sum, find all root-to-leaf paths where each path's sum equals the given sum.
+	 *  
+	 *  For example:
+	 *  Given the below binary tree and sum = 22,
+	 *                5
+	 *               / \
+	 *              4   8
+	 *             /   / \
+	 *            11  13  4
+	 *           /  \    / \
+	 *          7    2  5   1
+	 *  return
+	 *  [
+	 *     [5,4,11,2],
+	 *     [5,8,4,5]
+	 *  ]
+	 */
+	private List<List<Integer>> pathSumII_rList = null;
+	public List<List<Integer>> pathSumII(TreeNode root, int sum) {
+		pathSumII_rList = new ArrayList<List<Integer>>();
+		if (root == null) return pathSumII_rList;
+		int value = 0;
+		List<Integer> list = new ArrayList<Integer>();
+		pathSumII_searchPath(root, value, sum, list);
+		return pathSumII_rList;
+    }
+	private void pathSumII_searchPath(TreeNode node, int value, int sum, List<Integer> list) {
+		if (node.left == null && node.right == null) {
+			value += node.val;
+			if (value == sum) {
+				list.add(node.val);
+				pathSumII_rList.add(new ArrayList<Integer>(list));
+				list.remove(list.size() - 1);
+			}
+			return;
+		}
+		value += node.val;
+		list.add(node.val);
+		if (node.left != null) {
+			pathSumII_searchPath(node.left, value, sum, list);
+		}
+		if (node.right != null) {
+			pathSumII_searchPath(node.right, value, sum, list);
+		}
+		list.remove(list.size() - 1);
+	}
+	
+	/**
+	 *  [Medium]
+	 *  #114. Flatten Binary Tree to Linked List
+	 *  Given a binary tree, flatten it to a linked list in-place.
+	 *  
+	 *  For example,
+	 *  Given
+	 *  
+ 	 *           1
+	 *          / \
+	 *         2   5
+	 *        / \   \
+	 *       3   4   6
+	 *  The flattened tree should look like:
+	 *     1
+	 *      \
+	 *       2
+	 *        \
+	 *         3
+	 *          \
+	 *           4
+	 *            \
+	 *             5
+	 *              \
+	 *               6
+	 *  
+	 *  Hints:
+	 *  If you notice carefully in the flattened tree, each node's right child points to the next node of a pre-order traversal.
+	 */
+	private List<TreeNode> flatten_nodeList = null;
+	public void flatten(TreeNode root) {
+		flatten_nodeList = new ArrayList<TreeNode>();
+		flatten_searchTreeNLR(root);
+		TreeNode prev = new TreeNode(0);
+		for (int i = 0; i < flatten_nodeList.size(); ++i) {
+			TreeNode node = flatten_nodeList.get(i);
+			node.left = null;
+			prev.right = node;
+			prev = node;
+		}
+    }
+	private void flatten_searchTreeNLR(TreeNode node) {
+		if (node == null) return;
+		flatten_nodeList.add(node);
+		flatten_searchTreeNLR(node.left);
+		flatten_searchTreeNLR(node.right);
+	}
+	
+	/**
+	 *  [Hard]
+	 *  #115. Distinct Subsequences
+	 *  Given a string S and a string T, count the number of distinct subsequences of T in S.
+	 *  
+	 *  A subsequence of a string is a new string which is formed from the original string by deleting some (can be none) of the characters 
+	 *  without disturbing the relative positions of the remaining characters. (ie, "ACE" is a subsequence of "ABCDE" while "AEC" is not).
+	 *  
+	 *  Here is an example:
+	 *  S = "rabbbit", T = "rabbit"
+	 *  
+	 *  Return 3.
+	 */
+	public int numDistinct(String s, String t) {
+		// length of S >= length of T
+		int[][] dp = new int[s.length() + 1][t.length() + 1];
+		for (int j = 0; j <= t.length(); ++j) {
+			dp[0][j] = 0;
+		}
+		for (int i = 0; i <= s.length(); ++i) {
+			dp[i][0] = 1;
+		}
+		for (int i = 0; i < s.length(); ++i) {
+			for (int j = 0; j < t.length(); ++j) {
+				if (s.charAt(i) == t.charAt(j)) {
+					dp[i + 1][j + 1] = dp[i][j] + dp[i][j + 1];
+				}
+				else {
+					dp[i + 1][j + 1] = dp[i][j + 1];
+				}
+			}
+		}
+		return dp[s.length()][t.length()];
+    }
+	
+	/**
+	 *  [Medium]
+	 *  #116. Populating Next Right Pointers in Each Node
+	 *  Given a binary tree
+	 *  
+	 *      struct TreeLinkNode {
+	 *        TreeLinkNode *left;
+	 *        TreeLinkNode *right;
+	 *        TreeLinkNode *next;
+	 *      }
+	 *  Populate each next pointer to point to its next right node. If there is no next right node, the next pointer should be set to NULL.
+	 *  
+	 *  Initially, all next pointers are set to NULL.
+	 *  
+	 *  Note:
+	 *  
+	 *  You may only use constant extra space.
+	 *  You may assume that it is a perfect binary tree (ie, all leaves are at the same level, and every parent has two children).
+	 *  For example,
+	 *  Given the following perfect binary tree,
+	 *  
+	 *           1
+	 *         /  \
+	 *        2    3
+	 *       / \  / \
+	 *      4  5  6  7
+	 *      
+	 *  After calling your function, the tree should look like:
+	 *  
+	 *           1 -> NULL
+	 *         /  \
+	 *        2 -> 3 -> NULL
+	 *       / \  / \
+	 *      4->5->6->7 -> NULL
+	 */
+	public void connect(TreeLinkNode root) {
+		if (root == null) return;
+		ArrayDeque<TreeLinkNode> queue = new ArrayDeque<>();
+		queue.add(root);
+		TreeLinkNode prev = null;
+		int index = 1;
+		int factor = 1;
+		while (!queue.isEmpty()) {
+			TreeLinkNode node = queue.remove();
+			if (index == factor) {
+				node.next = null;
+				factor *= 2;
+				index = 0;
+				if (prev != null) prev.next = node;
+				prev = null;
+			}
+			else {
+				if (prev == null) prev = node;
+				else {
+					prev.next = node;
+					prev = node;
+				}
+			}
+			index++;
+			if (node.left != null) queue.add(node.left);
+			if (node.right != null) queue.add(node.right);
+		}
+    }
+	
+	/**
+	 *  [Hard]
+	 *  #117. Populating Next Right Pointers in Each Node II
+	 *  
+	 *  Follow up for problem "Populating Next Right Pointers in Each Node".
+	 *  
+	 *  What if the given tree could be any binary tree? Would your previous solution still work?
+	 *  
+	 *  Note:
+	 *  
+	 *  You may only use constant extra space.
+	 *  For example,
+	 *  Given the following binary tree,
+	 *  
+	 *           1
+	 *         /  \
+	 *        2    3
+	 *       / \    \
+	 *      4   5    7
+	 *      
+	 *  After calling your function, the tree should look like:
+	 *  
+	 *           1 -> NULL
+	 *         /  \
+	 *        2 -> 3 -> NULL
+	 *       / \    \
+	 *      4-> 5 -> 7 -> NULL
+	 */
+	public void connectII(TreeLinkNode root) {
+		if (root == null) return;
+		Deque<TreeLinkNode> queue0 = new ArrayDeque<TreeLinkNode>();  // Queue 1
+		Deque<TreeLinkNode> queue1 = new ArrayDeque<TreeLinkNode>();  // Queue 2
+		int level = 0;
+		queue0.add(root);
+		TreeLinkNode prev = null;
+		while (!queue0.isEmpty() || !queue1.isEmpty()) {
+			if (level % 2 == 0) {
+				while (!queue0.isEmpty()) {
+					TreeLinkNode node = queue0.remove();
+					if (prev == null) prev = node;
+					else {
+						prev.next = node;
+						prev = node;
+					}
+					if (node.left != null) queue1.add(node.left);
+					if (node.right != null) queue1.add(node.right);
+				}
+				prev.next = null;
+				prev = null;
+			}
+			else {
+				while (!queue1.isEmpty()) {
+					TreeLinkNode node = queue1.remove();
+					if (prev == null) prev = node;
+					else {
+						prev.next = node;
+						prev = node;
+					}
+					if (node.left != null) queue0.add(node.left);
+					if (node.right != null) queue0.add(node.right);
+				}
+				prev.next = null;
+				prev = null;
+			}
+			level++;
+		}
+    }
+	
+	/**
+	 *  [Easy]
+	 *  #118. Pascal's Triangle
+	 *  
+	 *  Given numRows, generate the first numRows of Pascal's triangle.
+	 *  
+	 *  For example, given numRows = 5,
+	 *  Return
+	 *  
+	 *  [
+	 *       [1],
+	 *      [1,1],
+	 *     [1,2,1],
+	 *    [1,3,3,1],
+	 *   [1,4,6,4,1]
+	 *  ]
+	 */
+	public List<List<Integer>> generate(int numRows) {
+		List<List<Integer>> llist = new ArrayList<List<Integer>>();
+		int num = numRows;
+		List<Integer> list = new ArrayList<Integer>();
+		list.add(1);
+		while (num > 0) {
+			llist.add(list);
+			list = generate_generateList(list);
+			num--;
+		}
+		
+		return llist;
+    }
+	private List<Integer> generate_generateList(List<Integer> list) {
+		List<Integer> resList = new ArrayList<Integer>();
+		int prev = 0;
+		for (int i = 0 ; i < list.size(); ++i) {
+			int curr = list.get(i);
+			resList.add(prev + curr);
+			prev = curr;
+		}
+		resList.add(list.get(list.size() - 1));
+		return resList;
+	}
+	
+	/**
+	 *  [Easy]
+	 *  #119. Pascal's Triangle II
+	 *  
+	 *  Given an index k, return the kth row of the Pascal's triangle.
+	 *  
+	 *  For example, given k = 3,
+	 *  Return [1,3,3,1].
+	 */
+	public List<Integer> getRow(int rowIndex) {
+		List<Integer> list = new ArrayList<Integer>();
+		int index = rowIndex + 1;
+		while (index > 0) {
+			int prev = 0;
+			for (int i = 0; i < list.size(); ++i) {
+				int curr = list.get(i);
+				list.set(i,  prev + curr);
+				prev = curr;
+			}
+			list.add(1);
+			index--;
+		}
+		return list;
+    }
 	
 	/**
 	 *  [Easy]

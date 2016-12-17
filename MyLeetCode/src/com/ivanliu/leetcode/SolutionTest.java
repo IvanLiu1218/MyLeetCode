@@ -12,6 +12,7 @@ import com.ivanliu.leetcode.Solution.MyQueue;
 import com.ivanliu.leetcode.Solution.MyStack;
 import com.ivanliu.leetcode.Solution.NumArray;
 import com.ivanliu.leetcode.Utility.ListNode;
+import com.ivanliu.leetcode.Utility.TreeLinkNode;
 import com.ivanliu.leetcode.Utility.TreeNode;
 
 public class SolutionTest {
@@ -694,6 +695,117 @@ public class SolutionTest {
 		head.right.right = new TreeNode(3);
 		head.right.right.right = new TreeNode(4);
 		assertEquals(false, solution.isBalanced(head));
+	}
+	
+	@Test
+	public void test111() {
+		TreeNode root = new TreeNode(1);
+		root.left = new TreeNode(2);
+		root.right = new TreeNode(3);
+		root.right.left = new TreeNode(6);
+		root.right.right = new TreeNode(7);
+		assertEquals(2, solution.minDepth(root));
+	}
+	
+	@Test
+	public void test112() {
+		TreeNode root = new TreeNode(5);
+		root.left = new TreeNode(4);
+		root.left.left = new TreeNode(11);
+		root.left.left.left = new TreeNode(7);
+		root.left.left.right = new TreeNode(2);
+		root.right = new TreeNode(8);
+		root.right.left = new TreeNode(13);
+		root.right.right = new TreeNode(4);
+		root.right.right.right = new TreeNode(1);
+		assertEquals(true, solution.hasPathSum(root, 22));
+	}
+	
+	@Test
+	public void test113() {
+		TreeNode root = new TreeNode(5);
+		root.left = new TreeNode(4);
+		root.left.left = new TreeNode(11);
+		root.left.left.left = new TreeNode(7);
+		root.left.left.right = new TreeNode(2);
+		root.right = new TreeNode(8);
+		root.right.left = new TreeNode(13);
+		root.right.right = new TreeNode(4);
+		root.right.right.left = new TreeNode(5);
+		root.right.right.right = new TreeNode(1);
+		List<List<Integer>> resList = solution.pathSumII(root, 22);
+		assertEquals(2, resList.size());
+		assertEquals("[5, 4, 11, 2]", Arrays.toString(resList.get(0).toArray()));
+		assertEquals("[5, 8, 4, 5]", Arrays.toString(resList.get(1).toArray()));
+	}
+	
+	@Test
+	public void test114() {
+		TreeNode root = new TreeNode(1);
+		root.left = new TreeNode(2);
+		root.left.left = new TreeNode(3);
+		root.left.right = new TreeNode(4);
+		root.right = new TreeNode(5);
+		root.right.right = new TreeNode(6);
+		solution.flatten(root);
+		TreeNode node = root;
+		int i = 1;
+		while (node != null) {
+			assertEquals(i++, node.val);
+			node = node.right;
+		}
+	}
+	
+	@Test
+	public void test115() {
+		assertEquals(3, solution.numDistinct("rabbbit", "rabbit"));
+		assertEquals(6, solution.numDistinct("rabbbbit", "rabbit"));
+		assertEquals(6, solution.numDistinct("iirabbbit", "irabbit"));
+	}
+	
+	@Test
+	public void test116() {
+		TreeLinkNode root = new TreeLinkNode(1);
+		root.left = new TreeLinkNode(2);
+		root.left.left = new TreeLinkNode(4);
+		root.left.right = new TreeLinkNode(5);
+		root.right = new TreeLinkNode(3);
+		root.right.left = new TreeLinkNode(6);
+		root.right.right = new TreeLinkNode(7);
+		solution.connect(root);
+		assertEquals(3, root.left.next.val);
+		assertEquals(7, root.left.left.next.next.next.val);
+	}
+	
+	@Test
+	public void test117() {
+		TreeLinkNode root = new TreeLinkNode(1);
+		root.left = new TreeLinkNode(2);
+		root.left.left = new TreeLinkNode(4);
+		root.left.right = new TreeLinkNode(5);
+		root.right = new TreeLinkNode(3);
+		root.right.right = new TreeLinkNode(7);
+		solution.connectII(root);
+		assertEquals(1, root.val);
+		assertEquals(3, root.left.next.val);
+		assertEquals(7, root.left.left.next.next.val);
+	}
+	
+	@Test
+	public void test118() {
+		List<List<Integer>> resList = solution.generate(5);
+		assertEquals(5, resList.size());
+		assertEquals("[1]", Arrays.toString(resList.get(0).toArray()));
+		assertEquals("[1, 1]", Arrays.toString(resList.get(1).toArray()));
+		assertEquals("[1, 2, 1]", Arrays.toString(resList.get(2).toArray()));
+		assertEquals("[1, 3, 3, 1]", Arrays.toString(resList.get(3).toArray()));
+		assertEquals("[1, 4, 6, 4, 1]", Arrays.toString(resList.get(4).toArray()));
+	}
+	
+	@Test
+	public void test119() {
+		List<Integer> resList = solution.getRow(3);
+		assertEquals("[1, 3, 3, 1]", Arrays.toString(resList.toArray()));
 	}
 	
 	@Test
