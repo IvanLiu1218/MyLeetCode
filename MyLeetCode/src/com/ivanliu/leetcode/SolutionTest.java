@@ -697,6 +697,16 @@ public class SolutionTest {
 	}
 	
 	@Test
+	public void test111() {
+		TreeNode root = new TreeNode(1);
+		root.left = new TreeNode(2);
+		root.right = new TreeNode(3);
+		root.right.left = new TreeNode(6);
+		root.right.right = new TreeNode(7);
+		assertEquals(2, solution.minDepth(root));
+	}
+	
+	@Test
 	public void test125() {
 		assertEquals(true, solution.isPalindrome("A man, a plan, a canal: Panama"));
 		assertEquals(false, solution.isPalindrome("race a car"));

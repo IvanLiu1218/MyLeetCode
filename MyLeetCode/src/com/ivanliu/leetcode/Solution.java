@@ -2399,6 +2399,34 @@ public class Solution {
 	
 	/**
 	 *  [Easy]
+	 *  #111. Minimum Depth of Binary Tree
+	 *  
+	 *  Given a binary tree, find its minimum depth.
+	 *  
+	 *  The minimum depth is the number of nodes along the shortest path from the root node down to the nearest leaf node.
+	 */
+	private int minDepth_minDepth = Integer.MAX_VALUE;
+	public int minDepth(TreeNode root) {
+		if (root == null) return 0;
+		minDepth_minDepth = Integer.MAX_VALUE;
+		int depth = 0;
+		minDepth_searchTreeDFS(root, depth);
+		return minDepth_minDepth;
+    }
+	private void minDepth_searchTreeDFS(TreeNode node, int depth) {
+		if (node.left == null && node.right == null) {
+			depth++;
+			if (depth < minDepth_minDepth)
+				minDepth_minDepth = depth;
+			return;
+		}
+		depth++;
+		if (node.left != null) minDepth_searchTreeDFS(node.left, depth);
+		if (node.right != null) minDepth_searchTreeDFS(node.right, depth);
+	}
+	
+	/**
+	 *  [Easy]
 	 *  #125. Valid Palindrome
 	 *  
 	 *  Given a string, determine if it is a palindrome, considering only alphanumeric characters and ignoring cases.
