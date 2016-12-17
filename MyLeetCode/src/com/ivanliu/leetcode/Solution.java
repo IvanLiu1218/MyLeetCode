@@ -1810,6 +1810,151 @@ public class Solution {
     }
 	
 	/**
+	 *  [Medium]
+	 *  #090. Subsets II
+	 *  Given a collection of integers that might contain duplicates, nums, return all possible subsets.
+	 *  
+	 *  Note: The solution set must not contain duplicate subsets.
+	 *  
+	 *  For example,
+	 *  If nums = [1,2,2], a solution is:
+	 *  
+	 *  [
+	 *    [2],
+	 *    [1],
+	 *    [1,2,2],
+	 *    [2,2],
+	 *    [1,2],
+	 *    []
+	 *  ]
+	 */
+	private List<List<Integer>> subsetsWithDup_illist = null;
+	public List<List<Integer>> subsetsWithDup(int[] nums) {
+		subsetsWithDup_illist = new LinkedList<List<Integer>>();
+		LinkedList<List<Integer>> myllist = new LinkedList<List<Integer>>();
+		for (int i = nums.length; i >= 0; --i) {
+			subsetsWithDup_getSubSets(nums, i);
+		}
+		for (int i = 0; i < subsetsWithDup_illist.size(); ++i) {
+			List<Integer> list = subsetsWithDup_illist.get(i);
+			Collections.sort(list);
+			if (!myllist.contains(list)) {
+				myllist.add(list);
+			}
+		}
+		Collections.reverse(myllist);
+		return myllist;
+    }
+	private void subsetsWithDup_getSubSets(int[] S, int num) {
+		List<Integer> list = new ArrayList<Integer>();
+		subsetsWithDup_getSubSets(S, 0, num, list);
+	}
+	private void subsetsWithDup_getSubSets(int[] S, int start, int num, List<Integer> list) {
+		if (num == 0) {
+			subsetsWithDup_illist.add(new LinkedList<Integer>(list));
+			return;
+		}
+		for (int i = start; i < S.length; ++i) {
+			list.add(S[i]);
+			subsetsWithDup_getSubSets(S, i + 1, num - 1, list);
+			list.remove(list.size() - 1);
+		}
+	}
+	
+	/**
+	 *  [Medium]
+	 *  #092. Reverse Linked List II
+	 *  Reverse a linked list from position m to n. Do it in-place and in one-pass.
+	 *  
+	 *  For example:
+	 *  Given 1->2->3->4->5->NULL, m = 2 and n = 4,
+	 *  
+	 *  return 1->4->3->2->5->NULL.
+	 *  
+	 *  Note:
+	 *  Given m, n satisfy the following condition:
+	 *  1 ≤ m ≤ n ≤ length of list.
+	 */
+	public ListNode reverseBetween(ListNode head, int m, int n) {
+		ListNode thead = new ListNode(-1);
+		thead.next = head;
+		ListNode curr = head;
+		ListNode prev = thead;
+		int pos = 1;
+		while (pos < m) {
+			pos++;
+			prev = curr;
+			curr = curr.next;
+		}
+		ListNode h = curr;
+		ListNode t = h;
+		while (m <= pos && pos < n) {
+			ListNode temp = h;
+			h = t.next;
+			t.next = h.next;
+			h.next = temp;
+			pos++;
+		}
+		prev.next = h;
+		return thead.next;
+    }
+	
+	/**
+	 *  [Medium]
+	 *  #094. Binary Tree Inorder Traversal
+	 *  
+	 *  Given a binary tree, return the inorder traversal of its nodes' values.
+	 *  
+	 *  For example:
+	 *  Given binary tree [1,null,2,3],
+	 *     1
+	 *      \
+	 *       2
+	 *      /
+	 *     3
+	 *  return [1,3,2].
+	 *  
+	 *  Note: Recursive solution is trivial, could you do it iteratively?
+	 */
+	public List<Integer> inorderTraversal(TreeNode root) {
+		//return inorderTraversal_recursive(root);
+		return inorderTraversal_iterative(root);
+    }
+	private List<Integer> inorderTraversal_iterative(TreeNode root) {
+		List<Integer> rList = new ArrayList<Integer>();
+		if (root == null) return rList;
+		Deque<TreeNode> stack = new ArrayDeque<TreeNode>();
+		TreeNode node = root;
+		while (node != null || stack.size() != 0) {
+			while (node != null) {
+				stack.push(node);
+				node = node.left;
+			}
+			node = stack.remove();
+			rList.add(node.val);
+			node = node.right;
+		}
+		return rList;
+	}
+	private List<Integer> inorderTraversal_recursive(TreeNode root) {
+		List<Integer> list = new ArrayList<>();
+		this.inorderTraversal_recursive(list, root);
+		return list;
+	}
+	private void inorderTraversal_recursive(List<Integer> list, TreeNode node) {
+		if (node == null) {
+			return;
+		} else if (node.left == null && node.right == null) {  // if node is leaf
+			list.add(node.val);
+			return;
+		} else {
+			this.inorderTraversal_recursive(list, node.left);
+			list.add(node.val);
+			this.inorderTraversal_recursive(list, node.right);
+		}
+	}
+	
+	/**
 	 *  [Easy]
 	 *  #107. Binary Tree Level Order Traversal II
 	 *  Given a binary tree, return the bottom-up level order traversal of its nodes' values.

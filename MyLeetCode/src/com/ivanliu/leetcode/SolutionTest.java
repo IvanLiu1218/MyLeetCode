@@ -479,6 +479,35 @@ public class SolutionTest {
 	}
 	
 	@Test
+	public void test090() {
+		List<List<Integer>> llist = solution.subsetsWithDup(new int[] {1,2,2});
+		assertEquals(6, llist.size());
+		assertEquals("[]", Arrays.toString(llist.get(0).toArray()));
+		assertEquals("[2]", Arrays.toString(llist.get(1).toArray()));
+		assertEquals("[1]", Arrays.toString(llist.get(2).toArray()));
+		assertEquals("[2, 2]", Arrays.toString(llist.get(3).toArray()));
+		assertEquals("[1, 2]", Arrays.toString(llist.get(4).toArray()));
+		assertEquals("[1, 2, 2]", Arrays.toString(llist.get(5).toArray()));
+	}
+	
+	@Test
+	public void test092() {
+		// 1->2->3->4->5->NULL, m = 2 and n = 4
+		ListNode list = new ListNode(1, new ListNode(2, new ListNode(3, new ListNode(4, new ListNode(5)))));
+		ListNode resList = solution.reverseBetween(list, 2, 4);
+		assertEquals("[1,4,3,2,5]", Utility.toString(resList));
+	}
+	
+	@Test
+	public void test094() {
+		TreeNode root = new TreeNode(1);
+		root.right = new TreeNode(2);
+		root.right.left = new TreeNode(3);
+		List<Integer> list = solution.inorderTraversal(root);
+		assertEquals("[1, 3, 2]", Arrays.toString(list.toArray()));
+	}
+	
+	@Test
 	public void test107() {
 		TreeNode head = new TreeNode(3);
 		head.left = new TreeNode(9);
