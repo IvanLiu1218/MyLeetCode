@@ -2147,6 +2147,61 @@ public class Solution {
     }
 	
 	/**
+	 *  [Medium]
+	 *  #103. Binary Tree Zigzag Level Order Traversal
+	 *  
+	 *  Given a binary tree, return the zigzag level order traversal of its nodes' values. (ie, from left to right, then right to left for the next level and alternate between).
+	 *  
+	 *  For example:
+	 *  Given binary tree [3,9,20,null,null,15,7],
+	 *      3
+	 *     / \
+	 *    9  20
+	 *      /  \
+	 *     15   7
+	 *  return its zigzag level order traversal as:
+	 *  [
+	 *    [3],
+	 *    [20,9],
+	 *    [15,7]
+	 *  ]
+	 */
+	public List<List<Integer>> zigzagLevelOrder(TreeNode root) {
+		List<List<Integer>> rList = new ArrayList<List<Integer>>();
+		if (root == null) return rList;
+		Deque<TreeNode> stack1 = new ArrayDeque<TreeNode>();
+		Deque<TreeNode> stack2 = new ArrayDeque<TreeNode>();
+		stack1.push(root);
+		int level = 1;
+		List<Integer> list = new ArrayList<Integer>();
+		while (stack1.size() != 0 || stack2.size() != 0) {
+			if (level % 2 == 1) {
+				TreeNode node = stack1.pop();
+				list.add(node.val);
+				if (node.left != null) stack2.push(node.left);
+				if (node.right != null) stack2.push(node.right);
+				if (stack1.size() == 0) {
+					level++;
+					rList.add(list);
+					list = new ArrayList<Integer>();
+				}
+			}
+			else {
+				TreeNode node = stack2.pop();
+				list.add(node.val);
+				if (node.right != null) stack1.push(node.right);
+				if (node.left != null) stack1.push(node.left);
+				if (stack2.size() == 0) {
+					level++;
+					rList.add(list);
+					list = new ArrayList<Integer>();
+				}
+			}
+		}
+		return rList;
+    }
+	
+	/**
 	 *  [Easy]
 	 *  #107. Binary Tree Level Order Traversal II
 	 *  Given a binary tree, return the bottom-up level order traversal of its nodes' values.

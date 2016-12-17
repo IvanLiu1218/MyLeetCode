@@ -597,6 +597,20 @@ public class SolutionTest {
 	}
 	
 	@Test
+	public void test103() {
+		TreeNode root = new TreeNode(3);
+		root.left = new TreeNode(9);
+		root.right = new TreeNode(20);
+		root.right.left = new TreeNode(15);
+		root.right.right = new TreeNode(7);
+		List<List<Integer>> resList = solution.zigzagLevelOrder(root);
+		assertEquals(3, resList.size());
+		assertEquals("[3]", Arrays.toString(resList.get(0).toArray()));
+		assertEquals("[20, 9]", Arrays.toString(resList.get(1).toArray()));
+		assertEquals("[15, 7]", Arrays.toString(resList.get(2).toArray()));
+	}
+	
+	@Test
 	public void test107() {
 		TreeNode head = new TreeNode(3);
 		head.left = new TreeNode(9);
