@@ -1956,6 +1956,59 @@ public class Solution {
 	
 	/**
 	 *  [Easy]
+	 *  #100. Same Tree
+	 *  
+	 *  Given two binary trees, write a function to check if they are equal or not.
+	 *  
+	 *  Two binary trees are considered equal if they are structurally identical and the nodes have the same value.
+	 */
+	// check two of inorder/preorder/postorder
+	public boolean isSameTree(TreeNode p, TreeNode q) {
+        StringBuilder pathP1 = new StringBuilder();
+        StringBuilder pathP2 = new StringBuilder();
+        this.isSameTree_getPath_inorder(pathP1, p);
+        this.isSameTree_getPath_preorder(pathP2, p);
+        
+        StringBuilder pathQ1 = new StringBuilder();
+        StringBuilder pathQ2 = new StringBuilder();
+        this.isSameTree_getPath_inorder(pathQ1, q);
+        this.isSameTree_getPath_preorder(pathQ2, q);
+        
+        return pathP1.toString().equals(pathQ1.toString()) && pathP2.toString().equals(pathQ2.toString());
+    }
+	private void isSameTree_getPath_inorder(StringBuilder path, TreeNode node) {
+		if (node == null) {
+			path.append("N#"); // to avoid same value in all tree nodes
+			return;
+		} else if (node.left == null && node.right == null) {
+			path.append(node.val);
+			path.append('#');
+			return;
+		} else {
+			this.isSameTree_getPath_inorder(path, node.left);
+			path.append(node.val);
+			path.append('#');
+			this.isSameTree_getPath_inorder(path, node.right);
+		}
+	}
+	private void isSameTree_getPath_preorder(StringBuilder path, TreeNode node) {
+		if (node == null) {
+			path.append("N#");  // to avoid same value in all tree nodes
+			return;
+		} else if (node.left == null && node.right == null) {
+			path.append(node.val);
+			path.append('#');
+			return;
+		} else {
+			path.append(node.val);
+			path.append('#');
+			this.isSameTree_getPath_preorder(path, node.left);
+			this.isSameTree_getPath_preorder(path, node.right);
+		}
+	}
+	
+	/**
+	 *  [Easy]
 	 *  #107. Binary Tree Level Order Traversal II
 	 *  Given a binary tree, return the bottom-up level order traversal of its nodes' values.
 	 *  (ie, from left to right, level by level from leaf to root).

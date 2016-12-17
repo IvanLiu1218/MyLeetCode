@@ -508,6 +508,42 @@ public class SolutionTest {
 	}
 	
 	@Test
+	public void test100() {
+		TreeNode root1 = new TreeNode(1);
+		root1.left = new TreeNode(1);
+		root1.left.left = new TreeNode(1);
+		root1.right = new TreeNode(1);
+		root1.right.left = new TreeNode(1);
+		root1.right.right = new TreeNode(1);
+		
+		TreeNode root2 = new TreeNode(1);
+		root2.left = new TreeNode(1);
+		root2.left.left = new TreeNode(1);
+		root2.right = new TreeNode(1);
+		root2.right.left = new TreeNode(1);
+		root2.right.right = new TreeNode(1);
+		
+		assertEquals(true, solution.isSameTree(root1, root2));
+		
+		root2 = new TreeNode(1);
+		root2.left = new TreeNode(1);
+		root2.left.left = new TreeNode(1);
+		root2.left.right = new TreeNode(1);
+		root2.right = new TreeNode(1);
+		root2.right.right = new TreeNode(1);
+		assertEquals(false, solution.isSameTree(root1, root2));
+		
+		// Runtime Error
+		assertEquals(true, solution.isSameTree(null, null));
+		// Wrong Answer
+		root1 = new TreeNode(1);
+		root1.left = new TreeNode(1);
+		root2 = new TreeNode(1);
+		root2.right = new TreeNode(1);
+		assertEquals(false, solution.isSameTree(root1, root2));
+	}
+	
+	@Test
 	public void test107() {
 		TreeNode head = new TreeNode(3);
 		head.left = new TreeNode(9);
