@@ -12,6 +12,7 @@ import com.ivanliu.leetcode.Solution.MyQueue;
 import com.ivanliu.leetcode.Solution.MyStack;
 import com.ivanliu.leetcode.Solution.NumArray;
 import com.ivanliu.leetcode.Utility.ListNode;
+import com.ivanliu.leetcode.Utility.TreeLinkNode;
 import com.ivanliu.leetcode.Utility.TreeNode;
 
 public class SolutionTest {
@@ -760,6 +761,20 @@ public class SolutionTest {
 		assertEquals(3, solution.numDistinct("rabbbit", "rabbit"));
 		assertEquals(6, solution.numDistinct("rabbbbit", "rabbit"));
 		assertEquals(6, solution.numDistinct("iirabbbit", "irabbit"));
+	}
+	
+	@Test
+	public void test116() {
+		TreeLinkNode root = new TreeLinkNode(1);
+		root.left = new TreeLinkNode(2);
+		root.left.left = new TreeLinkNode(4);
+		root.left.right = new TreeLinkNode(5);
+		root.right = new TreeLinkNode(3);
+		root.right.left = new TreeLinkNode(6);
+		root.right.right = new TreeLinkNode(7);
+		solution.connect(root);
+		assertEquals(3, root.left.next.val);
+		assertEquals(7, root.left.left.next.next.next.val);
 	}
 	
 	@Test
