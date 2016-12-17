@@ -2,6 +2,7 @@ package com.ivanliu.leetcode;
 
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -809,10 +810,47 @@ public class SolutionTest {
 	}
 	
 	@Test
+	public void test120() {
+		List<List<Integer>> llist = new ArrayList<>();
+		llist.add(new ArrayList<>());
+		llist.add(new ArrayList<>());
+		llist.add(new ArrayList<>());
+		llist.add(new ArrayList<>());
+		llist.get(0).add(2);
+		llist.get(1).add(3);
+		llist.get(1).add(4);
+		llist.get(2).add(6);
+		llist.get(2).add(5);
+		llist.get(2).add(7);
+		llist.get(3).add(4);
+		llist.get(3).add(1);
+		llist.get(3).add(8);
+		llist.get(3).add(3);
+		assertEquals(11, solution.minimumTotal(llist));
+	}
+	
+	@Test
+	public void test121() {
+		assertEquals(5, solution.maxProfit(new int[] {7, 1, 5, 3, 6, 4}));
+		assertEquals(0, solution.maxProfit(new int[] {7, 6, 4, 3, 1}));
+		// Time Limit Exceeded
+	}
+	
+	@Test
 	public void test125() {
 		assertEquals(true, solution.isPalindrome("A man, a plan, a canal: Panama"));
 		assertEquals(false, solution.isPalindrome("race a car"));
 		assertEquals(false, solution.isPalindrome("0P"));
+	}
+	
+	@Test
+	public void test129() {
+		TreeNode root = new TreeNode(1);
+		root.left = new TreeNode(2);
+		root.right = new TreeNode(3);
+		assertEquals(25, solution.sumNumbers(root));
+		root.right.right = new TreeNode(3);
+		assertEquals(145, solution.sumNumbers(root));
 	}
 	
 	@Test

@@ -2799,6 +2799,77 @@ public class Solution {
     }
 	
 	/**
+	 *  [Medium]
+	 *  #120. Triangle
+	 *  
+	 *  Given a triangle, find the minimum path sum from top to bottom. Each step you may move to adjacent numbers on the row below.
+	 *  
+	 *  For example, given the following triangle
+	 *  [
+	 *       [2],
+	 *      [3,4],
+	 *     [6,5,7],
+	 *    [4,1,8,3]
+	 *  ]
+	 *  The minimum path sum from top to bottom is 11 (i.e., 2 + 3 + 5 + 1 = 11).
+	 *  
+	 *  Note:
+	 *  Bonus point if you are able to do this using only O(n) extra space, where n is the total number of rows in the triangle.
+	 */
+	public int minimumTotal(List<List<Integer>> triangle) {
+		if (triangle == null || triangle.size() == 0) {
+			return 0;
+		}
+		int sizeX = triangle.size();
+		for (int i = sizeX - 2; i >= 0; --i) {
+			List<Integer> tlist1 = triangle.get(i);
+			List<Integer> tlist2 = triangle.get(i + 1);
+			for (int j = tlist2.size() - 2; j >= 0; --j) {
+				int a = tlist2.get(j);
+				int b = tlist2.get(j + 1);
+				tlist1.set(j, tlist1.get(j) + (a < b ? a : b));
+			}
+		}
+		return triangle.get(0).get(0);
+    }
+	
+	/**
+	 *  [Easy]
+	 *  #121. Best Time to Buy and Sell Stock
+	 *  
+	 *  Say you have an array for which the ith element is the price of a given stock on day i.
+	 *  
+	 *  If you were only permitted to complete at most one transaction (ie, buy one and sell one share of the stock), design an algorithm to find the maximum profit.
+	 *  
+	 *  Example 1:
+	 *  Input: [7, 1, 5, 3, 6, 4]
+	 *  Output: 5
+	 *  
+	 *  max. difference = 6-1 = 5 (not 7-1 = 6, as selling price needs to be larger than buying price)
+	 *  
+	 *  Example 2:
+	 *  Input: [7, 6, 4, 3, 1]
+	 *  Output: 0
+	 *  
+	 *  In this case, no transaction is done, i.e. max profit = 0.
+	 */
+	public int maxProfit(int[] prices) {
+		if (prices == null || prices.length == 0) return 0;
+		int maxProfit = 0;
+		int minPrice = Integer.MAX_VALUE;
+		for (int i = 0; i < prices.length; ++i) {
+			if (prices[i] < minPrice) {
+				minPrice = prices[i];
+			} else {
+				if (prices[i] - minPrice > maxProfit) {
+					maxProfit = prices[i] - minPrice;
+				}
+			}
+		}
+		return maxProfit;
+    }
+	
+	/**
 	 *  [Easy]
 	 *  #125. Valid Palindrome
 	 *  
@@ -2831,6 +2902,52 @@ public class Solution {
 		}
         return true;
     }
+	
+	/**
+	 *  [Medium]
+	 *  #129. Sum Root to Leaf Numbers
+	 *  
+	 *  Given a binary tree containing digits from 0-9 only, each root-to-leaf path could represent a number.
+	 *  
+	 *  An example is the root-to-leaf path 1->2->3 which represents the number 123.
+	 *  
+	 *  Find the total sum of all root-to-leaf numbers.
+	 *  
+	 *  For example,
+	 *  
+	 *      1
+	 *     / \
+	 *    2   3
+	 *  The root-to-leaf path 1->2 represents the number 12.
+	 *  The root-to-leaf path 1->3 represents the number 13.
+	 *  
+	 *  Return the sum = 12 + 13 = 25.
+	 */
+	public int sumNumbers(TreeNode root) {
+		int sum = 0;
+		if (root == null) return 0;
+		List<String> list = new ArrayList<String>();
+		String num = "";
+		sumNumbers_searchDLS(root, num, list);
+		for (int i = 0; i < list.size(); ++i) {
+			int number = Integer.parseInt(list.get(i));
+			sum += number;
+		}
+		return sum;
+    }
+	private void sumNumbers_searchDLS(TreeNode node, String num, List<String> resList) {
+		if (node == null) {
+			return;
+		} else if (node.left == null && node.right == null) {
+			num += String.format("%d", node.val);
+			resList.add(num);
+			return;
+		}
+		num += String.format("%d", node.val);
+		sumNumbers_searchDLS(node.left, num, resList);
+		sumNumbers_searchDLS(node.right, num, resList);
+		
+	}
 	
 	/**
 	 *  [Easy]
