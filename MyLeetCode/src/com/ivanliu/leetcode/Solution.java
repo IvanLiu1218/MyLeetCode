@@ -2267,6 +2267,54 @@ public class Solution {
 	}
 	
 	/**
+	 *  [Medium]
+	 *  #106. Construct Binary Tree from Inorder and Postorder Traversal
+	 *  Given inorder and postorder traversal of a tree, construct the binary tree.
+	 *  
+	 *  Note:
+	 *  You may assume that duplicates do not exist in the tree.
+	 */
+	public TreeNode buildTreeII(int[] inorder, int[] postorder) {
+		if (postorder == null || postorder.length == 0) return null;
+		if (inorder == null || inorder.length == 0) return null;
+		if (postorder.length != inorder.length) return null;
+		TreeNode root = new TreeNode(postorder[postorder.length - 1]);
+		int rootIndex = buildTreeII_findIndex(inorder, root.val, postorder.length);
+		int x1 = 0;
+		int y1 = rootIndex;
+		int x2 = 0;
+		int y2 = rootIndex;
+		root.left = buildTreeII_build(postorder, x1, y1, inorder, x2, y2);
+		
+		x1 = y1;
+		y1 = postorder.length - 1;
+		x2 = rootIndex + 1;
+		y2 = inorder.length;
+		root.right = buildTreeII_build(postorder, x1, y1, inorder, x2, y2);
+		
+		return root;
+    }
+	private TreeNode buildTreeII_build(int[] postorder, int x1, int y1, int[] inorder, int x2, int y2) {
+		if (postorder == null || postorder.length == 0 || x1 >= postorder.length) return null;
+		if (inorder == null || inorder.length == 0 || x2 >= inorder.length) return null;
+		TreeNode root = null;
+		if (x1 != y1 && x2 != y2) {
+			root = new TreeNode(postorder[y1 - 1]);
+			int rootIndex = buildTreeII_findIndex(inorder, root.val, postorder.length);
+			root.left = buildTreeII_build(postorder, x1, x1 + rootIndex - x2, inorder, x2, rootIndex);
+			root.right = buildTreeII_build(postorder, x1 + rootIndex - x2, y1 - 1, inorder, rootIndex + 1, y2);
+		}
+		return root;
+	}
+	
+	private int buildTreeII_findIndex(int[] array, int val, int end) {
+		for (int i = 0; i < Math.min(array.length, end); ++i) {
+			if (array[i] == val) return i;
+		}
+		return -1;
+	}
+	
+	/**
 	 *  [Easy]
 	 *  #107. Binary Tree Level Order Traversal II
 	 *  Given a binary tree, return the bottom-up level order traversal of its nodes' values.

@@ -628,6 +628,13 @@ public class SolutionTest {
 	}
 	
 	@Test
+	public void test106() {
+		int[] inorder = new int[] {4,2,5,1,6,3,7};
+		int[] postorder = new int[] {4,5,2,6,7,3,1};
+		assertEquals("[1,2,3,4,5,6,7,null,null,null,null,null,null,null,null]", Utility.toString(solution.buildTreeII(inorder, postorder)));
+	}
+	
+	@Test
 	public void test107() {
 		TreeNode head = new TreeNode(3);
 		head.left = new TreeNode(9);
