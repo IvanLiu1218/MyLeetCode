@@ -1956,6 +1956,366 @@ public class Solution {
 	
 	/**
 	 *  [Easy]
+	 *  #100. Same Tree
+	 *  
+	 *  Given two binary trees, write a function to check if they are equal or not.
+	 *  
+	 *  Two binary trees are considered equal if they are structurally identical and the nodes have the same value.
+	 */
+	// check two of inorder/preorder/postorder
+	public boolean isSameTree(TreeNode p, TreeNode q) {
+        StringBuilder pathP1 = new StringBuilder();
+        StringBuilder pathP2 = new StringBuilder();
+        this.isSameTree_getPath_inorder(pathP1, p);
+        this.isSameTree_getPath_preorder(pathP2, p);
+        
+        StringBuilder pathQ1 = new StringBuilder();
+        StringBuilder pathQ2 = new StringBuilder();
+        this.isSameTree_getPath_inorder(pathQ1, q);
+        this.isSameTree_getPath_preorder(pathQ2, q);
+        
+        return pathP1.toString().equals(pathQ1.toString()) && pathP2.toString().equals(pathQ2.toString());
+    }
+	private void isSameTree_getPath_inorder(StringBuilder path, TreeNode node) {
+		if (node == null) {
+			path.append("N#"); // to avoid same value in all tree nodes
+			return;
+		} else if (node.left == null && node.right == null) {
+			path.append(node.val);
+			path.append('#');
+			return;
+		} else {
+			this.isSameTree_getPath_inorder(path, node.left);
+			path.append(node.val);
+			path.append('#');
+			this.isSameTree_getPath_inorder(path, node.right);
+		}
+	}
+	private void isSameTree_getPath_preorder(StringBuilder path, TreeNode node) {
+		if (node == null) {
+			path.append("N#");  // to avoid same value in all tree nodes
+			return;
+		} else if (node.left == null && node.right == null) {
+			path.append(node.val);
+			path.append('#');
+			return;
+		} else {
+			path.append(node.val);
+			path.append('#');
+			this.isSameTree_getPath_preorder(path, node.left);
+			this.isSameTree_getPath_preorder(path, node.right);
+		}
+	}
+	
+	/**
+	 *  [Easy]
+	 *  #101. Symmetric Tree
+	 *  
+	 *  Given a binary tree, check whether it is a mirror of itself (ie, symmetric around its center).
+	 *  
+	 *  For example, this binary tree [1,2,2,3,4,4,3] is symmetric:
+	 *  
+	 *      1
+	 *     / \
+	 *    2   2
+	 *   / \ / \
+	 *  3  4 4  3
+	 *  But the following [1,2,2,null,3,null,3] is not:
+	 *      1
+ 	 *     / \
+	 *    2   2
+	 *     \   \
+	 *     3    3
+	 *  Note:
+	 *  Bonus points if you could solve it both recursively and iteratively.
+	 */
+	public boolean isSymmetric(TreeNode root) {
+        //return this.isSymmetric_recurtive(root);
+		return this.isSymmetric_iterative(root);
+    }
+	private boolean isSymmetric_iterative(TreeNode root) {
+		if (root == null) return true;
+		TreeNode flag = new TreeNode(Integer.MAX_VALUE);  // avoid duplicate -1
+		TreeNode none = new TreeNode(Integer.MIN_VALUE);  // avoid duplicate -2
+		Deque<TreeNode> queue = new ArrayDeque<>();
+		queue.addLast(root);
+		queue.addLast(flag); // use -1 as flag
+		boolean hasNonEmptyNode = false; // identify if one row contains only "flag" and "none" nodes.
+		while (queue.size() != 0) {
+			List<TreeNode> row = new ArrayList<>();
+			hasNonEmptyNode = false;
+			TreeNode node = queue.poll();
+			while (!node.equals(flag)) {
+				if (!node.equals(none)) {
+					if (node.left == null) queue.addLast(none);
+					else {
+						queue.addLast(node.left);
+						hasNonEmptyNode = true;
+					}
+					if (node.right == null) queue.addLast(none);
+					else {
+						queue.addLast(node.right);
+						hasNonEmptyNode = true;
+					}
+				}
+				row.add(node);
+				node = queue.poll();
+			}
+			queue.addLast(flag);
+			int length = row.size();
+			for (int i = 0; i < length / 2; ++i) {
+				if (row.get(i).val != row.get(length - 1 - i).val) return false;
+			}
+			if (!hasNonEmptyNode) break;
+		}
+		return true;
+	}
+	private boolean isSymmetric_recurtive(TreeNode root) {
+		StringBuilder path = new StringBuilder();
+        this.isSymmetric_recurtive(path, root);
+        String[] nodes = path.toString().split("#");
+        int numOfNodes = nodes.length;
+        for (int i = 0; i < numOfNodes / 2; ++i) {
+        	if (!nodes[i].equals(nodes[numOfNodes - 1 - i])) return false;
+        }
+        return true;
+	}
+	private void isSymmetric_recurtive(StringBuilder path, TreeNode node) {
+        if (node.left == null && node.right == null) {
+        	path.append(node.val);
+        	path.append('#');
+        	return;
+        } else {
+        	if (node.left == null) {
+        		path.append("L#");
+        	} else {
+        		this.isSymmetric_recurtive(path, node.left);
+        	}
+        	path.append(node.val);
+        	path.append('#');
+        	if (node.right == null) {
+        		path.append("R#");
+        	} else {
+        		this.isSymmetric_recurtive(path, node.right);
+        	}
+        }
+    }
+	
+	/**
+	 *  [Easy]
+	 *  #102. Binary Tree Level Order Traversal
+	 *  Given a binary tree, return the level order traversal of its nodes' values. (ie, from left to right, level by level).
+	 *  
+	 *  For example:
+	 *  Given binary tree [3,9,20,null,null,15,7],
+	 *      3
+	 *     / \
+	 *    9  20
+	 *      /  \
+	 *     15   7
+	 *  return its level order traversal as:
+	 *  [
+	 *    [3],
+	 *    [9,20],
+	 *    [15,7]
+	 *  ]
+	 */
+	public List<List<Integer>> levelOrder(TreeNode root) {
+		List<List<Integer>> rList = new ArrayList<>();
+		if (root == null) return rList;
+		TreeNode flag = new TreeNode(Integer.MAX_VALUE);
+		Deque<TreeNode> queue = new ArrayDeque<TreeNode>();
+		queue.add(root);
+		queue.add(flag);
+		List<Integer> list = new ArrayList<Integer>();
+		while (queue.size() != 0) {
+			TreeNode node = queue.remove();
+			if (!node.equals(flag)) {
+				list.add(node.val);
+				if (node.left != null) queue.add(node.left);
+				if (node.right != null) queue.add(node.right);
+			}
+			else {
+				if (queue.size() != 0) {
+					queue.add(flag);
+				}
+				rList.add(list);
+				list = new ArrayList<Integer>();
+			}
+		}
+		return rList;
+    }
+	
+	/**
+	 *  [Medium]
+	 *  #103. Binary Tree Zigzag Level Order Traversal
+	 *  
+	 *  Given a binary tree, return the zigzag level order traversal of its nodes' values. (ie, from left to right, then right to left for the next level and alternate between).
+	 *  
+	 *  For example:
+	 *  Given binary tree [3,9,20,null,null,15,7],
+	 *      3
+	 *     / \
+	 *    9  20
+	 *      /  \
+	 *     15   7
+	 *  return its zigzag level order traversal as:
+	 *  [
+	 *    [3],
+	 *    [20,9],
+	 *    [15,7]
+	 *  ]
+	 */
+	public List<List<Integer>> zigzagLevelOrder(TreeNode root) {
+		List<List<Integer>> rList = new ArrayList<List<Integer>>();
+		if (root == null) return rList;
+		Deque<TreeNode> stack1 = new ArrayDeque<TreeNode>();
+		Deque<TreeNode> stack2 = new ArrayDeque<TreeNode>();
+		stack1.push(root);
+		int level = 1;
+		List<Integer> list = new ArrayList<Integer>();
+		while (stack1.size() != 0 || stack2.size() != 0) {
+			if (level % 2 == 1) {
+				TreeNode node = stack1.pop();
+				list.add(node.val);
+				if (node.left != null) stack2.push(node.left);
+				if (node.right != null) stack2.push(node.right);
+				if (stack1.size() == 0) {
+					level++;
+					rList.add(list);
+					list = new ArrayList<Integer>();
+				}
+			}
+			else {
+				TreeNode node = stack2.pop();
+				list.add(node.val);
+				if (node.right != null) stack1.push(node.right);
+				if (node.left != null) stack1.push(node.left);
+				if (stack2.size() == 0) {
+					level++;
+					rList.add(list);
+					list = new ArrayList<Integer>();
+				}
+			}
+		}
+		return rList;
+    }
+	
+	/**
+	 *  [Easy]
+	 *  #104. Maximum Depth of Binary Tree
+	 *  
+	 *  Given a binary tree, find its maximum depth.
+	 *  
+	 *  The maximum depth is the number of nodes along the longest path from the root node down to the farthest leaf node.
+	 */
+	private int maxDepth_maxDepth = Integer.MIN_VALUE;
+	public int maxDepth(TreeNode root) {
+		if (root == null) return 0;
+		maxDepth_maxDepth = Integer.MIN_VALUE;
+		int depth = 0;
+		maxDepth_searchTreeMax(root, depth);
+		return maxDepth_maxDepth;
+    }
+	private void maxDepth_searchTreeMax(TreeNode node, int depth) {
+		if (node.left == null && node.right == null) {
+			depth++;
+			if (depth > maxDepth_maxDepth)
+				maxDepth_maxDepth = depth;
+			return;
+		}
+		depth++;
+		if (node.left != null) maxDepth_searchTreeMax(node.left, depth);
+		if (node.right != null) maxDepth_searchTreeMax(node.right, depth);
+	}
+	
+	/**
+	 *  [Medium]
+	 *  #105. Construct Binary Tree from Preorder and Inorder Traversal
+	 *  Given preorder and inorder traversal of a tree, construct the binary tree.
+	 *  
+	 *  Note:
+	 *  You may assume that duplicates do not exist in the tree.
+	 */
+	public TreeNode buildTree(int[] preorder, int[] inorder) {
+		if (preorder == null || preorder.length == 0) return null;
+		if (inorder == null || inorder.length == 0) return null;
+		if (preorder.length != inorder.length) return null;
+		TreeNode root = new TreeNode(preorder[0]);
+		int rootIndex = buildTree_findIndex(inorder, root.val, preorder.length);
+		root.left = buildTree_build(preorder, 1, 1 + rootIndex, inorder, 0, rootIndex);
+		root.right = buildTree_build(preorder, 1 + rootIndex, preorder.length, inorder, rootIndex + 1, inorder.length);
+		return root;
+    }
+	private TreeNode buildTree_build(int[] preorder, int x1, int y1, int[] inorder, int x2, int y2) {
+		if (preorder == null || preorder.length == 0 || x1 >= preorder.length) return null;
+		if (inorder == null || inorder.length == 0 || x2 >= inorder.length) return null;
+		TreeNode root = null;
+		if (x1 != y1 && x2 != y2) {
+			root = new TreeNode(preorder[x1]);
+			int rootIndex = buildTree_findIndex(inorder, root.val, preorder.length);
+			root.left = buildTree_build(preorder, x1 + 1, x1 + 1 + rootIndex - x2, inorder, x2, rootIndex);
+			root.right = buildTree_build(preorder, x1 + 1 + rootIndex - x2, y1, inorder, rootIndex + 1, y2);
+		}
+		return root;
+	}
+	private int buildTree_findIndex(int[] array, int val, int end) {
+		for (int i = 0; i < Math.min(array.length, end); ++i) {
+			if (array[i] == val) return i;
+		}
+		return -1;
+	}
+	
+	/**
+	 *  [Medium]
+	 *  #106. Construct Binary Tree from Inorder and Postorder Traversal
+	 *  Given inorder and postorder traversal of a tree, construct the binary tree.
+	 *  
+	 *  Note:
+	 *  You may assume that duplicates do not exist in the tree.
+	 */
+	public TreeNode buildTreeII(int[] inorder, int[] postorder) {
+		if (postorder == null || postorder.length == 0) return null;
+		if (inorder == null || inorder.length == 0) return null;
+		if (postorder.length != inorder.length) return null;
+		TreeNode root = new TreeNode(postorder[postorder.length - 1]);
+		int rootIndex = buildTreeII_findIndex(inorder, root.val, postorder.length);
+		int x1 = 0;
+		int y1 = rootIndex;
+		int x2 = 0;
+		int y2 = rootIndex;
+		root.left = buildTreeII_build(postorder, x1, y1, inorder, x2, y2);
+		
+		x1 = y1;
+		y1 = postorder.length - 1;
+		x2 = rootIndex + 1;
+		y2 = inorder.length;
+		root.right = buildTreeII_build(postorder, x1, y1, inorder, x2, y2);
+		
+		return root;
+    }
+	private TreeNode buildTreeII_build(int[] postorder, int x1, int y1, int[] inorder, int x2, int y2) {
+		if (postorder == null || postorder.length == 0 || x1 >= postorder.length) return null;
+		if (inorder == null || inorder.length == 0 || x2 >= inorder.length) return null;
+		TreeNode root = null;
+		if (x1 != y1 && x2 != y2) {
+			root = new TreeNode(postorder[y1 - 1]);
+			int rootIndex = buildTreeII_findIndex(inorder, root.val, postorder.length);
+			root.left = buildTreeII_build(postorder, x1, x1 + rootIndex - x2, inorder, x2, rootIndex);
+			root.right = buildTreeII_build(postorder, x1 + rootIndex - x2, y1 - 1, inorder, rootIndex + 1, y2);
+		}
+		return root;
+	}
+	
+	private int buildTreeII_findIndex(int[] array, int val, int end) {
+		for (int i = 0; i < Math.min(array.length, end); ++i) {
+			if (array[i] == val) return i;
+		}
+		return -1;
+	}
+	
+	/**
+	 *  [Easy]
 	 *  #107. Binary Tree Level Order Traversal II
 	 *  Given a binary tree, return the bottom-up level order traversal of its nodes' values.
 	 *  (ie, from left to right, level by level from leaf to root).

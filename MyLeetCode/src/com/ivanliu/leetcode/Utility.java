@@ -1,5 +1,7 @@
 package com.ivanliu.leetcode;
 
+import java.util.ArrayDeque;
+import java.util.Deque;
 import java.util.List;
 
 public class Utility {
@@ -55,5 +57,33 @@ public class Utility {
 			System.out.print(String.format(",%d", list.get(i).val));
 		}
 		System.out.println(' ');
+	}
+	
+	public static String toString(TreeNode root) {
+		StringBuilder sb = new StringBuilder();
+		sb.append('[');
+		if (root == null) sb.append("null");
+		else {
+			TreeNode none = new TreeNode(Integer.MAX_VALUE);
+			sb.append(root.val);
+			Deque<TreeNode> queue = new ArrayDeque<>();
+			if (root.left == null) queue.addLast(none);
+			else queue.addLast(root.left);
+			if (root.right == null) queue.addLast(none);
+			else queue.addLast(root.right);
+			while (queue.size() != 0) {
+				TreeNode node = queue.poll();
+				if (node.equals(none)) sb.append(",null");
+				else {
+					sb.append(String.format(",%d", node.val));
+					if (node.left == null) queue.addLast(none);
+					else queue.addLast(node.left);
+					if (node.right == null) queue.addLast(none);
+					else queue.addLast(node.right);
+				} 
+			}
+		}
+		sb.append(']');
+		return sb.toString();
 	}
 }

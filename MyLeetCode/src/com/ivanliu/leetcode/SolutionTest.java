@@ -508,6 +508,133 @@ public class SolutionTest {
 	}
 	
 	@Test
+	public void test100() {
+		TreeNode root1 = new TreeNode(1);
+		root1.left = new TreeNode(1);
+		root1.left.left = new TreeNode(1);
+		root1.right = new TreeNode(1);
+		root1.right.left = new TreeNode(1);
+		root1.right.right = new TreeNode(1);
+		
+		TreeNode root2 = new TreeNode(1);
+		root2.left = new TreeNode(1);
+		root2.left.left = new TreeNode(1);
+		root2.right = new TreeNode(1);
+		root2.right.left = new TreeNode(1);
+		root2.right.right = new TreeNode(1);
+		
+		assertEquals(true, solution.isSameTree(root1, root2));
+		
+		root2 = new TreeNode(1);
+		root2.left = new TreeNode(1);
+		root2.left.left = new TreeNode(1);
+		root2.left.right = new TreeNode(1);
+		root2.right = new TreeNode(1);
+		root2.right.right = new TreeNode(1);
+		assertEquals(false, solution.isSameTree(root1, root2));
+		
+		// Runtime Error
+		assertEquals(true, solution.isSameTree(null, null));
+		// Wrong Answer
+		root1 = new TreeNode(1);
+		root1.left = new TreeNode(1);
+		root2 = new TreeNode(1);
+		root2.right = new TreeNode(1);
+		assertEquals(false, solution.isSameTree(root1, root2));
+	}
+	
+	@Test
+	public void test101() {
+		TreeNode root = new TreeNode(1);
+		root.left = new TreeNode(2);
+		root.left.left = new TreeNode(3);
+		root.left.right = new TreeNode(4);
+		root.right = new TreeNode(2);
+		root.right.left = new TreeNode(4);
+		root.right.right = new TreeNode(3);
+		assertEquals(true, solution.isSymmetric(root));
+		
+		root = new TreeNode(1);
+		root.left = new TreeNode(1);
+		root.left.left = new TreeNode(1);
+		root.left.right = new TreeNode(1);
+		root.right = new TreeNode(1);
+		root.right.left = new TreeNode(1);
+		root.right.right = new TreeNode(1);
+		assertEquals(true, solution.isSymmetric(root));
+		
+		root = new TreeNode(1);
+		root.left = new TreeNode(1);
+		root.left.left = new TreeNode(1);
+		root.right = new TreeNode(1);
+		root.right.left = new TreeNode(1);
+		root.right.right = new TreeNode(1);
+		assertEquals(false, solution.isSymmetric(root));
+		
+		// Wrong Answer: [5,4,1,null,1,null,4,2,null,2,null]
+		root = new TreeNode(5);
+		root.left = new TreeNode(4);
+		root.left.right = new TreeNode(1);
+		root.left.right.left = new TreeNode(2);
+		root.right = new TreeNode(1);
+		root.right.right = new TreeNode(4);
+		root.right.right.left = new TreeNode(2);
+		assertEquals(false, solution.isSymmetric(root));
+	}
+	
+	@Test
+	public void test102() {
+		TreeNode root = new TreeNode(3);
+		root.left = new TreeNode(9);
+		root.right = new TreeNode(20);
+		root.right.left = new TreeNode(15);
+		root.right.right = new TreeNode(7);
+		List<List<Integer>> resList = solution.levelOrder(root);
+		assertEquals(3, resList.size());
+		assertEquals("[3]", Arrays.toString(resList.get(0).toArray()));
+		assertEquals("[9, 20]", Arrays.toString(resList.get(1).toArray()));
+		assertEquals("[15, 7]", Arrays.toString(resList.get(2).toArray()));
+	}
+	
+	@Test
+	public void test103() {
+		TreeNode root = new TreeNode(3);
+		root.left = new TreeNode(9);
+		root.right = new TreeNode(20);
+		root.right.left = new TreeNode(15);
+		root.right.right = new TreeNode(7);
+		List<List<Integer>> resList = solution.zigzagLevelOrder(root);
+		assertEquals(3, resList.size());
+		assertEquals("[3]", Arrays.toString(resList.get(0).toArray()));
+		assertEquals("[20, 9]", Arrays.toString(resList.get(1).toArray()));
+		assertEquals("[15, 7]", Arrays.toString(resList.get(2).toArray()));
+	}
+	
+	@Test
+	public void test104() {
+		TreeNode root = new TreeNode(3);
+		root.left = new TreeNode(9);
+		root.right = new TreeNode(20);
+		root.right.left = new TreeNode(15);
+		root.right.right = new TreeNode(7);
+		assertEquals(3, solution.maxDepth(root));
+	}
+	
+	@Test
+	public void test105() {
+		int[] preorder = new int[] {1,2,4,5,3,6,7};
+		int[] inorder = new int[] {4,2,5,1,6,3,7};
+		assertEquals("[1,2,3,4,5,6,7,null,null,null,null,null,null,null,null]", Utility.toString(solution.buildTree(preorder, inorder)));
+	}
+	
+	@Test
+	public void test106() {
+		int[] inorder = new int[] {4,2,5,1,6,3,7};
+		int[] postorder = new int[] {4,5,2,6,7,3,1};
+		assertEquals("[1,2,3,4,5,6,7,null,null,null,null,null,null,null,null]", Utility.toString(solution.buildTreeII(inorder, postorder)));
+	}
+	
+	@Test
 	public void test107() {
 		TreeNode head = new TreeNode(3);
 		head.left = new TreeNode(9);
