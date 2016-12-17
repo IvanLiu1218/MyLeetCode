@@ -611,6 +611,16 @@ public class SolutionTest {
 	}
 	
 	@Test
+	public void test104() {
+		TreeNode root = new TreeNode(3);
+		root.left = new TreeNode(9);
+		root.right = new TreeNode(20);
+		root.right.left = new TreeNode(15);
+		root.right.right = new TreeNode(7);
+		assertEquals(3, solution.maxDepth(root));
+	}
+	
+	@Test
 	public void test107() {
 		TreeNode head = new TreeNode(3);
 		head.left = new TreeNode(9);

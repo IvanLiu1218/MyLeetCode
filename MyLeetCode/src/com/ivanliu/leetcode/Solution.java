@@ -2203,6 +2203,34 @@ public class Solution {
 	
 	/**
 	 *  [Easy]
+	 *  #104. Maximum Depth of Binary Tree
+	 *  
+	 *  Given a binary tree, find its maximum depth.
+	 *  
+	 *  The maximum depth is the number of nodes along the longest path from the root node down to the farthest leaf node.
+	 */
+	private int maxDepth_maxDepth = Integer.MIN_VALUE;
+	public int maxDepth(TreeNode root) {
+		if (root == null) return 0;
+		maxDepth_maxDepth = Integer.MIN_VALUE;
+		int depth = 0;
+		maxDepth_searchTreeMax(root, depth);
+		return maxDepth_maxDepth;
+    }
+	private void maxDepth_searchTreeMax(TreeNode node, int depth) {
+		if (node.left == null && node.right == null) {
+			depth++;
+			if (depth > maxDepth_maxDepth)
+				maxDepth_maxDepth = depth;
+			return;
+		}
+		depth++;
+		if (node.left != null) maxDepth_searchTreeMax(node.left, depth);
+		if (node.right != null) maxDepth_searchTreeMax(node.right, depth);
+	}
+	
+	/**
+	 *  [Easy]
 	 *  #107. Binary Tree Level Order Traversal II
 	 *  Given a binary tree, return the bottom-up level order traversal of its nodes' values.
 	 *  (ie, from left to right, level by level from leaf to root).
