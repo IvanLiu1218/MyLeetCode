@@ -830,6 +830,13 @@ public class SolutionTest {
 	}
 	
 	@Test
+	public void test121() {
+		assertEquals(5, solution.maxProfit(new int[] {7, 1, 5, 3, 6, 4}));
+		assertEquals(0, solution.maxProfit(new int[] {7, 6, 4, 3, 1}));
+		// Time Limit Exceeded
+	}
+	
+	@Test
 	public void test125() {
 		assertEquals(true, solution.isPalindrome("A man, a plan, a canal: Panama"));
 		assertEquals(false, solution.isPalindrome("race a car"));
