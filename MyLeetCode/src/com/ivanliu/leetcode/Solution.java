@@ -1810,6 +1810,58 @@ public class Solution {
     }
 	
 	/**
+	 *  [Medium]
+	 *  #090. Subsets II
+	 *  Given a collection of integers that might contain duplicates, nums, return all possible subsets.
+	 *  
+	 *  Note: The solution set must not contain duplicate subsets.
+	 *  
+	 *  For example,
+	 *  If nums = [1,2,2], a solution is:
+	 *  
+	 *  [
+	 *    [2],
+	 *    [1],
+	 *    [1,2,2],
+	 *    [2,2],
+	 *    [1,2],
+	 *    []
+	 *  ]
+	 */
+	private List<List<Integer>> subsetsWithDup_illist = null;
+	public List<List<Integer>> subsetsWithDup(int[] nums) {
+		subsetsWithDup_illist = new LinkedList<List<Integer>>();
+		LinkedList<List<Integer>> myllist = new LinkedList<List<Integer>>();
+		for (int i = nums.length; i >= 0; --i) {
+			subsetsWithDup_getSubSets(nums, i);
+		}
+		for (int i = 0; i < subsetsWithDup_illist.size(); ++i) {
+			List<Integer> list = subsetsWithDup_illist.get(i);
+			Collections.sort(list);
+			if (!myllist.contains(list)) {
+				myllist.add(list);
+			}
+		}
+		Collections.reverse(myllist);
+		return myllist;
+    }
+	private void subsetsWithDup_getSubSets(int[] S, int num) {
+		List<Integer> list = new ArrayList<Integer>();
+		subsetsWithDup_getSubSets(S, 0, num, list);
+	}
+	private void subsetsWithDup_getSubSets(int[] S, int start, int num, List<Integer> list) {
+		if (num == 0) {
+			subsetsWithDup_illist.add(new LinkedList<Integer>(list));
+			return;
+		}
+		for (int i = start; i < S.length; ++i) {
+			list.add(S[i]);
+			subsetsWithDup_getSubSets(S, i + 1, num - 1, list);
+			list.remove(list.size() - 1);
+		}
+	}
+	
+	/**
 	 *  [Easy]
 	 *  #107. Binary Tree Level Order Traversal II
 	 *  Given a binary tree, return the bottom-up level order traversal of its nodes' values.

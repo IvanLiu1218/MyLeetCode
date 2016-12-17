@@ -2,6 +2,7 @@ package com.ivanliu.leetcode;
 
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -476,6 +477,18 @@ public class SolutionTest {
 	public void test089() {
 		assertEquals("[0, 1, 3, 2]", Arrays.toString(solution.grayCode(2).toArray()));
 		assertEquals("[0, 1, 3, 2, 6, 7, 5, 4]", Arrays.toString(solution.grayCode(3).toArray()));
+	}
+	
+	@Test
+	public void test090() {
+		List<List<Integer>> llist = solution.subsetsWithDup(new int[] {1,2,2});
+		assertEquals(6, llist.size());
+		assertEquals("[]", Arrays.toString(llist.get(0).toArray()));
+		assertEquals("[2]", Arrays.toString(llist.get(1).toArray()));
+		assertEquals("[1]", Arrays.toString(llist.get(2).toArray()));
+		assertEquals("[2, 2]", Arrays.toString(llist.get(3).toArray()));
+		assertEquals("[1, 2]", Arrays.toString(llist.get(4).toArray()));
+		assertEquals("[1, 2, 2]", Arrays.toString(llist.get(5).toArray()));
 	}
 	
 	@Test
