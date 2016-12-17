@@ -844,6 +844,16 @@ public class SolutionTest {
 	}
 	
 	@Test
+	public void test129() {
+		TreeNode root = new TreeNode(1);
+		root.left = new TreeNode(2);
+		root.right = new TreeNode(3);
+		assertEquals(25, solution.sumNumbers(root));
+		root.right.right = new TreeNode(3);
+		assertEquals(145, solution.sumNumbers(root));
+	}
+	
+	@Test
 	public void test155() {
 		MinStack minStack = solution.new MinStack();
 		minStack.push(4);

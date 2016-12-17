@@ -2904,6 +2904,52 @@ public class Solution {
     }
 	
 	/**
+	 *  [Medium]
+	 *  #129. Sum Root to Leaf Numbers
+	 *  
+	 *  Given a binary tree containing digits from 0-9 only, each root-to-leaf path could represent a number.
+	 *  
+	 *  An example is the root-to-leaf path 1->2->3 which represents the number 123.
+	 *  
+	 *  Find the total sum of all root-to-leaf numbers.
+	 *  
+	 *  For example,
+	 *  
+	 *      1
+	 *     / \
+	 *    2   3
+	 *  The root-to-leaf path 1->2 represents the number 12.
+	 *  The root-to-leaf path 1->3 represents the number 13.
+	 *  
+	 *  Return the sum = 12 + 13 = 25.
+	 */
+	public int sumNumbers(TreeNode root) {
+		int sum = 0;
+		if (root == null) return 0;
+		List<String> list = new ArrayList<String>();
+		String num = "";
+		sumNumbers_searchDLS(root, num, list);
+		for (int i = 0; i < list.size(); ++i) {
+			int number = Integer.parseInt(list.get(i));
+			sum += number;
+		}
+		return sum;
+    }
+	private void sumNumbers_searchDLS(TreeNode node, String num, List<String> resList) {
+		if (node == null) {
+			return;
+		} else if (node.left == null && node.right == null) {
+			num += String.format("%d", node.val);
+			resList.add(num);
+			return;
+		}
+		num += String.format("%d", node.val);
+		sumNumbers_searchDLS(node.left, num, resList);
+		sumNumbers_searchDLS(node.right, num, resList);
+		
+	}
+	
+	/**
 	 *  [Easy]
 	 *  #155. Min Stack
 	 *  
