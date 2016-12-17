@@ -803,6 +803,12 @@ public class SolutionTest {
 	}
 	
 	@Test
+	public void test119() {
+		List<Integer> resList = solution.getRow(3);
+		assertEquals("[1, 3, 3, 1]", Arrays.toString(resList.toArray()));
+	}
+	
+	@Test
 	public void test125() {
 		assertEquals(true, solution.isPalindrome("A man, a plan, a canal: Panama"));
 		assertEquals(false, solution.isPalindrome("race a car"));

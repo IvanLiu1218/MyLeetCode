@@ -2775,6 +2775,31 @@ public class Solution {
 	
 	/**
 	 *  [Easy]
+	 *  #119. Pascal's Triangle II
+	 *  
+	 *  Given an index k, return the kth row of the Pascal's triangle.
+	 *  
+	 *  For example, given k = 3,
+	 *  Return [1,3,3,1].
+	 */
+	public List<Integer> getRow(int rowIndex) {
+		List<Integer> list = new ArrayList<Integer>();
+		int index = rowIndex + 1;
+		while (index > 0) {
+			int prev = 0;
+			for (int i = 0; i < list.size(); ++i) {
+				int curr = list.get(i);
+				list.set(i,  prev + curr);
+				prev = curr;
+			}
+			list.add(1);
+			index--;
+		}
+		return list;
+    }
+	
+	/**
+	 *  [Easy]
 	 *  #125. Valid Palindrome
 	 *  
 	 *  Given a string, determine if it is a palindrome, considering only alphanumeric characters and ignoring cases.
