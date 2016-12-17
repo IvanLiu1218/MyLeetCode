@@ -465,6 +465,14 @@ public class SolutionTest {
 	}
 	
 	@Test
+	public void test088() {
+		int[] nums1 = new int[] {1,4,7,8,0,0,0};
+		int[] nums2 = new int[] {2,3,5};
+		solution.merge(nums1, 4, nums2, 3);
+		assertEquals("[1, 2, 3, 4, 5, 7, 8]", Arrays.toString(nums1));
+	}
+	
+	@Test
 	public void test107() {
 		TreeNode head = new TreeNode(3);
 		head.left = new TreeNode(9);
