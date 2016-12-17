@@ -473,6 +473,12 @@ public class SolutionTest {
 	}
 	
 	@Test
+	public void test089() {
+		assertEquals("[0, 1, 3, 2]", Arrays.toString(solution.grayCode(2).toArray()));
+		assertEquals("[0, 1, 3, 2, 6, 7, 5, 4]", Arrays.toString(solution.grayCode(3).toArray()));
+	}
+	
+	@Test
 	public void test107() {
 		TreeNode head = new TreeNode(3);
 		head.left = new TreeNode(9);
