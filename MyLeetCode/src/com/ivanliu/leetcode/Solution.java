@@ -2516,6 +2516,54 @@ public class Solution {
 	}
 	
 	/**
+	 *  [Medium]
+	 *  #114. Flatten Binary Tree to Linked List
+	 *  Given a binary tree, flatten it to a linked list in-place.
+	 *  
+	 *  For example,
+	 *  Given
+	 *  
+ 	 *           1
+	 *          / \
+	 *         2   5
+	 *        / \   \
+	 *       3   4   6
+	 *  The flattened tree should look like:
+	 *     1
+	 *      \
+	 *       2
+	 *        \
+	 *         3
+	 *          \
+	 *           4
+	 *            \
+	 *             5
+	 *              \
+	 *               6
+	 *  
+	 *  Hints:
+	 *  If you notice carefully in the flattened tree, each node's right child points to the next node of a pre-order traversal.
+	 */
+	private List<TreeNode> flatten_nodeList = null;
+	public void flatten(TreeNode root) {
+		flatten_nodeList = new ArrayList<TreeNode>();
+		flatten_searchTreeNLR(root);
+		TreeNode prev = new TreeNode(0);
+		for (int i = 0; i < flatten_nodeList.size(); ++i) {
+			TreeNode node = flatten_nodeList.get(i);
+			node.left = null;
+			prev.right = node;
+			prev = node;
+		}
+    }
+	private void flatten_searchTreeNLR(TreeNode node) {
+		if (node == null) return;
+		flatten_nodeList.add(node);
+		flatten_searchTreeNLR(node.left);
+		flatten_searchTreeNLR(node.right);
+	}
+	
+	/**
 	 *  [Easy]
 	 *  #125. Valid Palindrome
 	 *  

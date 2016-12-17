@@ -739,6 +739,23 @@ public class SolutionTest {
 	}
 	
 	@Test
+	public void test114() {
+		TreeNode root = new TreeNode(1);
+		root.left = new TreeNode(2);
+		root.left.left = new TreeNode(3);
+		root.left.right = new TreeNode(4);
+		root.right = new TreeNode(5);
+		root.right.right = new TreeNode(6);
+		solution.flatten(root);
+		TreeNode node = root;
+		int i = 1;
+		while (node != null) {
+			assertEquals(i++, node.val);
+			node = node.right;
+		}
+	}
+	
+	@Test
 	public void test125() {
 		assertEquals(true, solution.isPalindrome("A man, a plan, a canal: Panama"));
 		assertEquals(false, solution.isPalindrome("race a car"));
