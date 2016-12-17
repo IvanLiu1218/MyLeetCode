@@ -756,6 +756,13 @@ public class SolutionTest {
 	}
 	
 	@Test
+	public void test115() {
+		assertEquals(3, solution.numDistinct("rabbbit", "rabbit"));
+		assertEquals(6, solution.numDistinct("rabbbbit", "rabbit"));
+		assertEquals(6, solution.numDistinct("iirabbbit", "irabbit"));
+	}
+	
+	@Test
 	public void test125() {
 		assertEquals(true, solution.isPalindrome("A man, a plan, a canal: Panama"));
 		assertEquals(false, solution.isPalindrome("race a car"));
