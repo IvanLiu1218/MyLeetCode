@@ -1594,6 +1594,222 @@ public class Solution {
 	}
 	
 	/**
+	 *  [Medium]
+	 *  #080. Remove Duplicates from Sorted Array II
+	 *  
+	 *  Follow up for "Remove Duplicates":
+	 *  What if duplicates are allowed at most twice?
+	 *  
+	 *  For example,
+	 *  Given sorted array nums = [1,1,1,2,2,3],
+	 *  
+	 *  Your function should return length = 5, with the first five elements of nums being 1, 1, 2, 2 and 3. 
+	 *  It doesn't matter what you leave beyond the new length.
+	 *  
+	 *  Subscribe to see which companies asked this question
+	 */
+	public int removeDuplicatesII(int[] nums) {
+		if (nums == null) return -1;
+		int length = nums.length;
+		int dupi = -1;
+		int prev = 0;
+		int curr = 1;
+		while (0 < curr && curr < length) {
+			if (dupi == -1) {
+				if (nums[prev] == nums[curr]) {
+					dupi = curr;
+				}
+				prev = curr;
+				curr++;
+			}
+			else {
+				if (nums[dupi] == nums[curr]) {
+					removeDuplicatesII_moveForwardt(nums, curr, dupi);
+					length -= (curr - dupi);
+				}
+				else {
+					dupi = -1;
+					prev = curr;
+					curr++;
+				}
+			}
+		}
+		return length;
+    }
+	private void removeDuplicatesII_moveForwardt(int[] array, int from, int to) {
+		int i = to;
+		int j = from;
+		while (i < j && j < array.length) {
+			array[i++] = array[j++];
+		}
+	}
+	
+	/**
+	 *  [Medium]
+	 *  #081. Search in Rotated Sorted Array II
+	 *  
+	 *  Follow up for "Search in Rotated Sorted Array":
+	 *  What if duplicates are allowed?
+	 *  
+	 *  Would this affect the run-time complexity? How and why?
+	 *  
+	 *  Write a function to determine if a given target is in the array.
+	 */
+	// It's the same as #033
+	public boolean searchII(int[] nums, int target) {
+		if (nums == null || nums.length == 0) return false;
+		int pivot = nums[0];
+		if (target < pivot) {
+			for (int i = nums.length - 1; i >= 0; --i) {
+				if (nums[i] > pivot) break;
+				if (nums[i] == target) return true;
+			}
+		}
+		else {
+			for (int i = 0; i < nums.length; ++i) {
+				if (nums[i] < pivot) break;
+				if (nums[i] == target) return true;
+			}
+		}
+		return false;
+    }
+	
+	/**
+	 *  [Medium]
+	 *  #082. Remove Duplicates from Sorted List II
+	 *  Given a sorted linked list, delete all nodes that have duplicate numbers, leaving only distinct numbers from the original list.
+	 *  
+	 *  For example,
+	 *  Given 1->2->3->3->4->4->5, return 1->2->5.
+	 *  Given 1->1->1->2->3, return 2->3.
+	 */
+	public ListNode deleteDuplicatesII(ListNode head) {
+		ListNode thead = new ListNode(-1);
+		ListNode tnode = thead;
+		ListNode prev = head;
+		ListNode node = prev;
+		while (prev != null && node != null) {
+			node = node.next;
+			if (node == null || prev.val != node.val) {
+				tnode.next = prev;
+				tnode = tnode.next;
+			}
+			else {
+				while (node != null && prev.val == node.val) {
+					node = node.next;
+				}
+			}
+			prev = node;
+		}
+		tnode.next = prev; // if node == null, append the left nodes to new list
+		return thead.next;
+    }
+	
+	/**
+	 *  [Easy]
+	 *  #083. Remove Duplicates from Sorted List
+	 *  Given a sorted linked list, delete all duplicates such that each element appear only once.
+	 *  
+	 *  For example,
+	 *  Given 1->1->2, return 1->2.
+	 *  Given 1->1->2->3->3, return 1->2->3.
+	 */
+	public ListNode deleteDuplicates(ListNode head) {
+		ListNode node = head;
+		ListNode prev = head;
+		while (node != null) {
+			if (prev.val != node.val) {
+				prev.next = node;
+				prev = node;
+			}
+			node = node.next;
+			prev.next = null;
+		}
+		
+		return head;
+    }
+	
+	/**
+	 *  [Easy]
+	 *  #088. Merge Sorted Array
+	 *  
+	 *  Given two sorted integer arrays nums1 and nums2, merge nums2 into nums1 as one sorted array.
+	 *  
+	 *  Note:
+	 *  You may assume that nums1 has enough space (size that is greater or equal to m + n) to hold additional elements from nums2. 
+	 *  The number of elements initialized in nums1 and nums2 are m and n respectively.
+	 */
+	public void merge(int[] nums1, int m, int[] nums2, int n) {
+		int[] temp = new int[m + n];
+		int i = 0;
+		int j = 0;
+		int index = 0;
+		while (i < m && j < n) {
+			if (nums1[i] < nums2[j]) {
+				temp[index++] = nums1[i++];
+			}
+			else {
+				temp[index++] = nums2[j++];
+			}
+		}
+		while (i < m) {
+			temp[index++] = nums1[i++];
+		}
+		while (j < n) {
+			temp[index++] = nums2[j++];
+		}
+		/* arraycopy(Object src, int srcPos, Object dest, int destPos, int length) 
+		 * 
+		 * src - the source array.
+		 * srcPos - starting position in the source array.
+		 * dest - the destination array.
+		 * destPos - starting position in the destination data.
+		 * length - the number of array elements to be copied. 
+		 */
+		System.arraycopy(temp, 0, nums1, 0, m + n);
+    }
+	
+	/**
+	 *  [Medium]
+	 *  #089. Gray Code
+	 *  
+	 *  The gray code is a binary numeral system where two successive values differ in only one bit.
+	 *  
+	 *  Given a non-negative integer n representing the total number of bits in the code, print the sequence of gray code. 
+	 *  A gray code sequence must begin with 0.
+	 *  
+	 *  For example, given n = 2, return [0,1,3,2]. Its gray code sequence is:
+	 *  
+	 *  00 - 0
+	 *  01 - 1
+	 *  11 - 3
+	 *  10 - 2
+	 *  Note:
+	 *  For a given n, a gray code sequence is not uniquely defined.
+	 *  
+	 *  For example, [0,2,3,1] is also a valid gray code sequence according to the above definition.
+	 *  
+	 *  For now, the judge is able to judge based on one instance of gray code sequence. Sorry about that.
+	 */
+	public List<Integer> grayCode(int n) {
+		List<Integer> gcList = new ArrayList<Integer>();
+		gcList.add(0);
+		int times = (int) (Math.pow(2, n) - 1);
+		int number = 0;
+		for (int i = 0; i < times; ++i) {
+			int factor = 1;
+			int temp = number ^ factor;
+			while (gcList.contains(temp)) {
+				factor <<= 1;
+				temp = number ^ factor;
+			}
+			gcList.add(temp);
+			number = temp;
+		}
+		return gcList;
+    }
+	
+	/**
 	 *  [Easy]
 	 *  #107. Binary Tree Level Order Traversal II
 	 *  Given a binary tree, return the bottom-up level order traversal of its nodes' values.

@@ -424,6 +424,61 @@ public class SolutionTest {
 	}
 	
 	@Test
+	public void test080() {
+		int[] nums = new int[]{1,1,1,2,2,3};
+		assertEquals(5, solution.removeDuplicatesII(nums));
+		assertEquals(2, nums[2]);
+	}
+	
+	@Test
+	public void test081() {
+		assertEquals(true,  solution.searchII(new int[]{5,5,6,7,8,8,1,1,2,3,4}, 5));
+		assertEquals(false, solution.searchII(new int[]{5,5,6,7,8,8,1,2,3,3,4}, 9));
+	}
+	
+	@Test
+	public void test082() {
+		// 1->2->3->3->4->4->5
+		ListNode list = new ListNode(1, new ListNode(2, new ListNode(3, new ListNode(3, new ListNode(4, new ListNode(4, new ListNode(5)))))));
+		ListNode resList = solution.deleteDuplicatesII(list);
+		assertEquals("[1,2,5]", Utility.toString(resList));
+		// 1->1->1->2->3
+		list = new ListNode(1, new ListNode(1, new ListNode(1, new ListNode(2, new ListNode(3)))));
+		resList = solution.deleteDuplicatesII(list);
+		assertEquals("[2,3]", Utility.toString(resList));
+		// 1->1->1
+		list = new ListNode(1, new ListNode(1, new ListNode(1, new ListNode(1))));
+		resList = solution.deleteDuplicatesII(list);
+		assertEquals("[]", Utility.toString(resList));
+	}
+	
+	@Test
+	public void test083() {
+		// 1->1->2
+		ListNode list = new ListNode(1, new ListNode(1, new ListNode(2)));
+		ListNode resList = solution.deleteDuplicates(list);
+		assertEquals("[1,2]", Utility.toString(resList));
+		// 1->1->2->3->3
+		list = new ListNode(1, new ListNode(1, new ListNode(2, new ListNode(3, new ListNode(3)))));
+		resList = solution.deleteDuplicates(list);
+		assertEquals("[1,2,3]", Utility.toString(resList));
+	}
+	
+	@Test
+	public void test088() {
+		int[] nums1 = new int[] {1,4,7,8,0,0,0};
+		int[] nums2 = new int[] {2,3,5};
+		solution.merge(nums1, 4, nums2, 3);
+		assertEquals("[1, 2, 3, 4, 5, 7, 8]", Arrays.toString(nums1));
+	}
+	
+	@Test
+	public void test089() {
+		assertEquals("[0, 1, 3, 2]", Arrays.toString(solution.grayCode(2).toArray()));
+		assertEquals("[0, 1, 3, 2, 6, 7, 5, 4]", Arrays.toString(solution.grayCode(3).toArray()));
+	}
+	
+	@Test
 	public void test107() {
 		TreeNode head = new TreeNode(3);
 		head.left = new TreeNode(9);
