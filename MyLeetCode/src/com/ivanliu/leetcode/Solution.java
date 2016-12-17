@@ -2103,6 +2103,51 @@ public class Solution {
 	
 	/**
 	 *  [Easy]
+	 *  #102. Binary Tree Level Order Traversal
+	 *  Given a binary tree, return the level order traversal of its nodes' values. (ie, from left to right, level by level).
+	 *  
+	 *  For example:
+	 *  Given binary tree [3,9,20,null,null,15,7],
+	 *      3
+	 *     / \
+	 *    9  20
+	 *      /  \
+	 *     15   7
+	 *  return its level order traversal as:
+	 *  [
+	 *    [3],
+	 *    [9,20],
+	 *    [15,7]
+	 *  ]
+	 */
+	public List<List<Integer>> levelOrder(TreeNode root) {
+		List<List<Integer>> rList = new ArrayList<>();
+		if (root == null) return rList;
+		TreeNode flag = new TreeNode(Integer.MAX_VALUE);
+		Deque<TreeNode> queue = new ArrayDeque<TreeNode>();
+		queue.add(root);
+		queue.add(flag);
+		List<Integer> list = new ArrayList<Integer>();
+		while (queue.size() != 0) {
+			TreeNode node = queue.remove();
+			if (!node.equals(flag)) {
+				list.add(node.val);
+				if (node.left != null) queue.add(node.left);
+				if (node.right != null) queue.add(node.right);
+			}
+			else {
+				if (queue.size() != 0) {
+					queue.add(flag);
+				}
+				rList.add(list);
+				list = new ArrayList<Integer>();
+			}
+		}
+		return rList;
+    }
+	
+	/**
+	 *  [Easy]
 	 *  #107. Binary Tree Level Order Traversal II
 	 *  Given a binary tree, return the bottom-up level order traversal of its nodes' values.
 	 *  (ie, from left to right, level by level from leaf to root).
