@@ -2427,6 +2427,46 @@ public class Solution {
 	
 	/**
 	 *  [Easy]
+	 *  #112. Path Sum
+	 *  Given a binary tree and a sum, determine if the tree has a root-to-leaf path such that adding up all the values along the path equals the given sum.
+	 *  
+	 *  For example:
+	 *  Given the below binary tree and sum = 22,
+	 *                5
+	 *               / \
+	 *              4   8
+	 *             /   / \
+	 *            11  13  4
+	 *           /  \      \
+	 *          7    2      1
+	 *  return true, as there exist a root-to-leaf path 5->4->11->2 which sum is 22.
+	 */
+	private boolean hasPathSum_result = false;
+	public boolean hasPathSum(TreeNode root, int sum) {
+		if (root == null) return false;
+		hasPathSum_result = false;
+		int value = 0;
+		hasPathSum_searchPath(root, value, sum);
+		return hasPathSum_result;
+    }
+	public void hasPathSum_searchPath(TreeNode node, int value, int sum) {
+		if (node.left == null && node.right == null) {
+			value += node.val;
+			if (value == sum) {
+				hasPathSum_result = true;
+			}
+		}
+		value += node.val;
+		if (node.left != null) {
+			hasPathSum_searchPath(node.left, value, sum);
+		}
+		if (node.right != null) {
+			hasPathSum_searchPath(node.right, value, sum);
+		}
+	}
+	
+	/**
+	 *  [Easy]
 	 *  #125. Valid Palindrome
 	 *  
 	 *  Given a string, determine if it is a palindrome, considering only alphanumeric characters and ignoring cases.
