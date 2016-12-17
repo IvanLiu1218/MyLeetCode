@@ -492,6 +492,14 @@ public class SolutionTest {
 	}
 	
 	@Test
+	public void test092() {
+		// 1->2->3->4->5->NULL, m = 2 and n = 4
+		ListNode list = new ListNode(1, new ListNode(2, new ListNode(3, new ListNode(4, new ListNode(5)))));
+		ListNode resList = solution.reverseBetween(list, 2, 4);
+		assertEquals("[1,4,3,2,5]", Utility.toString(resList));
+	}
+	
+	@Test
 	public void test107() {
 		TreeNode head = new TreeNode(3);
 		head.left = new TreeNode(9);

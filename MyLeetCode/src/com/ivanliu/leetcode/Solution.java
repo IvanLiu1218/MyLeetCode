@@ -1862,6 +1862,44 @@ public class Solution {
 	}
 	
 	/**
+	 *  [Medium]
+	 *  #092. Reverse Linked List II
+	 *  Reverse a linked list from position m to n. Do it in-place and in one-pass.
+	 *  
+	 *  For example:
+	 *  Given 1->2->3->4->5->NULL, m = 2 and n = 4,
+	 *  
+	 *  return 1->4->3->2->5->NULL.
+	 *  
+	 *  Note:
+	 *  Given m, n satisfy the following condition:
+	 *  1 ≤ m ≤ n ≤ length of list.
+	 */
+	public ListNode reverseBetween(ListNode head, int m, int n) {
+		ListNode thead = new ListNode(-1);
+		thead.next = head;
+		ListNode curr = head;
+		ListNode prev = thead;
+		int pos = 1;
+		while (pos < m) {
+			pos++;
+			prev = curr;
+			curr = curr.next;
+		}
+		ListNode h = curr;
+		ListNode t = h;
+		while (m <= pos && pos < n) {
+			ListNode temp = h;
+			h = t.next;
+			t.next = h.next;
+			h.next = temp;
+			pos++;
+		}
+		prev.next = h;
+		return thead.next;
+    }
+	
+	/**
 	 *  [Easy]
 	 *  #107. Binary Tree Level Order Traversal II
 	 *  Given a binary tree, return the bottom-up level order traversal of its nodes' values.
