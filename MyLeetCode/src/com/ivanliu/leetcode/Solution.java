@@ -2466,6 +2466,56 @@ public class Solution {
 	}
 	
 	/**
+	 *  [Medium]
+	 *  #113. Path Sum II
+	 *  Given a binary tree and a sum, find all root-to-leaf paths where each path's sum equals the given sum.
+	 *  
+	 *  For example:
+	 *  Given the below binary tree and sum = 22,
+	 *                5
+	 *               / \
+	 *              4   8
+	 *             /   / \
+	 *            11  13  4
+	 *           /  \    / \
+	 *          7    2  5   1
+	 *  return
+	 *  [
+	 *     [5,4,11,2],
+	 *     [5,8,4,5]
+	 *  ]
+	 */
+	private List<List<Integer>> pathSumII_rList = null;
+	public List<List<Integer>> pathSumII(TreeNode root, int sum) {
+		pathSumII_rList = new ArrayList<List<Integer>>();
+		if (root == null) return pathSumII_rList;
+		int value = 0;
+		List<Integer> list = new ArrayList<Integer>();
+		pathSumII_searchPath(root, value, sum, list);
+		return pathSumII_rList;
+    }
+	private void pathSumII_searchPath(TreeNode node, int value, int sum, List<Integer> list) {
+		if (node.left == null && node.right == null) {
+			value += node.val;
+			if (value == sum) {
+				list.add(node.val);
+				pathSumII_rList.add(new ArrayList<Integer>(list));
+				list.remove(list.size() - 1);
+			}
+			return;
+		}
+		value += node.val;
+		list.add(node.val);
+		if (node.left != null) {
+			pathSumII_searchPath(node.left, value, sum, list);
+		}
+		if (node.right != null) {
+			pathSumII_searchPath(node.right, value, sum, list);
+		}
+		list.remove(list.size() - 1);
+	}
+	
+	/**
 	 *  [Easy]
 	 *  #125. Valid Palindrome
 	 *  
