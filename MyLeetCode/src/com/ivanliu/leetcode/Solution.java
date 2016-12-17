@@ -2733,6 +2733,48 @@ public class Solution {
 	
 	/**
 	 *  [Easy]
+	 *  #118. Pascal's Triangle
+	 *  
+	 *  Given numRows, generate the first numRows of Pascal's triangle.
+	 *  
+	 *  For example, given numRows = 5,
+	 *  Return
+	 *  
+	 *  [
+	 *       [1],
+	 *      [1,1],
+	 *     [1,2,1],
+	 *    [1,3,3,1],
+	 *   [1,4,6,4,1]
+	 *  ]
+	 */
+	public List<List<Integer>> generate(int numRows) {
+		List<List<Integer>> llist = new ArrayList<List<Integer>>();
+		int num = numRows;
+		List<Integer> list = new ArrayList<Integer>();
+		list.add(1);
+		while (num > 0) {
+			llist.add(list);
+			list = generate_generateList(list);
+			num--;
+		}
+		
+		return llist;
+    }
+	private List<Integer> generate_generateList(List<Integer> list) {
+		List<Integer> resList = new ArrayList<Integer>();
+		int prev = 0;
+		for (int i = 0 ; i < list.size(); ++i) {
+			int curr = list.get(i);
+			resList.add(prev + curr);
+			prev = curr;
+		}
+		resList.add(list.get(list.size() - 1));
+		return resList;
+	}
+	
+	/**
+	 *  [Easy]
 	 *  #125. Valid Palindrome
 	 *  
 	 *  Given a string, determine if it is a palindrome, considering only alphanumeric characters and ignoring cases.

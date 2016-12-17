@@ -792,6 +792,17 @@ public class SolutionTest {
 	}
 	
 	@Test
+	public void test118() {
+		List<List<Integer>> resList = solution.generate(5);
+		assertEquals(5, resList.size());
+		assertEquals("[1]", Arrays.toString(resList.get(0).toArray()));
+		assertEquals("[1, 1]", Arrays.toString(resList.get(1).toArray()));
+		assertEquals("[1, 2, 1]", Arrays.toString(resList.get(2).toArray()));
+		assertEquals("[1, 3, 3, 1]", Arrays.toString(resList.get(3).toArray()));
+		assertEquals("[1, 4, 6, 4, 1]", Arrays.toString(resList.get(4).toArray()));
+	}
+	
+	@Test
 	public void test125() {
 		assertEquals(true, solution.isPalindrome("A man, a plan, a canal: Panama"));
 		assertEquals(false, solution.isPalindrome("race a car"));
