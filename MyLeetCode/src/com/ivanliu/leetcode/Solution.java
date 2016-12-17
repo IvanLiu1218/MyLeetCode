@@ -1683,7 +1683,7 @@ public class Solution {
 	 *  Given 1->2->3->3->4->4->5, return 1->2->5.
 	 *  Given 1->1->1->2->3, return 2->3.
 	 */
-	public ListNode deleteDuplicates(ListNode head) {
+	public ListNode deleteDuplicatesII(ListNode head) {
 		ListNode thead = new ListNode(-1);
 		ListNode tnode = thead;
 		ListNode prev = head;
@@ -1703,6 +1703,30 @@ public class Solution {
 		}
 		tnode.next = prev; // if node == null, append the left nodes to new list
 		return thead.next;
+    }
+	
+	/**
+	 *  [Easy]
+	 *  #083. Remove Duplicates from Sorted List
+	 *  Given a sorted linked list, delete all duplicates such that each element appear only once.
+	 *  
+	 *  For example,
+	 *  Given 1->1->2, return 1->2.
+	 *  Given 1->1->2->3->3, return 1->2->3.
+	 */
+	public ListNode deleteDuplicates(ListNode head) {
+		ListNode node = head;
+		ListNode prev = head;
+		while (node != null) {
+			if (prev.val != node.val) {
+				prev.next = node;
+				prev = node;
+			}
+			node = node.next;
+			prev.next = null;
+		}
+		
+		return head;
     }
 	
 	/**
