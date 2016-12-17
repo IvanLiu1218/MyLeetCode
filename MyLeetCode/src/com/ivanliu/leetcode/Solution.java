@@ -1900,6 +1900,61 @@ public class Solution {
     }
 	
 	/**
+	 *  [Medium]
+	 *  #094. Binary Tree Inorder Traversal
+	 *  
+	 *  Given a binary tree, return the inorder traversal of its nodes' values.
+	 *  
+	 *  For example:
+	 *  Given binary tree [1,null,2,3],
+	 *     1
+	 *      \
+	 *       2
+	 *      /
+	 *     3
+	 *  return [1,3,2].
+	 *  
+	 *  Note: Recursive solution is trivial, could you do it iteratively?
+	 */
+	public List<Integer> inorderTraversal(TreeNode root) {
+		//return inorderTraversal_recursive(root);
+		return inorderTraversal_iterative(root);
+    }
+	private List<Integer> inorderTraversal_iterative(TreeNode root) {
+		List<Integer> rList = new ArrayList<Integer>();
+		if (root == null) return rList;
+		Deque<TreeNode> stack = new ArrayDeque<TreeNode>();
+		TreeNode node = root;
+		while (node != null || stack.size() != 0) {
+			while (node != null) {
+				stack.push(node);
+				node = node.left;
+			}
+			node = stack.remove();
+			rList.add(node.val);
+			node = node.right;
+		}
+		return rList;
+	}
+	private List<Integer> inorderTraversal_recursive(TreeNode root) {
+		List<Integer> list = new ArrayList<>();
+		this.inorderTraversal_recursive(list, root);
+		return list;
+	}
+	private void inorderTraversal_recursive(List<Integer> list, TreeNode node) {
+		if (node == null) {
+			return;
+		} else if (node.left == null && node.right == null) {  // if node is leaf
+			list.add(node.val);
+			return;
+		} else {
+			this.inorderTraversal_recursive(list, node.left);
+			list.add(node.val);
+			this.inorderTraversal_recursive(list, node.right);
+		}
+	}
+	
+	/**
 	 *  [Easy]
 	 *  #107. Binary Tree Level Order Traversal II
 	 *  Given a binary tree, return the bottom-up level order traversal of its nodes' values.
