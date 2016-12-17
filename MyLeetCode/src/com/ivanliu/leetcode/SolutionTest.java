@@ -544,6 +544,45 @@ public class SolutionTest {
 	}
 	
 	@Test
+	public void test101() {
+		TreeNode root = new TreeNode(1);
+		root.left = new TreeNode(2);
+		root.left.left = new TreeNode(3);
+		root.left.right = new TreeNode(4);
+		root.right = new TreeNode(2);
+		root.right.left = new TreeNode(4);
+		root.right.right = new TreeNode(3);
+		assertEquals(true, solution.isSymmetric(root));
+		
+		root = new TreeNode(1);
+		root.left = new TreeNode(1);
+		root.left.left = new TreeNode(1);
+		root.left.right = new TreeNode(1);
+		root.right = new TreeNode(1);
+		root.right.left = new TreeNode(1);
+		root.right.right = new TreeNode(1);
+		assertEquals(true, solution.isSymmetric(root));
+		
+		root = new TreeNode(1);
+		root.left = new TreeNode(1);
+		root.left.left = new TreeNode(1);
+		root.right = new TreeNode(1);
+		root.right.left = new TreeNode(1);
+		root.right.right = new TreeNode(1);
+		assertEquals(false, solution.isSymmetric(root));
+		
+		// Wrong Answer: [5,4,1,null,1,null,4,2,null,2,null]
+		root = new TreeNode(5);
+		root.left = new TreeNode(4);
+		root.left.right = new TreeNode(1);
+		root.left.right.left = new TreeNode(2);
+		root.right = new TreeNode(1);
+		root.right.right = new TreeNode(4);
+		root.right.right.left = new TreeNode(2);
+		assertEquals(false, solution.isSymmetric(root));
+	}
+	
+	@Test
 	public void test107() {
 		TreeNode head = new TreeNode(3);
 		head.left = new TreeNode(9);

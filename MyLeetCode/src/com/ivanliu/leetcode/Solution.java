@@ -2009,6 +2009,100 @@ public class Solution {
 	
 	/**
 	 *  [Easy]
+	 *  #101. Symmetric Tree
+	 *  
+	 *  Given a binary tree, check whether it is a mirror of itself (ie, symmetric around its center).
+	 *  
+	 *  For example, this binary tree [1,2,2,3,4,4,3] is symmetric:
+	 *  
+	 *      1
+	 *     / \
+	 *    2   2
+	 *   / \ / \
+	 *  3  4 4  3
+	 *  But the following [1,2,2,null,3,null,3] is not:
+	 *      1
+ 	 *     / \
+	 *    2   2
+	 *     \   \
+	 *     3    3
+	 *  Note:
+	 *  Bonus points if you could solve it both recursively and iteratively.
+	 */
+	public boolean isSymmetric(TreeNode root) {
+        //return this.isSymmetric_recurtive(root);
+		return this.isSymmetric_iterative(root);
+    }
+	private boolean isSymmetric_iterative(TreeNode root) {
+		if (root == null) return true;
+		TreeNode flag = new TreeNode(Integer.MAX_VALUE);  // avoid duplicate -1
+		TreeNode none = new TreeNode(Integer.MIN_VALUE);  // avoid duplicate -2
+		Deque<TreeNode> queue = new ArrayDeque<>();
+		queue.addLast(root);
+		queue.addLast(flag); // use -1 as flag
+		boolean hasNonEmptyNode = false; // identify if one row contains only "flag" and "none" nodes.
+		while (queue.size() != 0) {
+			List<TreeNode> row = new ArrayList<>();
+			hasNonEmptyNode = false;
+			TreeNode node = queue.poll();
+			while (!node.equals(flag)) {
+				if (!node.equals(none)) {
+					if (node.left == null) queue.addLast(none);
+					else {
+						queue.addLast(node.left);
+						hasNonEmptyNode = true;
+					}
+					if (node.right == null) queue.addLast(none);
+					else {
+						queue.addLast(node.right);
+						hasNonEmptyNode = true;
+					}
+				}
+				row.add(node);
+				node = queue.poll();
+			}
+			queue.addLast(flag);
+			int length = row.size();
+			for (int i = 0; i < length / 2; ++i) {
+				if (row.get(i).val != row.get(length - 1 - i).val) return false;
+			}
+			if (!hasNonEmptyNode) break;
+		}
+		return true;
+	}
+	private boolean isSymmetric_recurtive(TreeNode root) {
+		StringBuilder path = new StringBuilder();
+        this.isSymmetric_recurtive(path, root);
+        String[] nodes = path.toString().split("#");
+        int numOfNodes = nodes.length;
+        for (int i = 0; i < numOfNodes / 2; ++i) {
+        	if (!nodes[i].equals(nodes[numOfNodes - 1 - i])) return false;
+        }
+        return true;
+	}
+	private void isSymmetric_recurtive(StringBuilder path, TreeNode node) {
+        if (node.left == null && node.right == null) {
+        	path.append(node.val);
+        	path.append('#');
+        	return;
+        } else {
+        	if (node.left == null) {
+        		path.append("L#");
+        	} else {
+        		this.isSymmetric_recurtive(path, node.left);
+        	}
+        	path.append(node.val);
+        	path.append('#');
+        	if (node.right == null) {
+        		path.append("R#");
+        	} else {
+        		this.isSymmetric_recurtive(path, node.right);
+        	}
+        }
+    }
+	
+	/**
+	 *  [Easy]
 	 *  #107. Binary Tree Level Order Traversal II
 	 *  Given a binary tree, return the bottom-up level order traversal of its nodes' values.
 	 *  (ie, from left to right, level by level from leaf to root).
