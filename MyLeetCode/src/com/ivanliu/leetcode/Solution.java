@@ -2230,6 +2230,43 @@ public class Solution {
 	}
 	
 	/**
+	 *  [Medium]
+	 *  #105. Construct Binary Tree from Preorder and Inorder Traversal
+	 *  Given preorder and inorder traversal of a tree, construct the binary tree.
+	 *  
+	 *  Note:
+	 *  You may assume that duplicates do not exist in the tree.
+	 */
+	public TreeNode buildTree(int[] preorder, int[] inorder) {
+		if (preorder == null || preorder.length == 0) return null;
+		if (inorder == null || inorder.length == 0) return null;
+		if (preorder.length != inorder.length) return null;
+		TreeNode root = new TreeNode(preorder[0]);
+		int rootIndex = buildTree_findIndex(inorder, root.val, preorder.length);
+		root.left = buildTree_build(preorder, 1, 1 + rootIndex, inorder, 0, rootIndex);
+		root.right = buildTree_build(preorder, 1 + rootIndex, preorder.length, inorder, rootIndex + 1, inorder.length);
+		return root;
+    }
+	private TreeNode buildTree_build(int[] preorder, int x1, int y1, int[] inorder, int x2, int y2) {
+		if (preorder == null || preorder.length == 0 || x1 >= preorder.length) return null;
+		if (inorder == null || inorder.length == 0 || x2 >= inorder.length) return null;
+		TreeNode root = null;
+		if (x1 != y1 && x2 != y2) {
+			root = new TreeNode(preorder[x1]);
+			int rootIndex = buildTree_findIndex(inorder, root.val, preorder.length);
+			root.left = buildTree_build(preorder, x1 + 1, x1 + 1 + rootIndex - x2, inorder, x2, rootIndex);
+			root.right = buildTree_build(preorder, x1 + 1 + rootIndex - x2, y1, inorder, rootIndex + 1, y2);
+		}
+		return root;
+	}
+	private int buildTree_findIndex(int[] array, int val, int end) {
+		for (int i = 0; i < Math.min(array.length, end); ++i) {
+			if (array[i] == val) return i;
+		}
+		return -1;
+	}
+	
+	/**
 	 *  [Easy]
 	 *  #107. Binary Tree Level Order Traversal II
 	 *  Given a binary tree, return the bottom-up level order traversal of its nodes' values.

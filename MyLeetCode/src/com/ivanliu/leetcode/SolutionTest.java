@@ -621,6 +621,13 @@ public class SolutionTest {
 	}
 	
 	@Test
+	public void test105() {
+		int[] preorder = new int[] {1,2,4,5,3,6,7};
+		int[] inorder = new int[] {4,2,5,1,6,3,7};
+		assertEquals("[1,2,3,4,5,6,7,null,null,null,null,null,null,null,null]", Utility.toString(solution.buildTree(preorder, inorder)));
+	}
+	
+	@Test
 	public void test107() {
 		TreeNode head = new TreeNode(3);
 		head.left = new TreeNode(9);
