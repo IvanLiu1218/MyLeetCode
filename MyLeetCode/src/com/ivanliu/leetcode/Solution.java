@@ -1675,6 +1675,37 @@ public class Solution {
     }
 	
 	/**
+	 *  [Medium]
+	 *  #082. Remove Duplicates from Sorted List II
+	 *  Given a sorted linked list, delete all nodes that have duplicate numbers, leaving only distinct numbers from the original list.
+	 *  
+	 *  For example,
+	 *  Given 1->2->3->3->4->4->5, return 1->2->5.
+	 *  Given 1->1->1->2->3, return 2->3.
+	 */
+	public ListNode deleteDuplicates(ListNode head) {
+		ListNode thead = new ListNode(-1);
+		ListNode tnode = thead;
+		ListNode prev = head;
+		ListNode node = prev;
+		while (prev != null && node != null) {
+			node = node.next;
+			if (node == null || prev.val != node.val) {
+				tnode.next = prev;
+				tnode = tnode.next;
+			}
+			else {
+				while (node != null && prev.val == node.val) {
+					node = node.next;
+				}
+			}
+			prev = node;
+		}
+		tnode.next = prev; // if node == null, append the left nodes to new list
+		return thead.next;
+    }
+	
+	/**
 	 *  [Easy]
 	 *  #107. Binary Tree Level Order Traversal II
 	 *  Given a binary tree, return the bottom-up level order traversal of its nodes' values.

@@ -437,6 +437,22 @@ public class SolutionTest {
 	}
 	
 	@Test
+	public void test082() {
+		// 1->2->3->3->4->4->5
+		ListNode list = new ListNode(1, new ListNode(2, new ListNode(3, new ListNode(3, new ListNode(4, new ListNode(4, new ListNode(5)))))));
+		ListNode resList = solution.deleteDuplicates(list);
+		assertEquals("[1,2,5]", Utility.toString(resList));
+		// 1->1->1->2->3
+		list = new ListNode(1, new ListNode(1, new ListNode(1, new ListNode(2, new ListNode(3)))));
+		resList = solution.deleteDuplicates(list);
+		assertEquals("[2,3]", Utility.toString(resList));
+		// 1->1->1
+		list = new ListNode(1, new ListNode(1, new ListNode(1, new ListNode(1))));
+		resList = solution.deleteDuplicates(list);
+		assertEquals("[]", Utility.toString(resList));
+	}
+	
+	@Test
 	public void test107() {
 		TreeNode head = new TreeNode(3);
 		head.left = new TreeNode(9);
