@@ -424,6 +424,13 @@ public class SolutionTest {
 	}
 	
 	@Test
+	public void test080() {
+		int[] nums = new int[]{1,1,1,2,2,3};
+		assertEquals(5, solution.removeDuplicatesII(nums));
+		assertEquals(2, nums[2]);
+	}
+	
+	@Test
 	public void test107() {
 		TreeNode head = new TreeNode(3);
 		head.left = new TreeNode(9);

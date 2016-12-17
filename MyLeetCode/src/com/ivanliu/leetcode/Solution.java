@@ -1594,6 +1594,57 @@ public class Solution {
 	}
 	
 	/**
+	 *  [Medium]
+	 *  #080. Remove Duplicates from Sorted Array II
+	 *  
+	 *  Follow up for "Remove Duplicates":
+	 *  What if duplicates are allowed at most twice?
+	 *  
+	 *  For example,
+	 *  Given sorted array nums = [1,1,1,2,2,3],
+	 *  
+	 *  Your function should return length = 5, with the first five elements of nums being 1, 1, 2, 2 and 3. 
+	 *  It doesn't matter what you leave beyond the new length.
+	 *  
+	 *  Subscribe to see which companies asked this question
+	 */
+	public int removeDuplicatesII(int[] nums) {
+		if (nums == null) return -1;
+		int length = nums.length;
+		int dupi = -1;
+		int prev = 0;
+		int curr = 1;
+		while (0 < curr && curr < length) {
+			if (dupi == -1) {
+				if (nums[prev] == nums[curr]) {
+					dupi = curr;
+				}
+				prev = curr;
+				curr++;
+			}
+			else {
+				if (nums[dupi] == nums[curr]) {
+					removeDuplicatesII_moveForwardt(nums, curr, dupi);
+					length -= (curr - dupi);
+				}
+				else {
+					dupi = -1;
+					prev = curr;
+					curr++;
+				}
+			}
+		}
+		return length;
+    }
+	private void removeDuplicatesII_moveForwardt(int[] array, int from, int to) {
+		int i = to;
+		int j = from;
+		while (i < j && j < array.length) {
+			array[i++] = array[j++];
+		}
+	}
+	
+	/**
 	 *  [Easy]
 	 *  #107. Binary Tree Level Order Traversal II
 	 *  Given a binary tree, return the bottom-up level order traversal of its nodes' values.
