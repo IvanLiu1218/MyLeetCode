@@ -431,6 +431,12 @@ public class SolutionTest {
 	}
 	
 	@Test
+	public void test081() {
+		assertEquals(true,  solution.searchII(new int[]{5,5,6,7,8,8,1,1,2,3,4}, 5));
+		assertEquals(false, solution.searchII(new int[]{5,5,6,7,8,8,1,2,3,3,4}, 9));
+	}
+	
+	@Test
 	public void test107() {
 		TreeNode head = new TreeNode(3);
 		head.left = new TreeNode(9);

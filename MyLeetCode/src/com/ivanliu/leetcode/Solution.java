@@ -1645,6 +1645,36 @@ public class Solution {
 	}
 	
 	/**
+	 *  [Medium]
+	 *  #081. Search in Rotated Sorted Array II
+	 *  
+	 *  Follow up for "Search in Rotated Sorted Array":
+	 *  What if duplicates are allowed?
+	 *  
+	 *  Would this affect the run-time complexity? How and why?
+	 *  
+	 *  Write a function to determine if a given target is in the array.
+	 */
+	// It's the same as #033
+	public boolean searchII(int[] nums, int target) {
+		if (nums == null || nums.length == 0) return false;
+		int pivot = nums[0];
+		if (target < pivot) {
+			for (int i = nums.length - 1; i >= 0; --i) {
+				if (nums[i] > pivot) break;
+				if (nums[i] == target) return true;
+			}
+		}
+		else {
+			for (int i = 0; i < nums.length; ++i) {
+				if (nums[i] < pivot) break;
+				if (nums[i] == target) return true;
+			}
+		}
+		return false;
+    }
+	
+	/**
 	 *  [Easy]
 	 *  #107. Binary Tree Level Order Traversal II
 	 *  Given a binary tree, return the bottom-up level order traversal of its nodes' values.
