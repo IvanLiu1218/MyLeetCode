@@ -2664,6 +2664,74 @@ public class Solution {
     }
 	
 	/**
+	 *  [Hard]
+	 *  #117. Populating Next Right Pointers in Each Node II
+	 *  
+	 *  Follow up for problem "Populating Next Right Pointers in Each Node".
+	 *  
+	 *  What if the given tree could be any binary tree? Would your previous solution still work?
+	 *  
+	 *  Note:
+	 *  
+	 *  You may only use constant extra space.
+	 *  For example,
+	 *  Given the following binary tree,
+	 *  
+	 *           1
+	 *         /  \
+	 *        2    3
+	 *       / \    \
+	 *      4   5    7
+	 *      
+	 *  After calling your function, the tree should look like:
+	 *  
+	 *           1 -> NULL
+	 *         /  \
+	 *        2 -> 3 -> NULL
+	 *       / \    \
+	 *      4-> 5 -> 7 -> NULL
+	 */
+	public void connectII(TreeLinkNode root) {
+		if (root == null) return;
+		Deque<TreeLinkNode> queue0 = new ArrayDeque<TreeLinkNode>();  // Queue 1
+		Deque<TreeLinkNode> queue1 = new ArrayDeque<TreeLinkNode>();  // Queue 2
+		int level = 0;
+		queue0.add(root);
+		TreeLinkNode prev = null;
+		while (!queue0.isEmpty() || !queue1.isEmpty()) {
+			if (level % 2 == 0) {
+				while (!queue0.isEmpty()) {
+					TreeLinkNode node = queue0.remove();
+					if (prev == null) prev = node;
+					else {
+						prev.next = node;
+						prev = node;
+					}
+					if (node.left != null) queue1.add(node.left);
+					if (node.right != null) queue1.add(node.right);
+				}
+				prev.next = null;
+				prev = null;
+			}
+			else {
+				while (!queue1.isEmpty()) {
+					TreeLinkNode node = queue1.remove();
+					if (prev == null) prev = node;
+					else {
+						prev.next = node;
+						prev = node;
+					}
+					if (node.left != null) queue0.add(node.left);
+					if (node.right != null) queue0.add(node.right);
+				}
+				prev.next = null;
+				prev = null;
+			}
+			level++;
+		}
+    }
+	
+	/**
 	 *  [Easy]
 	 *  #125. Valid Palindrome
 	 *  

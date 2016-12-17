@@ -778,6 +778,20 @@ public class SolutionTest {
 	}
 	
 	@Test
+	public void test117() {
+		TreeLinkNode root = new TreeLinkNode(1);
+		root.left = new TreeLinkNode(2);
+		root.left.left = new TreeLinkNode(4);
+		root.left.right = new TreeLinkNode(5);
+		root.right = new TreeLinkNode(3);
+		root.right.right = new TreeLinkNode(7);
+		solution.connectII(root);
+		assertEquals(1, root.val);
+		assertEquals(3, root.left.next.val);
+		assertEquals(7, root.left.left.next.next.val);
+	}
+	
+	@Test
 	public void test125() {
 		assertEquals(true, solution.isPalindrome("A man, a plan, a canal: Panama"));
 		assertEquals(false, solution.isPalindrome("race a car"));
