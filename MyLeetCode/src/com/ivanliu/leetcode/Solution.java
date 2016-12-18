@@ -2981,6 +2981,23 @@ public class Solution {
 	
 	/**
 	 *  [Easy]
+	 *  #136. Single Number
+	 *  
+	 *  Given an array of integers, every element appears twice except for one. Find that single one.
+	 *  
+	 *  Note:
+	 *  Your algorithm should have a linear runtime complexity. Could you implement it without using extra memory?
+	 */
+	// Any number which is XOR twice will be no change.!!!
+	public int singleNumber(int[] nums) {
+		for (int i = 1; i < nums.length; ++i) {
+			nums[0] = nums[0] ^ nums[i];
+		}
+		return nums[0];
+    }
+	
+	/**
+	 *  [Easy]
 	 *  #155. Min Stack
 	 *  
 	 *  Design a stack that supports push, pop, top, and retrieving the minimum element in constant time.

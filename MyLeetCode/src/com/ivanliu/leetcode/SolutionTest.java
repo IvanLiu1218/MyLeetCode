@@ -865,6 +865,11 @@ public class SolutionTest {
 	}
 	
 	@Test
+	public void test136() {
+		assertEquals(4, solution.singleNumber(new int[] {3,6,7,4,3,7,6}));
+	}
+	
+	@Test
 	public void test155() {
 		MinStack minStack = solution.new MinStack();
 		minStack.push(4);
