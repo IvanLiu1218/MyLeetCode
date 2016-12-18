@@ -854,6 +854,17 @@ public class SolutionTest {
 	}
 	
 	@Test
+	public void test134() {
+		int[] gas = new int[] {2,4};
+		int[] cost = new int[] {3,4};
+		assertEquals(-1, solution.canCompleteCircuit(gas, cost));
+		// Time Limit Exceeded
+		gas = new int[] {2,0,1,2,3,4,0};
+		cost = new int[] {0,1,0,0,0,0,11};
+		assertEquals(0, solution.canCompleteCircuit(gas, cost));
+	}
+	
+	@Test
 	public void test155() {
 		MinStack minStack = solution.new MinStack();
 		minStack.push(4);
