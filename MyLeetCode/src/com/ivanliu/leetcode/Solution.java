@@ -2998,6 +2998,30 @@ public class Solution {
 	
 	/**
 	 *  [Easy]
+	 *  #141. Linked List Cycle
+	 *  
+	 *  Given a linked list, determine if it has a cycle in it.
+	 *  
+	 *  Follow up:
+	 *  Can you solve it without using extra space?
+	 */
+	public boolean hasCycle(ListNode head) {
+		if (head == null) return false;
+		if (head.next == null) return false;
+		ListNode p1 = head;
+		ListNode p2 = p1.next;
+		while (p2 != null ) {
+			if (p1 == p2) return true;
+			p1 = p1.next;
+			p2 = p2.next;  // two pointers, one moves by 1 step, another moves by 2 steps
+			if (p2 == null) break;
+			p2 = p2.next;
+		}
+		return false;
+    }
+	
+	/**
+	 *  [Easy]
 	 *  #155. Min Stack
 	 *  
 	 *  Design a stack that supports push, pop, top, and retrieving the minimum element in constant time.
