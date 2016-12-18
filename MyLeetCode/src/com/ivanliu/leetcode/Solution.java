@@ -3056,6 +3056,45 @@ public class Solution {
 	}
 	
 	/**
+	 *  [Medium]
+	 *  #143. Reorder List
+	 *  
+	 *  Given a singly linked list L: L0->L1->...->Ln-1->Ln,
+	 *  reorder it to: L0->Ln->L1->Ln-1->L2->Ln-2->...
+	 *  
+	 *  You must do this in-place without altering the nodes' values.
+	 *  
+	 *  For example,
+	 *  Given {1,2,3,4}, reorder it to {1,4,2,3}.
+	 */
+	public void reorderList(ListNode head) {
+		ArrayList<ListNode> list = new ArrayList<>();
+		ListNode p = head;
+		while (p != null) {
+			list.add(p);
+			p = p.next;
+		}
+		ListNode nhead = new ListNode(0);
+		ListNode tp = nhead;
+		int len = list.size();
+		int mid = len / 2;
+		int i = 0;
+		while (i < mid){
+			tp.next = list.get(i);
+			tp = tp.next;
+			tp.next = list.get(len - 1 - i);
+			tp = tp.next;
+			i++;
+		}
+		if (len % 2 == 1) {
+			tp.next = list.get(i);
+			tp = tp.next;
+		}
+		tp.next = null;
+		head = nhead.next;
+    }
+	
+	/**
 	 *  [Easy]
 	 *  #155. Min Stack
 	 *  

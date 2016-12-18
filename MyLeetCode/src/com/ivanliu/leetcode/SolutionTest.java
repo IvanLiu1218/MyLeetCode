@@ -890,6 +890,13 @@ public class SolutionTest {
 	}
 	
 	@Test
+	public void test143() {
+		ListNode head = new ListNode(1, new ListNode(2, new ListNode(3, new ListNode(4, new ListNode(5, new ListNode(6))))));
+		solution.reorderList(head);
+		assertEquals("[1,6,2,5,3,4]", Utility.toString(head));
+	}
+	
+	@Test
 	public void test155() {
 		MinStack minStack = solution.new MinStack();
 		minStack.push(4);
