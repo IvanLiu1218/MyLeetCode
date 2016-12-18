@@ -880,6 +880,16 @@ public class SolutionTest {
 	}
 	
 	@Test
+	public void test142() {
+		ListNode head = new ListNode(1, new ListNode(2, new ListNode(3)));
+		assertEquals(null, solution.detectCycle(head));
+		ListNode joint = new ListNode(7, new ListNode(8, new ListNode(9)));
+		joint.next.next.next = joint;
+		head.next.next.next = joint;
+		assertEquals(joint, solution.detectCycle(head));
+	}
+	
+	@Test
 	public void test155() {
 		MinStack minStack = solution.new MinStack();
 		minStack.push(4);

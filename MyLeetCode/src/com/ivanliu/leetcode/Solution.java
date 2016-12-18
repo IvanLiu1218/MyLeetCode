@@ -3021,6 +3021,41 @@ public class Solution {
     }
 	
 	/**
+	 *  [Medium]
+	 *  #142. Linked List Cycle II
+	 *  
+	 *  Given a linked list, return the node where the cycle begins. If there is no cycle, return null.
+	 *  
+	 *  Note: Do not modify the linked list.
+	 *  
+	 *  Follow up:
+	 *  Can you solve it without using extra space?
+	 */
+	public ListNode detectCycle(ListNode head) {
+		if (head == null) return null;
+		if (head.next == null) return null;
+		ListNode p1 = head.next;
+		ListNode p2 = head.next.next;
+		while (p2 != null ) {
+			if (p1 == p2) return detectCycle_getJoint(head, p1);
+			p1 = p1.next;
+			p2 = p2.next;
+			if (p2 == null) break;
+			p2 = p2.next;
+		}
+		return null;
+    }
+	private ListNode detectCycle_getJoint(ListNode head, ListNode met) {
+		ListNode p1 = head;
+		ListNode p2 = met;
+		while (p1 != p2) {
+			p1 = p1.next;
+			p2 = p2.next;
+		}
+		return p1;
+	}
+	
+	/**
 	 *  [Easy]
 	 *  #155. Min Stack
 	 *  
