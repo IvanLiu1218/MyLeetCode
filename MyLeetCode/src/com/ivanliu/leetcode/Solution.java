@@ -2950,6 +2950,53 @@ public class Solution {
 	}
 	
 	/**
+	 *  [Medium]
+	 *  #134. Gas Station
+	 *  
+	 *  There are N gas stations along a circular route, where the amount of gas at station i is gas[i].
+	 *  
+	 *  You have a car with an unlimited gas tank and it costs cost[i] of gas to travel from station i to its next station (i+1). 
+	 *  You begin the journey with an empty tank at one of the gas stations.
+	 *  
+	 *  Return the starting gas station's index if you can travel around the circuit once, otherwise return -1.
+	 *  
+	 *  Note:
+	 *  The solution is guaranteed to be unique.
+	 */
+	public int canCompleteCircuit(int[] gas, int[] cost) {
+		int size = gas.length;
+		int gas_left = 0;
+		int gas_need = 0;
+		int start = 0;
+		for (int i = 0; i < size; ++i) {
+			gas_left += (gas[i] - cost[i]);
+			if (gas_left < 0) {
+				start = i + 1;
+				gas_need -= gas_left;
+				gas_left = 0;
+			}
+		}
+		return gas_left >= gas_need ? start : -1;
+    }
+	
+	/**
+	 *  [Easy]
+	 *  #136. Single Number
+	 *  
+	 *  Given an array of integers, every element appears twice except for one. Find that single one.
+	 *  
+	 *  Note:
+	 *  Your algorithm should have a linear runtime complexity. Could you implement it without using extra memory?
+	 */
+	// Any number which is XOR twice will be no change.!!!
+	public int singleNumber(int[] nums) {
+		for (int i = 1; i < nums.length; ++i) {
+			nums[0] = nums[0] ^ nums[i];
+		}
+		return nums[0];
+    }
+	
+	/**
 	 *  [Easy]
 	 *  #155. Min Stack
 	 *  
