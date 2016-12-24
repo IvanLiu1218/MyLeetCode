@@ -3142,6 +3142,56 @@ public class Solution {
 		return arrayList;
 	}
 	
+	/**
+	 *  [Hard]
+	 *  #145. Binary Tree Postorder Traversal
+	 *  
+	 *  Given a binary tree, return the postorder traversal of its nodes' values.
+	 *  
+	 *  For example:
+	 *  Given binary tree {1,#,2,3},
+	 *     1
+	 *      \
+	 *       2
+	 *      /
+	 *     3
+	 *  return [3,2,1].
+	 *  
+	 *  Note: Recursive solution is trivial, could you do it iteratively?
+	 */
+	public List<Integer> postorderTraversal(TreeNode root) {
+        //return this.postorderTraversal_recursive(root);
+		return this.postorderTraversal_iterative(root);
+    }
+	private List<Integer> postorderTraversal_recursive(TreeNode root) {
+		List<Integer> arrayList = new ArrayList<Integer>();
+		postorderTraversal_recursive_postorder(root, arrayList);
+		return arrayList;
+	}
+	private void postorderTraversal_recursive_postorder(TreeNode node, List<Integer> list) {
+		if (node == null) return;
+		if (node.left != null) {
+			postorderTraversal_recursive_postorder(node.left, list);
+		}
+		if (node.right != null) {
+			postorderTraversal_recursive_postorder(node.right, list);
+		}
+		list.add(node.val);
+	}
+	private List<Integer> postorderTraversal_iterative(TreeNode root) {
+		List<Integer> list = new ArrayList<Integer>();
+		Deque<TreeNode> stack = new ArrayDeque<>();
+		if (root != null) stack.push(root);
+		while (!stack.isEmpty()) {
+			TreeNode node = stack.pop();
+			list.add(node.val);
+			if (node.left != null) stack.push(node.left);
+			if (node.right != null) stack.push(node.right);
+		}
+		Collections.reverse(list);
+		return list;
+	}
+	
 	
 	/**
 	 *  [Easy]

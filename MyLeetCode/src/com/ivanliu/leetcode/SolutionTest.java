@@ -908,6 +908,17 @@ public class SolutionTest {
 	}
 	
 	@Test
+	public void test145() {
+		TreeNode root = new TreeNode(1);
+		root.left = new TreeNode(2);
+		root.left.left = new TreeNode(4);
+		root.right = new TreeNode(3);
+		root.right.left = new TreeNode(6);
+		root.right.right = new TreeNode(7);
+		assertEquals("[4, 2, 6, 7, 3, 1]", Arrays.toString(solution.postorderTraversal(root).toArray()));
+	}
+	
+	@Test
 	public void test155() {
 		MinStack minStack = solution.new MinStack();
 		minStack.push(4);
