@@ -955,6 +955,14 @@ public class SolutionTest {
 	}
 	
 	@Test
+	public void test151() {
+		assertEquals("World Hello", solution.reverseWords("Hello World"));
+		assertEquals("Ivan is name My", solution.reverseWords("My name is Ivan"));
+		assertEquals("Monday is Today", solution.reverseWords("Today  is Monday  "));
+		assertEquals("sad so am I", solution.reverseWords("    I am so sad   "));
+	}
+	
+	@Test
 	public void test155() {
 		MinStack minStack = solution.new MinStack();
 		minStack.push(4);
