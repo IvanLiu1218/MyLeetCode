@@ -1757,6 +1757,13 @@ public class SolutionTest {
 	}
 	
 	@Test
+	public void test461() {
+		assertEquals(2, solution.hammingDistance(1, 4));
+		assertEquals(5, solution.hammingDistance(27, 4));
+		assertEquals(4, solution.hammingDistance(27, 12));
+	}
+	
+	@Test
 	public void test463() {
 		assertEquals(16, solution.islandPerimeter(new int[][]{{0,1,0,0},{1,1,1,0},{0,1,0,0},{1,1,0,0}}));
 		assertEquals(16, solution.islandPerimeter(new int[][]{{0,1,0,0},{1,1,1,0},{0,1,1,0},{1,1,0,0}}));
