@@ -1718,6 +1718,14 @@ public class SolutionTest {
 	}
 	
 	@Test
+	public void test448() {
+		List<Integer> list = solution.findDisappearedNumbers(new int[]{4,3,2,7,8,2,3,1});
+		assertEquals("[5, 6]", Arrays.toString(list.toArray()));
+		list = solution.findDisappearedNumbers(new int[]{4,3,2,7,8,2,3,1,7});
+		assertEquals("[5, 6, 9]", Arrays.toString(list.toArray()));
+	}
+	
+	@Test
 	public void test453() {
 		assertEquals(1, solution.minMoves(new int[] {1,2}));
 		assertEquals(3, solution.minMoves(new int[] {1,2,3}));
