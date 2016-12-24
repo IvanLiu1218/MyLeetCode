@@ -949,6 +949,12 @@ public class SolutionTest {
 	}
 	
 	@Test
+	public void test150() {
+		assertEquals(9, solution.evalRPN(new String[]{"2","1","+","3","*"}));
+		assertEquals(6, solution.evalRPN(new String[]{"4","13","5","/","+"}));
+	}
+	
+	@Test
 	public void test155() {
 		MinStack minStack = solution.new MinStack();
 		minStack.push(4);

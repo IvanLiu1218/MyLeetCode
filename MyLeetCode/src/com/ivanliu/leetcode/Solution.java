@@ -3315,6 +3315,50 @@ public class Solution {
 	}
 	
 	/**
+	 *  [Medium]
+	 *  #150. Evaluate Reverse Polish Notation
+	 *  
+	 *  Evaluate the value of an arithmetic expression in Reverse Polish Notation.
+	 *  
+	 *  Valid operators are +, -, *, /. Each operand may be an integer or another expression.
+	 *  
+	 *  Some examples:
+	 *    ["2", "1", "+", "3", "*"] -> ((2 + 1) * 3) -> 9
+	 *    ["4", "13", "5", "/", "+"] -> (4 + (13 / 5)) -> 6
+	 */
+	public int evalRPN(String[] tokens) {
+        Deque<Integer> stack = new ArrayDeque<>();
+        for (String element : tokens) {
+        	switch (element) {
+        		case "+":
+        			Integer val1 = stack.pop();
+        			Integer val2 = stack.pop();
+        			stack.push(val1 + val2);
+        			break;
+        		case "-":
+        			val1 = stack.pop();
+        			val2 = stack.pop();
+        			stack.push(val2 - val1);
+        			break;
+        		case "*":
+        			val1 = stack.pop();
+        			val2 = stack.pop();
+        			stack.push(val2 * val1);
+        			break;
+        		case "/":
+        			val1 = stack.pop();
+        			val2 = stack.pop();
+        			stack.push(val2 / val1);
+        			break;
+        		default:
+        			stack.push(Integer.parseInt(element));
+        			break;
+        	}
+        }
+        return stack.pop();
+    }
+	
+	/**
 	 *  [Easy]
 	 *  #155. Min Stack
 	 *  
