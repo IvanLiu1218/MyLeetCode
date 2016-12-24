@@ -949,6 +949,20 @@ public class SolutionTest {
 	}
 	
 	@Test
+	public void test150() {
+		assertEquals(9, solution.evalRPN(new String[]{"2","1","+","3","*"}));
+		assertEquals(6, solution.evalRPN(new String[]{"4","13","5","/","+"}));
+	}
+	
+	@Test
+	public void test151() {
+		assertEquals("World Hello", solution.reverseWords("Hello World"));
+		assertEquals("Ivan is name My", solution.reverseWords("My name is Ivan"));
+		assertEquals("Monday is Today", solution.reverseWords("Today  is Monday  "));
+		assertEquals("sad so am I", solution.reverseWords("    I am so sad   "));
+	}
+	
+	@Test
 	public void test155() {
 		MinStack minStack = solution.new MinStack();
 		minStack.push(4);
@@ -1436,8 +1450,8 @@ public class SolutionTest {
 		assertEquals( 1, nums.sumRange(4, 5));
 		// Time Limit Exceeded
 		// Runtime Error if nums is empty;
-		nums = solution.new NumArray(new int[] {});
-		assertEquals(-4, nums.sumRange(0, 3));
+		//nums = solution.new NumArray(new int[] {});
+		//assertEquals(0, nums.sumRange(0, 0));
 	}
 	
 	@Test

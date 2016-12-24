@@ -3315,6 +3315,108 @@ public class Solution {
 	}
 	
 	/**
+	 *  [Medium]
+	 *  #150. Evaluate Reverse Polish Notation
+	 *  
+	 *  Evaluate the value of an arithmetic expression in Reverse Polish Notation.
+	 *  
+	 *  Valid operators are +, -, *, /. Each operand may be an integer or another expression.
+	 *  
+	 *  Some examples:
+	 *    ["2", "1", "+", "3", "*"] -> ((2 + 1) * 3) -> 9
+	 *    ["4", "13", "5", "/", "+"] -> (4 + (13 / 5)) -> 6
+	 */
+	public int evalRPN(String[] tokens) {
+        Deque<Integer> stack = new ArrayDeque<>();
+        for (String element : tokens) {
+        	switch (element) {
+        		case "+":
+        			Integer val1 = stack.pop();
+        			Integer val2 = stack.pop();
+        			stack.push(val1 + val2);
+        			break;
+        		case "-":
+        			val1 = stack.pop();
+        			val2 = stack.pop();
+        			stack.push(val2 - val1);
+        			break;
+        		case "*":
+        			val1 = stack.pop();
+        			val2 = stack.pop();
+        			stack.push(val2 * val1);
+        			break;
+        		case "/":
+        			val1 = stack.pop();
+        			val2 = stack.pop();
+        			stack.push(val2 / val1);
+        			break;
+        		default:
+        			stack.push(Integer.parseInt(element));
+        			break;
+        	}
+        }
+        return stack.pop();
+    }
+	
+	/** [Medium]
+	 *  #151. Reverse Words in a String
+	 *  Given an input string, reverse the string word by word.
+	 *  
+	 *  For example,
+	 *  Given s = "the sky is blue",
+	 *  return "blue is sky the".
+	 *  
+	 *  Update (2015-02-12):
+	 *  For C programmers: Try to solve it in-place in O(1) space.
+	 *  
+	 *  Clarification:
+	 *  What constitutes a word?
+	 *  A sequence of non-space characters constitutes a word.
+	 *  
+	 *  Could the input string contain leading or trailing spaces?
+	 *  Yes. However, your reversed string should not contain leading or trailing spaces.
+	 *  
+	 *  How about multiple spaces between two words?
+	 *  Reduce them to a single space in the reversed string.
+	 */
+	public String reverseWords(String s) {
+		return this.reverseWords_solution1(s);
+        //return this.reverseWords_solution2(s);
+    }
+	private String reverseWords_solution2(String s) {
+		StringBuilder strBuilder = new StringBuilder();
+		StringBuilder wordBuilder = new StringBuilder();
+		for (char c : s.toCharArray()) {
+			if (c != ' ') {
+				wordBuilder.append(c);
+			} else if(wordBuilder.length() != 0) {
+				strBuilder.insert(0, wordBuilder.toString() + " ");
+				wordBuilder = new StringBuilder();
+			}
+		}
+		if (wordBuilder.length() != 0) {
+			strBuilder.insert(0, wordBuilder.toString() + " ");
+		}
+		return strBuilder.toString().trim();
+	}
+	private String reverseWords_solution1(String s) {
+		String[] words = s.split(" ");
+		int length = words.length;
+		int index = length / 2;
+		for (int i = 0; i < index; ++i) {
+			String temp = words[i];
+			words[i] = words[length - 1 - i];
+			words[length - 1 - i] = temp;
+		}
+		StringBuilder builder = new StringBuilder();
+		for (int i = 0; i < length; ++i) {
+			if (!words[i].equals("")) builder.append(words[i] + " ");
+		}
+		return builder.toString().trim();
+	}
+	
+	
+	/**
 	 *  [Easy]
 	 *  #155. Min Stack
 	 *  
