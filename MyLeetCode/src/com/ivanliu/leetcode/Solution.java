@@ -2998,6 +2998,324 @@ public class Solution {
 	
 	/**
 	 *  [Easy]
+	 *  #141. Linked List Cycle
+	 *  
+	 *  Given a linked list, determine if it has a cycle in it.
+	 *  
+	 *  Follow up:
+	 *  Can you solve it without using extra space?
+	 */
+	public boolean hasCycle(ListNode head) {
+		if (head == null) return false;
+		if (head.next == null) return false;
+		ListNode p1 = head;
+		ListNode p2 = p1.next;
+		while (p2 != null ) {
+			if (p1 == p2) return true;
+			p1 = p1.next;
+			p2 = p2.next;  // two pointers, one moves by 1 step, another moves by 2 steps
+			if (p2 == null) break;
+			p2 = p2.next;
+		}
+		return false;
+    }
+	
+	/**
+	 *  [Medium]
+	 *  #142. Linked List Cycle II
+	 *  
+	 *  Given a linked list, return the node where the cycle begins. If there is no cycle, return null.
+	 *  
+	 *  Note: Do not modify the linked list.
+	 *  
+	 *  Follow up:
+	 *  Can you solve it without using extra space?
+	 */
+	public ListNode detectCycle(ListNode head) {
+		if (head == null) return null;
+		if (head.next == null) return null;
+		ListNode p1 = head.next;
+		ListNode p2 = head.next.next;
+		while (p2 != null ) {
+			if (p1 == p2) return detectCycle_getJoint(head, p1);
+			p1 = p1.next;
+			p2 = p2.next;
+			if (p2 == null) break;
+			p2 = p2.next;
+		}
+		return null;
+    }
+	private ListNode detectCycle_getJoint(ListNode head, ListNode met) {
+		ListNode p1 = head;
+		ListNode p2 = met;
+		while (p1 != p2) {
+			p1 = p1.next;
+			p2 = p2.next;
+		}
+		return p1;
+	}
+	
+	/**
+	 *  [Medium]
+	 *  #143. Reorder List
+	 *  
+	 *  Given a singly linked list L: L0->L1->...->Ln-1->Ln,
+	 *  reorder it to: L0->Ln->L1->Ln-1->L2->Ln-2->...
+	 *  
+	 *  You must do this in-place without altering the nodes' values.
+	 *  
+	 *  For example,
+	 *  Given {1,2,3,4}, reorder it to {1,4,2,3}.
+	 */
+	public void reorderList(ListNode head) {
+		ArrayList<ListNode> list = new ArrayList<>();
+		ListNode p = head;
+		while (p != null) {
+			list.add(p);
+			p = p.next;
+		}
+		ListNode nhead = new ListNode(0);
+		ListNode tp = nhead;
+		int len = list.size();
+		int mid = len / 2;
+		int i = 0;
+		while (i < mid){
+			tp.next = list.get(i);
+			tp = tp.next;
+			tp.next = list.get(len - 1 - i);
+			tp = tp.next;
+			i++;
+		}
+		if (len % 2 == 1) {
+			tp.next = list.get(i);
+			tp = tp.next;
+		}
+		tp.next = null;
+		head = nhead.next;
+    }
+	
+	/**
+	 *  [Medium]
+	 *  #144. Binary Tree Preorder Traversal
+	 *  Given a binary tree, return the preorder traversal of its nodes' values.
+	 *  
+	 *  For example:
+	 *  Given binary tree {1,#,2,3},
+	 *     1
+	 *      \
+	 *       2
+	 *      /
+	 *     3
+	 *  return [1,2,3].
+	 *  
+	 *  Note: Recursive solution is trivial, could you do it iteratively?
+	 */
+	public List<Integer> preorderTraversal(TreeNode root) {
+        //return this.preorderTraversal_recursive(root);
+		return this.preorderTraversal_iterative(root);
+    }
+	private List<Integer> preorderTraversal_recursive(TreeNode root) {
+		List<Integer> arrayList = new ArrayList<Integer>();
+		preorderTraversal_recursive_preorder(root, arrayList);
+		return arrayList;
+	}
+	private void preorderTraversal_recursive_preorder(TreeNode node, List<Integer> list) {
+		if (node == null) return;
+		list.add(node.val);
+		if (node.left != null) {
+			preorderTraversal_recursive_preorder(node.left, list);
+		}
+		if (node.right != null) {
+			preorderTraversal_recursive_preorder(node.right, list);
+		}
+	}
+	private List<Integer> preorderTraversal_iterative(TreeNode root) {
+		List<Integer> arrayList = new ArrayList<>();
+		Deque<TreeNode> stack = new ArrayDeque<>();
+		if (root != null) stack.push(root);
+		while (!stack.isEmpty()) {
+			TreeNode node = stack.pop();
+			arrayList.add(node.val);
+			if (node.right != null) stack.push(node.right);
+			if (node.left != null) stack.push(node.left);
+		}
+		return arrayList;
+	}
+	
+	/**
+	 *  [Hard]
+	 *  #145. Binary Tree Postorder Traversal
+	 *  
+	 *  Given a binary tree, return the postorder traversal of its nodes' values.
+	 *  
+	 *  For example:
+	 *  Given binary tree {1,#,2,3},
+	 *     1
+	 *      \
+	 *       2
+	 *      /
+	 *     3
+	 *  return [3,2,1].
+	 *  
+	 *  Note: Recursive solution is trivial, could you do it iteratively?
+	 */
+	public List<Integer> postorderTraversal(TreeNode root) {
+        //return this.postorderTraversal_recursive(root);
+		return this.postorderTraversal_iterative(root);
+    }
+	private List<Integer> postorderTraversal_recursive(TreeNode root) {
+		List<Integer> arrayList = new ArrayList<Integer>();
+		postorderTraversal_recursive_postorder(root, arrayList);
+		return arrayList;
+	}
+	private void postorderTraversal_recursive_postorder(TreeNode node, List<Integer> list) {
+		if (node == null) return;
+		if (node.left != null) {
+			postorderTraversal_recursive_postorder(node.left, list);
+		}
+		if (node.right != null) {
+			postorderTraversal_recursive_postorder(node.right, list);
+		}
+		list.add(node.val);
+	}
+	private List<Integer> postorderTraversal_iterative(TreeNode root) {
+		List<Integer> list = new ArrayList<Integer>();
+		Deque<TreeNode> stack = new ArrayDeque<>();
+		if (root != null) stack.push(root);
+		while (!stack.isEmpty()) {
+			TreeNode node = stack.pop();
+			list.add(node.val);
+			if (node.left != null) stack.push(node.left);
+			if (node.right != null) stack.push(node.right);
+		}
+		Collections.reverse(list);
+		return list;
+	}
+	
+	/**
+	 *  [Medium]
+	 *  #147. Insertion Sort List
+	 *  
+	 *  Sort a linked list using insertion sort.
+	 */
+	public ListNode insertionSortList(ListNode head) {
+		return this.insertionSortList_solution2(head);
+		//return this.insertionSortList_solution1(head);
+    }
+	private ListNode insertionSortList_solution2(ListNode head) {
+		if (head == null) return null;
+        ListNode newHead = new ListNode(Integer.MIN_VALUE);
+        newHead.next = head;
+        ListNode curr = head.next;
+        head.next = null;
+        while (curr != null) {
+        	ListNode node = curr;
+        	curr = curr.next;
+        	node.next = null;
+        	this.insertionSortList_solution2_insertNode(node, newHead);
+        }
+        return newHead.next;
+	}
+	private void insertionSortList_solution2_insertNode(ListNode node, ListNode from) {
+		ListNode p = from;
+		while (p != null && p != node) {
+			if (p.val <= node.val && (p.next == null || node.val <= p.next.val)) {
+				node.next = p.next;
+				p.next = node;
+			}
+			p = p.next;
+		}
+	}
+	private ListNode insertionSortList_solution1(ListNode head) {
+		if (head == null) return null;
+		if (head.next == null) return head;
+		ListNode nhead = new ListNode(Integer.MIN_VALUE);
+		nhead.next = head;
+		ListNode p = head.next;
+		while (p != null) {
+			p = insertionSortList_solution1_insertNode(p, nhead);
+		}
+		return nhead.next;
+	}
+	private ListNode insertionSortList_solution1_insertNode(ListNode node, ListNode from) {
+		ListNode prev = insertionSortList_solution1_getPrevNode(from, node);
+		ListNode next = node.next;
+		ListNode p1 = from; //start
+		ListNode p2 = node; //end
+		while (p1 != null && p1 != p2) {
+			if (p1.val <= node.val && node.val < p1.next.val) {
+				node.next = p1.next;
+				p1.next = node;
+				prev.next = next;
+				return next;
+			}
+			p1 = p1.next;
+		}
+		return next;
+	}
+	private ListNode insertionSortList_solution1_getPrevNode(ListNode head, ListNode node) {
+		ListNode p1 = head;
+		ListNode p2 = head.next;
+		while (p2 != node) {
+			p1 = p2;
+			p2 = p2.next;
+		}
+		return p1;
+	}
+	/**
+	 *  [Medium]
+	 *  #148. Sort List
+	 *  Sort a linked list in O(n log n) time using constant space complexity.
+	 */
+	public ListNode sortList(ListNode head) {
+		if (head == null) return null;
+		if (head.next == null) return head;
+		ListNode mid = sortList_getMiddleNode(head);
+		ListNode nhead1 = head;
+		ListNode nhead2 = mid.next;
+		mid.next = null;
+		ListNode h = null;
+		if (nhead1 != null && nhead2 != null) {
+			ListNode h1 = sortList(nhead1);
+			ListNode h2 = sortList(nhead2);
+			h = sortList_mergeListNode(h1, h2);
+		}
+		return h;
+    }
+	private ListNode sortList_getMiddleNode(ListNode head) {
+		if (head == null) return null;
+		if (head.next == null) return head;
+		ListNode p1 = head;
+		ListNode p2 = p1.next;
+		while (p2 != null && p2.next != null) {
+			p1 = p1.next;
+			p2 = p2.next.next;
+		}
+		return p1;
+	}
+	private ListNode sortList_mergeListNode(ListNode a, ListNode b) {
+		ListNode h = new ListNode(0);
+		ListNode p1 = a;
+		ListNode p2 = b;
+		ListNode head = h;
+		while (p1!= null && p2 != null) {
+			if (p1.val < p2.val) {
+				h.next = p1;
+				p1 = p1.next;
+			}
+			else {
+				h.next = p2;
+				p2 = p2.next;
+			}
+			h = h.next;
+		}
+		if (p1 != null) h.next = p1;
+		if (p2 != null) h.next = p2;
+		return head.next;
+	}
+	
+	/**
+	 *  [Easy]
 	 *  #155. Min Stack
 	 *  
 	 *  Design a stack that supports push, pop, top, and retrieving the minimum element in constant time.

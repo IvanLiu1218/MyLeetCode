@@ -870,6 +870,85 @@ public class SolutionTest {
 	}
 	
 	@Test
+	public void test141() {
+		ListNode head = new ListNode(1, new ListNode(2, new ListNode(3)));
+		assertEquals(false, solution.hasCycle(head));
+		ListNode joint = new ListNode(7, new ListNode(8, new ListNode(9)));
+		joint.next.next.next = joint;
+		head.next.next.next = joint;
+		assertEquals(true, solution.hasCycle(head));
+	}
+	
+	@Test
+	public void test142() {
+		ListNode head = new ListNode(1, new ListNode(2, new ListNode(3)));
+		assertEquals(null, solution.detectCycle(head));
+		ListNode joint = new ListNode(7, new ListNode(8, new ListNode(9)));
+		joint.next.next.next = joint;
+		head.next.next.next = joint;
+		assertEquals(joint, solution.detectCycle(head));
+	}
+	
+	@Test
+	public void test143() {
+		ListNode head = new ListNode(1, new ListNode(2, new ListNode(3, new ListNode(4, new ListNode(5, new ListNode(6))))));
+		solution.reorderList(head);
+		assertEquals("[1,6,2,5,3,4]", Utility.toString(head));
+	}
+	
+	@Test
+	public void test144() {
+		TreeNode root = new TreeNode(1);
+		root.left = new TreeNode(2);
+		root.left.left = new TreeNode(4);
+		root.right = new TreeNode(3);
+		root.right.left = new TreeNode(6);
+		root.right.right = new TreeNode(7);
+		assertEquals("[1, 2, 4, 3, 6, 7]", Arrays.toString(solution.preorderTraversal(root).toArray()));
+	}
+	
+	@Test
+	public void test145() {
+		TreeNode root = new TreeNode(1);
+		root.left = new TreeNode(2);
+		root.left.left = new TreeNode(4);
+		root.right = new TreeNode(3);
+		root.right.left = new TreeNode(6);
+		root.right.right = new TreeNode(7);
+		assertEquals("[4, 2, 6, 7, 3, 1]", Arrays.toString(solution.postorderTraversal(root).toArray()));
+	}
+	
+	@Test
+	public void test147() {
+		ListNode list = new ListNode(4, new ListNode(2, new ListNode(8, new ListNode(1))));
+		list = solution.insertionSortList(list);
+		assertEquals("[1,2,4,8]", Utility.toString(list));
+		list = new ListNode(4, new ListNode(3, new ListNode(2, new ListNode(1))));
+		list = solution.insertionSortList(list);
+		assertEquals("[1,2,3,4]", Utility.toString(list));
+		list = new ListNode(1, new ListNode(2, new ListNode(3, new ListNode(4))));
+		list = solution.insertionSortList(list);
+		assertEquals("[1,2,3,4]", Utility.toString(list));
+		list = new ListNode(2, new ListNode(2, new ListNode(2, new ListNode(2))));
+		list = solution.insertionSortList(list);
+		assertEquals("[2,2,2,2]", Utility.toString(list));
+		// Runtime Error
+		list = solution.insertionSortList(null);
+		assertEquals("[]", Utility.toString(list));
+		// Wrong Answer: [-2147483647,-2147483648]
+		list = new ListNode(-2147483647, new ListNode(-2147483648));
+		list = solution.insertionSortList(list);
+		assertEquals("[-2147483648,-2147483647]", Utility.toString(list));
+	}
+	
+	@Test
+	public void test148() {
+		ListNode list = new ListNode(4, new ListNode(2, new ListNode(8, new ListNode(1))));
+		list = solution.sortList(list);
+		assertEquals("[1,2,4,8]", Utility.toString(list)); 
+	}
+	
+	@Test
 	public void test155() {
 		MinStack minStack = solution.new MinStack();
 		minStack.push(4);
