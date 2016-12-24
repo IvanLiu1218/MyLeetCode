@@ -3262,7 +3262,57 @@ public class Solution {
 		}
 		return p1;
 	}
-	
+	/**
+	 *  [Medium]
+	 *  #148. Sort List
+	 *  Sort a linked list in O(n log n) time using constant space complexity.
+	 */
+	public ListNode sortList(ListNode head) {
+		if (head == null) return null;
+		if (head.next == null) return head;
+		ListNode mid = sortList_getMiddleNode(head);
+		ListNode nhead1 = head;
+		ListNode nhead2 = mid.next;
+		mid.next = null;
+		ListNode h = null;
+		if (nhead1 != null && nhead2 != null) {
+			ListNode h1 = sortList(nhead1);
+			ListNode h2 = sortList(nhead2);
+			h = sortList_mergeListNode(h1, h2);
+		}
+		return h;
+    }
+	private ListNode sortList_getMiddleNode(ListNode head) {
+		if (head == null) return null;
+		if (head.next == null) return head;
+		ListNode p1 = head;
+		ListNode p2 = p1.next;
+		while (p2 != null && p2.next != null) {
+			p1 = p1.next;
+			p2 = p2.next.next;
+		}
+		return p1;
+	}
+	private ListNode sortList_mergeListNode(ListNode a, ListNode b) {
+		ListNode h = new ListNode(0);
+		ListNode p1 = a;
+		ListNode p2 = b;
+		ListNode head = h;
+		while (p1!= null && p2 != null) {
+			if (p1.val < p2.val) {
+				h.next = p1;
+				p1 = p1.next;
+			}
+			else {
+				h.next = p2;
+				p2 = p2.next;
+			}
+			h = h.next;
+		}
+		if (p1 != null) h.next = p1;
+		if (p2 != null) h.next = p2;
+		return head.next;
+	}
 	
 	/**
 	 *  [Easy]
