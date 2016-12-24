@@ -919,6 +919,29 @@ public class SolutionTest {
 	}
 	
 	@Test
+	public void test147() {
+		ListNode list = new ListNode(4, new ListNode(2, new ListNode(8, new ListNode(1))));
+		list = solution.insertionSortList(list);
+		assertEquals("[1,2,4,8]", Utility.toString(list));
+		list = new ListNode(4, new ListNode(3, new ListNode(2, new ListNode(1))));
+		list = solution.insertionSortList(list);
+		assertEquals("[1,2,3,4]", Utility.toString(list));
+		list = new ListNode(1, new ListNode(2, new ListNode(3, new ListNode(4))));
+		list = solution.insertionSortList(list);
+		assertEquals("[1,2,3,4]", Utility.toString(list));
+		list = new ListNode(2, new ListNode(2, new ListNode(2, new ListNode(2))));
+		list = solution.insertionSortList(list);
+		assertEquals("[2,2,2,2]", Utility.toString(list));
+		// Runtime Error
+		list = solution.insertionSortList(null);
+		assertEquals("[]", Utility.toString(list));
+		// Wrong Answer: [-2147483647,-2147483648]
+		list = new ListNode(-2147483647, new ListNode(-2147483648));
+		list = solution.insertionSortList(list);
+		assertEquals("[-2147483648,-2147483647]", Utility.toString(list));
+	}
+	
+	@Test
 	public void test155() {
 		MinStack minStack = solution.new MinStack();
 		minStack.push(4);

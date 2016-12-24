@@ -3192,6 +3192,77 @@ public class Solution {
 		return list;
 	}
 	
+	/**
+	 *  [Medium]
+	 *  #147. Insertion Sort List
+	 *  
+	 *  Sort a linked list using insertion sort.
+	 */
+	public ListNode insertionSortList(ListNode head) {
+		return this.insertionSortList_solution2(head);
+		//return this.insertionSortList_solution1(head);
+    }
+	private ListNode insertionSortList_solution2(ListNode head) {
+		if (head == null) return null;
+        ListNode newHead = new ListNode(Integer.MIN_VALUE);
+        newHead.next = head;
+        ListNode curr = head.next;
+        head.next = null;
+        while (curr != null) {
+        	ListNode node = curr;
+        	curr = curr.next;
+        	node.next = null;
+        	this.insertionSortList_solution2_insertNode(node, newHead);
+        }
+        return newHead.next;
+	}
+	private void insertionSortList_solution2_insertNode(ListNode node, ListNode from) {
+		ListNode p = from;
+		while (p != null && p != node) {
+			if (p.val <= node.val && (p.next == null || node.val <= p.next.val)) {
+				node.next = p.next;
+				p.next = node;
+			}
+			p = p.next;
+		}
+	}
+	private ListNode insertionSortList_solution1(ListNode head) {
+		if (head == null) return null;
+		if (head.next == null) return head;
+		ListNode nhead = new ListNode(Integer.MIN_VALUE);
+		nhead.next = head;
+		ListNode p = head.next;
+		while (p != null) {
+			p = insertionSortList_solution1_insertNode(p, nhead);
+		}
+		return nhead.next;
+	}
+	private ListNode insertionSortList_solution1_insertNode(ListNode node, ListNode from) {
+		ListNode prev = insertionSortList_solution1_getPrevNode(from, node);
+		ListNode next = node.next;
+		ListNode p1 = from; //start
+		ListNode p2 = node; //end
+		while (p1 != null && p1 != p2) {
+			if (p1.val <= node.val && node.val < p1.next.val) {
+				node.next = p1.next;
+				p1.next = node;
+				prev.next = next;
+				return next;
+			}
+			p1 = p1.next;
+		}
+		return next;
+	}
+	private ListNode insertionSortList_solution1_getPrevNode(ListNode head, ListNode node) {
+		ListNode p1 = head;
+		ListNode p2 = head.next;
+		while (p2 != node) {
+			p1 = p2;
+			p2 = p2.next;
+		}
+		return p1;
+	}
+	
 	
 	/**
 	 *  [Easy]
