@@ -32,11 +32,15 @@ public class Solution {
 	 *  Because nums[0] + nums[1] = 2 + 7 = 9,
 	 *  return [0, 1].
 	 */
+	public int[] twoSum(int[] nums, int target) {  // Accepted
+		return this.twoSum_solution3(nums, target);
+		//return this.twoSum_solution2(nums, target);
+    }
 	// One-pass Hash Table
 	// Time complexity:  O(n)
 	// Space complexity: O(n)
-	public int[] twoSum(int[] nums, int target) {  // Accepted
-		HashMap<Integer, Integer> map = new HashMap<>();
+	private int[] twoSum_solution3(int[] nums, int target) {
+		Map<Integer, Integer> map = new HashMap<>();
         for (int i = 0; i < nums.length; ++i) {
         	if (!map.containsKey(nums[i])) {
         		map.put(nums[i], i);
@@ -47,10 +51,28 @@ public class Solution {
         	}
         }
         return null;
-    }
+	}
+	// Two-pass Hash Table
+	// Time complexity:  O(2n)
+	// Space complexity: O(n)
+	private int[] twoSum_solution2(int[] nums, int target) {
+		Map<Integer, Integer> map = new HashMap<>();
+		for (int i = 0; i < nums.length; ++i) {
+			if (!map.containsKey(nums[i])) {
+				map.put(nums[i], i);
+			}
+		}
+		for (int i = 0; i < nums.length; ++i) {
+			int leftValue = target - nums[i];
+			if (map.containsKey(leftValue) && map.get(leftValue) != i) {
+				return new int[] { i, map.get(leftValue) };
+			}
+		}
+		return null;
+	}
 	// Time complexity:  O(n^2)
 	// Space complexity: O(1)
-	public int[] twoSum_solution1(int[] nums, int target) {  // Time Limit Exceeded
+	private int[] twoSum_solution1(int[] nums, int target) {  // Time Limit Exceeded
 		for (int i = 0; i < nums.length; ++i) {
 			int leftTarget = target - nums[i];
 			for (int j = i + 1; j < nums.length; ++j) {
