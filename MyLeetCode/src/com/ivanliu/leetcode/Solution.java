@@ -3402,9 +3402,30 @@ public class Solution {
 	 *  Reduce them to a single space in the reversed string.
 	 */
 	public String reverseWords(String s) {
-		return this.reverseWords_solution1(s);
+		return this.reverseWords_solution3(s);
+		//return this.reverseWords_solution1(s);
         //return this.reverseWords_solution2(s);
     }
+	private String reverseWords_solution3(String s) {
+		StringBuilder strBuilder = new StringBuilder();
+		StringBuilder wordBuilder = new StringBuilder();
+		int length = s.length();
+		for (int i = 0; i < length; ++i) {
+			char c = s.charAt(i);
+			if (c != ' ') {
+				wordBuilder.append(c);
+			} else if (wordBuilder.length() != 0) {
+				wordBuilder.append(' ');
+				strBuilder.insert(0,  wordBuilder.toString());
+				wordBuilder = new StringBuilder();
+			}
+		}
+		if (wordBuilder.length() != 0) {
+			wordBuilder.append(' ');
+			strBuilder.insert(0,  wordBuilder.toString());
+		}
+		return strBuilder.toString().trim();
+	}
 	private String reverseWords_solution2(String s) {
 		StringBuilder strBuilder = new StringBuilder();
 		StringBuilder wordBuilder = new StringBuilder();
