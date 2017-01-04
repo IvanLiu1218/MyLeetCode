@@ -560,10 +560,10 @@ public class Solution {
 	 */
 	public String longestCommonPrefix(String[] strs) {
 		if (strs.length == 0) return "";
-		int minLength = -1;
+		int minLength = Integer.MAX_VALUE;
 		int index = 0;
 		for (int i = 0; i < strs.length; ++i) {
-			if (strs[i].length() > minLength) {
+			if (strs[i].length() < minLength) {
 				minLength = strs[i].length();
 				index = i;
 			}
