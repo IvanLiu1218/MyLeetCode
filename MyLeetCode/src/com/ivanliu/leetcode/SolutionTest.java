@@ -1644,6 +1644,12 @@ public class SolutionTest {
 	}
 	
 	@Test
+	public void test406() {
+		int[][] people = new int[][]{{7,0},{4,4},{7,1},{5,0},{6,1},{5,2}};
+		//System.out.print(Arrays.deepToString(solution.reconstructQueue(people)));
+	}
+	
+	@Test
 	public void test409() {
 		assertEquals(7, solution.longestPalindrome("abccccdd"));
 		// Wrong Answer

@@ -4,6 +4,7 @@ import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.Deque;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -5464,6 +5465,67 @@ public class Solution {
     	String res = sb.toString();
     	if (res.length() == 0) return "0";
         return res.length() <= 8 ? res : res.substring(res.length() - 8);
+    }
+    
+    /**
+     *  [Medium]
+     *  #406. Queue Reconstruction by Height
+     *  
+     *  Suppose you have a random list of people standing in a queue. Each person is described by a pair of integers (h, k), where h is the height of the person and k is the number of people in front of this person who have a height greater than or equal to h. Write an algorithm to reconstruct the queue.
+     *  
+     *  Note:
+     *  The number of people is less than 1,100.
+     *  
+     *  Example
+     *  
+     *  Input:
+     *  [[7,0], [4,4], [7,1], [5,0], [6,1], [5,2]]
+     *  
+     *  Output:
+     *  [[5,0], [7,0], [5,2], [6,1], [4,4], [7,1]]
+     */
+    public int[][] reconstructQueue(int[][] people) {
+    	Arrays.sort(people, new Comparator<int[]>() {
+			@Override
+			public int compare(int[] o1, int[] o2) {
+				if (o1[0] == o2[0]) return o1[1] - o2[1];
+				return o1[0] - o2[0];
+			}
+    	});
+    	int i = 0;
+    	while (i < people.length) {
+    		int ih = people[i][0];
+    		int ik = people[i][1];
+    		if (ik == 0) {
+    			++i;
+    			continue;
+    		}
+    		int j = 0;
+    		int tk = 0;
+    		while (j < people.length) {
+    			if (i != j) {
+    				int jh = people[j][0];
+        			int jk = people[j][0];
+        			if (jh >= ih) ++tk;
+        			if (tk == ik && i != j) {
+        				this.reconstructQueue_move(people, i, j);
+        				break;
+        			}
+    			}
+    			++j;
+    		}
+    	}
+    	return people;
+    }
+    private void reconstructQueue_move(int[][] people, int from, int to) {
+    	int tempH = people[from][0];
+    	int tempK = people[from][1];
+    	for (int i = from; i < to; ++i) {
+    		people[i][0] = people[i + 1][0];
+    		people[i][1] = people[i + 1][1];
+    	}
+    	people[to][0] = tempH;
+    	people[to][1] = tempK;
     }
     
     /**
