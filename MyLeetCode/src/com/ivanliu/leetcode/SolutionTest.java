@@ -1662,6 +1662,21 @@ public class SolutionTest {
 	}
 	
 	@Test
+	public void test413() {
+		assertEquals(3, solution.numberOfArithmeticSlices(new int[]{1,2,3,4}));
+		assertEquals(6, solution.numberOfArithmeticSlices(new int[]{1,3,5,7,9}));
+		assertEquals(3, solution.numberOfArithmeticSlices(new int[]{7,7,7,7}));
+		assertEquals(3, solution.numberOfArithmeticSlices(new int[]{3,-1,-5,-9}));
+		// Wrong Answer: [1,2,3,4,5,6]
+		// Misunderstanding: 1,3,5 is not!!!!
+		assertEquals(10, solution.numberOfArithmeticSlices(new int[]{1,2,3,4,5,6}));
+		// Wrong Answer: [2,1,3,4,2,3] 
+		assertEquals(0, solution.numberOfArithmeticSlices(new int[]{2,1,3,4,2,3}));
+		// Wrong Answer: [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
+		assertEquals(120, solution.numberOfArithmeticSlices(new int[]{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}));
+	}
+	
+	@Test
 	public void test414() {
 		assertEquals(1, solution.thirdMax(new int[] {3, 2, 1}));
 		assertEquals(2, solution.thirdMax(new int[] {1, 2}));
