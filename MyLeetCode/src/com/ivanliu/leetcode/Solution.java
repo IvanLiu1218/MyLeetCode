@@ -32,11 +32,15 @@ public class Solution {
 	 *  Because nums[0] + nums[1] = 2 + 7 = 9,
 	 *  return [0, 1].
 	 */
+	public int[] twoSum(int[] nums, int target) {  // Accepted
+		return this.twoSum_solution3(nums, target);
+		//return this.twoSum_solution2(nums, target);
+    }
 	// One-pass Hash Table
 	// Time complexity:  O(n)
 	// Space complexity: O(n)
-	public int[] twoSum(int[] nums, int target) {  // Accepted
-		HashMap<Integer, Integer> map = new HashMap<>();
+	private int[] twoSum_solution3(int[] nums, int target) {
+		Map<Integer, Integer> map = new HashMap<>();
         for (int i = 0; i < nums.length; ++i) {
         	if (!map.containsKey(nums[i])) {
         		map.put(nums[i], i);
@@ -47,10 +51,28 @@ public class Solution {
         	}
         }
         return null;
-    }
+	}
+	// Two-pass Hash Table
+	// Time complexity:  O(2n)
+	// Space complexity: O(n)
+	private int[] twoSum_solution2(int[] nums, int target) {
+		Map<Integer, Integer> map = new HashMap<>();
+		for (int i = 0; i < nums.length; ++i) {
+			if (!map.containsKey(nums[i])) {
+				map.put(nums[i], i);
+			}
+		}
+		for (int i = 0; i < nums.length; ++i) {
+			int leftValue = target - nums[i];
+			if (map.containsKey(leftValue) && map.get(leftValue) != i) {
+				return new int[] { i, map.get(leftValue) };
+			}
+		}
+		return null;
+	}
 	// Time complexity:  O(n^2)
 	// Space complexity: O(1)
-	public int[] twoSum_solution1(int[] nums, int target) {  // Time Limit Exceeded
+	private int[] twoSum_solution1(int[] nums, int target) {  // Time Limit Exceeded
 		for (int i = 0; i < nums.length; ++i) {
 			int leftTarget = target - nums[i];
 			for (int j = i + 1; j < nums.length; ++j) {
@@ -73,8 +95,8 @@ public class Solution {
 	 *  Input: (2 -> 4 -> 3) + (5 -> 6 -> 4)
 	 *  Output: 7 -> 0 -> 8
 	 */
-	// Time complexity : O(\max(m, n))O(max(m,n))
-	// Space complexity: O(\max(m, n))O(max(m,n)). The length of the new list is at most max(m,n) + 1
+	// Time complexity : O(max(m,n))
+	// Space complexity: O(max(m,n)). The length of the new list is at most max(m,n) + 1
 	public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
 		ListNode n1 = l1;
 		ListNode n2 = l2;
@@ -538,10 +560,10 @@ public class Solution {
 	 */
 	public String longestCommonPrefix(String[] strs) {
 		if (strs.length == 0) return "";
-		int minLength = -1;
+		int minLength = Integer.MAX_VALUE;
 		int index = 0;
 		for (int i = 0; i < strs.length; ++i) {
-			if (strs[i].length() > minLength) {
+			if (strs[i].length() < minLength) {
 				minLength = strs[i].length();
 				index = i;
 			}
@@ -3380,9 +3402,30 @@ public class Solution {
 	 *  Reduce them to a single space in the reversed string.
 	 */
 	public String reverseWords(String s) {
-		return this.reverseWords_solution1(s);
+		return this.reverseWords_solution3(s);
+		//return this.reverseWords_solution1(s);
         //return this.reverseWords_solution2(s);
     }
+	private String reverseWords_solution3(String s) {
+		StringBuilder strBuilder = new StringBuilder();
+		StringBuilder wordBuilder = new StringBuilder();
+		int length = s.length();
+		for (int i = 0; i < length; ++i) {
+			char c = s.charAt(i);
+			if (c != ' ') {
+				wordBuilder.append(c);
+			} else if (wordBuilder.length() != 0) {
+				wordBuilder.append(' ');
+				strBuilder.insert(0,  wordBuilder.toString());
+				wordBuilder = new StringBuilder();
+			}
+		}
+		if (wordBuilder.length() != 0) {
+			wordBuilder.append(' ');
+			strBuilder.insert(0,  wordBuilder.toString());
+		}
+		return strBuilder.toString().trim();
+	}
 	private String reverseWords_solution2(String s) {
 		StringBuilder strBuilder = new StringBuilder();
 		StringBuilder wordBuilder = new StringBuilder();
@@ -5610,6 +5653,61 @@ public class Solution {
     		sb.insert(0, (char)(prev + 48));
     	}
         return sb.toString();
+    }
+    
+    /**
+     *  [Medium]
+     *  #419. Battleships in a Board
+     *  
+     *  Given an 2D board, count how many different battleships are in it. The battleships are represented with 'X's, empty slots are represented with '.'s. 
+     *  You may assume the following rules:
+     *  
+     *  You receive a valid board, made of only battleships or empty slots.
+     *  Battleships can only be placed horizontally or vertically. In other words, they can only be made of the shape 1xN (1 row, N columns) or Nx1 (N rows, 1 column), 
+     *  where N can be of any size.
+     *  At least one horizontal or vertical cell separates between two battleships - there are no adjacent battleships.
+     *  
+     *  Example:
+     *  X..X
+     *  ...X
+     *  ...X
+     *  
+     *  In the above board there are 2 battleships.
+     *  
+     *  Invalid Example:
+     *  ...X
+     *  XXXX
+     *  ...X
+     *  
+     *  This is an invalid board that you will not receive - as battleships will always have a cell separating between them.
+     *  
+     *  Follow up:
+     *  Could you do it in one-pass, using only O(1) extra memory and without modifying the value of the board?
+     */
+    public int countBattleships(char[][] board) {
+        int count = 0;
+        for (int i = 0; i < board.length; ++i) {
+        	for (int j = 0; j < board[i].length; ++j) {
+        		char el = board[i][j];
+        		if (el == 'X') {
+        			if (!this.countBattleships_isPartOfShip(board, i, j)) {
+            			++count;
+            		}
+        		}
+        	}
+        }
+        return count;
+    }
+    private boolean countBattleships_isPartOfShip(char[][] board, int i, int j) {
+    	boolean isPartOfShip_vertical = false;
+    	if (0 <= i - 1 && i - 1 < board.length) {
+    		isPartOfShip_vertical = board[i - 1][j] == 'X';
+    	}
+    	boolean isPartOfShip_horizontal = false;
+    	if (0 <= j - 1 && j - 1 < board[0].length) {
+    		isPartOfShip_horizontal = board[i][j - 1] == 'X';
+    	}
+    	return isPartOfShip_vertical || isPartOfShip_horizontal;
     }
     
     /**

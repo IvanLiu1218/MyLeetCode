@@ -1671,6 +1671,16 @@ public class SolutionTest {
 	}
 	
 	@Test
+	public void test419() {
+		char[][] board = new char[][]{{'X','.','.','X'}, {'.','.','.','X'}, {'.','.','.','X'}};
+		assertEquals(2, solution.countBattleships(board));
+		board = new char[][]{{'X','.','.','X'}, {'X','.','.','X'}, {'.','.','.','X'}};
+		assertEquals(2, solution.countBattleships(board));
+		board = new char[][]{{'X','.','.','.','X'}, {'.','X','.','X','.'}, {'.','X','.','.','X'},{'X','.','.','.','X'}};
+		assertEquals(6, solution.countBattleships(board));
+	}
+	
+	@Test
 	public void test437() {
 		TreeNode root = new TreeNode(10);
 		root.left = new TreeNode(5);
