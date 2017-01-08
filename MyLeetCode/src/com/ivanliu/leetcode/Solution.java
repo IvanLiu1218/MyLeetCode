@@ -4855,7 +4855,31 @@ public class Solution {
      *  Or does the odd/even status of the number help you in calculating the number of 1s?
      */
     public int[] countBits(int num) {
-        return null;
+    	if (num == 0) return new int[] {0};
+    	if (num == 1) return new int[] {0,1};
+    	int[] result = new int[num + 1];
+    	result[0] = 0;
+    	result[1] = 1;
+    	for (int i = 2; i <= num; ++i) {
+    		int factor = 1;
+    		while (factor <= i) {
+    			factor = factor << 1;
+    		}
+    		factor = factor >> 1;
+    		if (factor == i) {
+    			result[i] = 1;
+    			continue;
+    		}
+    		int left = i;
+    		while (left > 0) {
+    			if (left >= factor) {
+    				result[i] += result[factor];
+        			left -= factor;
+    			}
+    			factor = factor >> 1;
+    		}
+    	}
+        return result;
     }
     
     /**

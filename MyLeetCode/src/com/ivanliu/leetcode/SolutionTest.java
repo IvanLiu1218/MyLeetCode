@@ -1470,6 +1470,17 @@ public class SolutionTest {
 		assertEquals(false, solution.isPowerOfThree(0));
 	}
 	
+	@Test
+	public void test338() {
+		assertArrayEquals(new int[]{0,1,1,2,1,2}, solution.countBits(5));
+		assertArrayEquals(new int[]{0,1,1,2,1,2,2,3}, solution.countBits(7));
+		assertArrayEquals(new int[]{0,1,1,2,1,2,2,3,1}, solution.countBits(8));
+		// wrong answer: 16
+		assertArrayEquals(new int[]{0,1,1,2,1,2,2,3,1,2,2,3,2,3,3,4,1}, solution.countBits(16));
+		
+	}
+	
+	@Test
 	public void test344() {
 		assertEquals("olleh", solution.reverseString("hello"));
 		assertEquals("nmlkjihgfedcba", solution.reverseString("abcdefghijklmn"));
